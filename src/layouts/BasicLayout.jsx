@@ -5,7 +5,7 @@ function BasicLayout({ children }) {
     return (
         <div>
             <Header />
-            <div>{children}</div>
+            <main>{children}</main>
         </div>
     )
 }

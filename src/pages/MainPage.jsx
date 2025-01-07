@@ -1,10 +1,13 @@
 import React from 'react'
 import BasicLayout from '../layouts/BasicLayout'
+import ImageSlider from '../components/main/ImageSlider'
 
 function MainPage() {
   return (
     <BasicLayout>
-      <div className='text-3xl'>MainPage</div>
+      <div className="w-screen h-screen">
+        <ImageSlider />
+      </div>
     </BasicLayout>
   )
 }

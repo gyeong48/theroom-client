@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <div className="flex items-center justify-between p-4">
@@ -32,7 +33,7 @@ function Header() {
         </button>
 
         {/* 메뉴 리스트 */}
-        <ul className={`md:flex md:flex-row md:justify-end md:space-x-4 md:space-y-0 md:items-center md:static md:top-auto md:left-auto md:p-0 ${isMenuOpen ? "flex" : "hidden"} flex-col space-x-0 space-y-4 absolute p-4 top-full left-0 w-full`}>
+        <ul className={`md:flex md:flex-row md:justify-end md:space-x-4 md:space-y-0 md:items-center md:static md:top-auto md:left-auto md:p-0 md:h-0 md:opacity-100 ${isMenuOpen ? "flex" : "hidden"} flex-col space-x-0 space-y-4 absolute p-4 top-full left-0 w-full h-screen bg-white opacity-80`}>
           <li>
             <a href="#" className="text-lg">About</a>
           </li>
@@ -51,7 +52,7 @@ function Header() {
           <li>
             <a href="#">
               <img
-                src="/logo/instagram.png"
+                src="/assets/logo/instagram.png"
                 alt="instagram"
                 className="w-6 h-6"
               />
@@ -60,7 +61,7 @@ function Header() {
           <li>
             <a href="#">
               <img 
-                src="/logo/blog.png" 
+                src="/assets/logo/blog.png" 
                 alt="blog" 
                 className="w-6 h-6"    
               />
@@ -69,7 +70,7 @@ function Header() {
           <li>
             <a href="#">
               <img
-                src="/logo/youtube.png"
+                src="/assets/logo/youtube.png"
                 alt="youtube"
                 className="w-6 h-6"
               />
