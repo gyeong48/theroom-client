@@ -35,24 +35,24 @@ function Header() {
         {/* 메뉴 리스트 */}
         <ul className={`md:flex md:flex-row md:justify-end md:space-x-4 md:space-y-0 md:items-center md:static md:top-auto md:left-auto md:p-0 md:h-0 md:opacity-100 ${isMenuOpen ? "flex" : "hidden"} flex-col space-x-0 space-y-4 absolute p-4 top-full left-0 w-full h-screen bg-white opacity-80`}>
           <li>
-            <a href="#" className="text-lg">About</a>
+            <a href="/about" className="text-lg md:text-base font-heading font-semibold">ABOUT</a>
           </li>
           <li>
-            <a href="#" className="text-lg">Brand</a>
+            <a href="#" className="text-lg md:text-base font-heading font-semibold">BRAND</a>
           </li>
           <li>
-            <a href="#" className="text-lg">Services</a>
+            <a href="#" className="text-lg md:text-base font-heading font-semibold">SERVICES</a>
           </li>
           <li>
-            <a href="#" className="text-lg">Portfolio</a>
+            <a href="#" className="text-lg md:text-base font-heading font-semibold">PORTFOLIO</a>
           </li>
           <li>
-            <a href="#" className="text-lg">Contact</a>
+            <a href="#" className="text-lg md:text-base font-heading font-semibold">CONTACT</a>
           </li>
           <li>
             <a href="#">
               <img
-                src="/assets/logo/instagram.png"
+                src="/assets/logos/instagram.png"
                 alt="instagram"
                 className="w-6 h-6"
               />
@@ -61,7 +61,7 @@ function Header() {
           <li>
             <a href="#">
               <img 
-                src="/assets/logo/blog.png" 
+                src="/assets/logos/blog.png" 
                 alt="blog" 
                 className="w-6 h-6"    
               />
@@ -70,7 +70,7 @@ function Header() {
           <li>
             <a href="#">
               <img
-                src="/assets/logo/youtube.png"
+                src="/assets/logos/youtube.png"
                 alt="youtube"
                 className="w-6 h-6"
               />
