@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50 scroll-">
       <div className="flex items-center justify-between p-4">
         {/* 로고 */}
-        <div className="text-2xl font-bold text-gray-800">MyLogo</div>
+        <Link to={"/"}><div className="text-2xl font-bold text-gray-800">MyLogo</div></Link>
 
         {/* 햄버거 메뉴 버튼 (화면이 작아지면 나타남) */}
         <button
@@ -35,22 +36,22 @@ function Header() {
         {/* 메뉴 리스트 */}
         <ul className={`md:flex md:flex-row md:justify-end md:space-x-4 md:space-y-0 md:items-center md:static md:top-auto md:left-auto md:p-0 md:h-0 md:opacity-100 ${isMenuOpen ? "flex" : "hidden"} flex-col space-x-0 space-y-4 absolute p-4 top-full left-0 w-full h-screen bg-white opacity-80`}>
           <li>
-            <a href="/about" className="text-lg md:text-base font-heading font-semibold">ABOUT</a>
+            <Link to={"/about"} className="text-lg md:text-base font-heading font-semibold">ABOUT</Link>
           </li>
           <li>
-            <a href="#" className="text-lg md:text-base font-heading font-semibold">BRAND</a>
+            <Link to={"/brand"} className="text-lg md:text-base font-heading font-semibold">BRAND</Link>
           </li>
           <li>
-            <a href="#" className="text-lg md:text-base font-heading font-semibold">SERVICES</a>
+            <Link to={"/services"} className="text-lg md:text-base font-heading font-semibold">SERVICES</Link>
           </li>
           <li>
-            <a href="#" className="text-lg md:text-base font-heading font-semibold">PORTFOLIO</a>
+            <Link to={"/portfolio"} className="text-lg md:text-base font-heading font-semibold">PORTFOLIO</Link>
           </li>
           <li>
             <a href="#" className="text-lg md:text-base font-heading font-semibold">CONTACT</a>
           </li>
           <li>
-            <a href="#">
+            <a href="https://www.instagram.com" target="_blank" rel="noreferrer">
               <img
                 src="/assets/logos/instagram.png"
                 alt="instagram"
@@ -59,16 +60,16 @@ function Header() {
             </a>
           </li>
           <li>
-            <a href="#">
-              <img 
-                src="/assets/logos/blog.png" 
-                alt="blog" 
-                className="w-6 h-6"    
+            <a href="https://blog.naver.com" target="_blank" rel="noreferrer">
+              <img
+                src="/assets/logos/blog.png"
+                alt="blog"
+                className="w-6 h-6"
               />
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="https://www.youtube.com" target="_blank" rel="noreferrer">
               <img
                 src="/assets/logos/youtube.png"
                 alt="youtube"
