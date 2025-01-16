@@ -1,6 +1,6 @@
 import React from 'react'
-import BasicLayout from '../layouts/BasicLayout'
-import ImageSlider from '../components/main/ImageSlider'
+import BasicLayout from '../../layouts/BasicLayout'
+import ImageSlider from '../../components/basic/main/ImageSlider'
 
 function MainPage() {
   return (

@@ -4,7 +4,8 @@ function MapInnerButton({ image, onClick }) {
     return (
         <div>
             <button onClick={onClick} className='w-7 h-7 border-solid border border-gray-400 rounded-md hover:opacity-70 bg-white'>
-                <div className='w-3/4 h-3/4 m-auto' style={{ backgroundImage: `url('/assets/icons/${image}')`, backgroundRepeat: "no-repeat", backgroundPosition: "center" }}></div>
+                <div className='w-3/4 h-3/4 m-auto' style={{ backgroundImage: `url('/assets/icons/${image}')`, backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
+                </div>
             </button>
         </div>
     )

@@ -1,5 +1,5 @@
 import React from 'react'
-import ImageCard from './ImageCard'
+import { Link } from 'react-router-dom'
 
 const items = [
     { id: 1, url: "/assets/images/image4.jpg", title: "Lorem ipsum gomet, hites" },
@@ -30,8 +30,13 @@ function PortfolioList() {
     return (
         <div className='pt-10 flex flex-wrap items-center'>
             {items.map((item, index) => (
-                <div className='md:px-10 px-1 pb-8 md:w-1/3 md:h-1/3' key={index}>
-                    <ImageCard id={item.id} url={item.url} title={item.title} />
+                <div className='md:space-x-10 md:p-4 px-1 pb-8 md:w-1/3 md:h-1/3' key={index}>
+                    <Link to={`/portfolio/${item.id}`}>
+                        <div className='hover:opacity-75 hover:cursor-pointer hover:scale-95 transition-transform'>
+                            <img src={`${item.url}`} alt='no images'></img>
+                            <p className='text-center font-body'>{item.title}</p>
+                        </div>
+                    </Link>
                 </div>
             ))}
         </div>

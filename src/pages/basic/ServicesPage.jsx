@@ -1,7 +1,7 @@
 import React from 'react'
-import BasicLayout from '../layouts/BasicLayout'
-import SubTitle from '../components/common/SubTitle'
-import ServiceContent from '../components/services/ServiceContent'
+import BasicLayout from '../../layouts/BasicLayout'
+import SubTitle from '../../components/basic/common/SubTitle'
+import ServiceContent from '../../components/basic/services/ServiceContent'
 
 function ServicesPage() {
     return (

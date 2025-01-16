@@ -48,7 +48,7 @@ function Header() {
             <Link to={"/portfolio"} className="text-lg md:text-base font-heading font-semibold">PORTFOLIO</Link>
           </li>
           <li>
-            <a href="#" className="text-lg md:text-base font-heading font-semibold">CONTACT</a>
+            <Link to={"/contact"} className="text-lg md:text-base font-heading font-semibold">CONTACT</Link>
           </li>
           <li>
             <a href="https://www.instagram.com" target="_blank" rel="noreferrer">
