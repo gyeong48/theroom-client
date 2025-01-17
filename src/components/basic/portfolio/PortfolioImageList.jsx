@@ -26,7 +26,7 @@ const items = [
     { id: 22, url: "/assets/images/image4.jpg", title: "Lorem ipsum gomet, hites" }
 ]
 
-function PortfolioList() {
+function PortfolioImageList() {
     return (
         <div className='pt-10 flex flex-wrap items-center'>
             {items.map((item, index) => (
@@ -43,4 +43,4 @@ function PortfolioList() {
     )
 }
 
-export default PortfolioList
+export default PortfolioImageList

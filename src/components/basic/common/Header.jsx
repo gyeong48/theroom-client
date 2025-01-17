@@ -5,7 +5,7 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50 scroll-">
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <div className="flex items-center justify-between p-4">
         {/* 로고 */}
         <Link to={"/"}><div className="text-2xl font-bold text-gray-800">MyLogo</div></Link>
