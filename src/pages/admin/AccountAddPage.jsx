@@ -1,11 +1,11 @@
 import React from 'react'
-import SubTitle from '../../components/admin/common/SubTitle'
 import AccountProviderForm from '../../components/admin/account/AccountProviderForm'
+import MainTitle from '../../components/admin/common/MainTitle'
 
 function AccountAddPage() {
     return (
         <div className='pt-40'>
-            <SubTitle content={"Account Add"} />
+            <MainTitle content={"Account Add"} button={"목록"} path={"../account"} />
             <AccountProviderForm />
         </div>
     )

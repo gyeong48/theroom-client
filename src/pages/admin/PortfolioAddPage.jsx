@@ -1,11 +1,11 @@
 import React from 'react'
-import SubTitle from '../../components/admin/common/SubTitle'
 import PortfolioProviderForm from '../../components/admin/portfolio/PortfolioProviderForm'
+import MainTitle from '../../components/admin/common/MainTitle'
 
 function PortfolioAddPage() {
     return (
         <div className='pt-40'>
-            <SubTitle content={"Portfolio Add"} />
+            <MainTitle content={"Portfolio Add"} button={"목록"} path={"../portfolio"}/>
             <PortfolioProviderForm />
         </div>
     )

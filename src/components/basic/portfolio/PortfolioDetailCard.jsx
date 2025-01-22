@@ -10,7 +10,7 @@ const infoItems = [
 
 function PortfolioDetailCard() {
     return (
-        <div className='mt-20 shadow-md mb-10'>
+        <div className='mt-2 shadow-md mb-10'>
             <div className='text-xl font-body font-bold m-4'>송파파인타운1단지 아파트</div>
 
             <div className='flex flex-col md:flex-row md:flex-wrap w-full'>

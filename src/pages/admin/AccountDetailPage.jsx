@@ -1,12 +1,12 @@
 import React from 'react'
 import MainTitle from '../../components/admin/common/MainTitle'
 
-function ContactDetailPage() {
+function AccountDetailPage() {
     return (
         <div className='pt-40'>
-            <MainTitle content={"Contact Detail"} button={"목록"} path={"../contact"} />
+            <MainTitle content={"Account Detail"} button={"목록"} path={"../"} />
         </div>
     )
 }
 
-export default ContactDetailPage
+export default AccountDetailPage
