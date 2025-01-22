@@ -60,7 +60,7 @@ const AddressForm = () => {
     return (
         <div className="font-body">
             <label htmlFor="type" className="block text-sm lg:text-base font-semibold text-gray-700">
-                주소
+                시공건물주소
             </label>
 
             {/* 주소 검색 */}

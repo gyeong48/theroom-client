@@ -7,7 +7,7 @@ function BuildingForm() {
     return (
         <div className='font-body '>
             <div className='text-lg font-medium mb-1'>
-                <h4>2. 건물물정보 <small>(필수*)</small></h4>
+                <h4>2. 건물정보 <small>(필수*)</small></h4>
             </div>
             <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
                 <GridSelectBox

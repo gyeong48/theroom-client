@@ -4,6 +4,7 @@ import BuildingForm from './BuildingForm'
 import ScheduleForm from './ScheduleForm'
 import ReferenceForm from './ReferenceForm'
 import { ContactContext } from '../../../context/ContactProvider'
+import PersonalInformationForm from './PersonalInformationForm'
 
 function ContactForm() {
     const { formData } = useContext(ContactContext);
@@ -19,6 +20,7 @@ function ContactForm() {
             <BuildingForm />
             <ScheduleForm />
             <ReferenceForm />
+            <PersonalInformationForm />
             <div className='flex justify-center'>
                 <button
                     onClick={handleSubmit}
