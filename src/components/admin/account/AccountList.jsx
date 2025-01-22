@@ -13,17 +13,17 @@ function AccountList() {
             <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
                 <thead className="bg-gray-800 text-white">
                     <tr>
-                        <th className="py-3 px-4 text-left">이름</th>
-                        <th className="py-3 px-4 text-left">이메일</th>
-                        <th className="py-3 px-4 text-left">권한</th>
+                        <th className="py-3 px-4 text-center">이름</th>
+                        <th className="py-3 px-4 text-center">이메일</th>
+                        <th className="py-3 px-4 text-center">권한</th>
                     </tr>
                 </thead>
                 <tbody className="text-gray-800">
                     {data.map((item, index) => (
                         <tr key={index} className="hover:bg-gray-100 transition-all">
-                            <td className="py-3 px-4">{item.name}</td>
-                            <td className="py-3 px-4">{item.email}</td>
-                            <td className="py-3 px-4">{item.role}</td>
+                            <td className="py-3 px-4 text-center">{item.name}</td>
+                            <td className="py-3 px-4 text-center">{item.email}</td>
+                            <td className="py-3 px-4 text-center">{item.role}</td>
                         </tr>
                     ))}
                 </tbody>
