@@ -5,7 +5,7 @@ function AdminLayout({ children }) {
     return (
         <div className="font-body">
             <Header />
-            <main className='bg-gray-50 w-screen h-screen'>{children}</main>
+            <main className='bg-gray-50 min-h-screen'>{children}</main>
         </div>
     )
 }

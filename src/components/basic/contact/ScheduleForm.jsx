@@ -37,6 +37,16 @@ function ScheduleForm() {
                     options={[{ value: "PART", content: "부분시공" }, { value: "ALL", content: "전체시공" }]}
                 />
             </div>
+            <div className='space-y-2'>
+            <div className='border border-gray-500 bg-gray-50 rounded-md p-2'>
+                <p className='text-lg'>전체시공</p>
+                <p>철거공사, 목공사, 타일공사,욕실공사, 필름공사, 도배공사, 페인트공사, 마루공사, 조명공사를 포함한 전체 리모델링 공사를 뜻합니다.</p>
+            </div>
+            <div className='border border-gray-500 bg-gray-50 rounded-md p-2'>
+                <p className='text-lg'>부분시공</p>
+                <p>전체 인테리어 마감재를 새것으로 교체하는 것이 아닌 선택적 마감재 재사용과 리폼을 포함한 부분적 리모델링 공사 입니다.</p>
+            </div>
+            </div>
         </div>
     )
 }

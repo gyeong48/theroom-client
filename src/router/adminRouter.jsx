@@ -4,6 +4,8 @@ import PortfolioDetailPage from "../pages/admin/PortfolioDetailPage";
 import PortfolioAddPage from "../pages/admin/PortfolioAddPage";
 import AccountPage from "../pages/admin/AccountPage";
 import AccountAddPage from "../pages/admin/AccountAddPage";
+import ContactPage from "../pages/admin/ContactPage";
+import ContactDetailPage from "../pages/admin/ContactDetailPage";
 
 const adminRouter = () => {
     return [
@@ -30,6 +32,14 @@ const adminRouter = () => {
         {
             path: "account/add",
             element: <AccountAddPage />
+        },
+        {
+            path: "contact",
+            element: <ContactPage />
+        },
+        {
+            path: "contact/:id",
+            element: <ContactDetailPage />
         },
     ]
 }
