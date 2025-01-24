@@ -1,65 +1,62 @@
-import { React } from "react";
-import ContactCard from "./ContactCard";
+import React, { useState } from 'react';
+import InfoBox from '../common/InfoBox';
+import InfoHeader from '../common/InfoHeader';
 
-const data = [
-    {
-        id: 1,
-        items: [
-            { label: "이름", content: "홍길동" },
-            { label: "연락처", content: "010-0000-0000" },
-            { label: "주소", content: "서울시 송파구 문정동" },
-            { label: "상세주소", content: "111동 111호" },
-            { label: "유형", content: "아파트" },
-            { label: "면적", content: "00평" },
-        ]
-    },
-    {
-        id: 3,
-        items: [
-            { label: "이름", content: "홍길동" },
-            { label: "연락처", content: "010-0000-0000" },
-            { label: "주소", content: "서울시 송파구 문정동" },
-            { label: "상세주소", content: "111동 111호" },
-            { label: "유형", content: "아파트" },
-            { label: "면적", content: "00평" },
-        ]
-    },
-    {
-        id: 3,
-        items: [
-            { label: "이름", content: "홍길동" },
-            { label: "연락처", content: "010-0000-0000" },
-            { label: "주소", content: "서울시 송파구 문정동" },
-            { label: "상세주소", content: "111동 111호" },
-            { label: "유형", content: "아파트" },
-            { label: "면적", content: "00평" },
-        ]
-    },
-    {
-        id: 4,
-        items: [
-            { label: "이름", content: "홍길동" },
-            { label: "연락처", content: "010-0000-0000" },
-            { label: "주소", content: "서울시 송파구 문정동" },
-            { label: "상세주소", content: "111동 111호" },
-            { label: "유형", content: "아파트" },
-            { label: "면적", content: "00평" },
-        ]
-    },
-]
+const ContactList = () => {
+    const data = [
+        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "CONTACT" },
+        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "MEET1" },
+        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "MEET2" },
+        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "MEET3" },
+        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "CONTRACT" },
+        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "INPROGRESS" },
+        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "COMPLETE" },
+        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "HOLD" },
+    ];
 
-function ContactList() {
+    const [filteredData, setFilteredData] = useState(data);
+    const [selectedType, setSelectedType] = useState('all');
+
+    const filterType = (state) => {
+        setSelectedType(state);
+        setFilteredData(
+            state === 'all' ? data : data.filter(item => item.state === state)
+        );
+    };
+
     return (
-        <div className='p-6'>
-            <div className="flex flex-wrap items-center">
-                {
-                    data.map((d, index) => (
-                        <ContactCard key={index} items={d.items} />
-                    ))
-                }
+        <div className="pt-4 px-1 md:px-4 lg:px-7">
+            <InfoHeader items={["이름", "주소", "상태"]} />
+            <div>
+                {filteredData.map((item, index) => (
+                    <InfoBox
+                        key={index}
+                        row1={item.name}
+                        row2={item.address + " " + item.detailAddress}
+                        row3={item.state}
+                    />
+                ))}
+            </div>
+            <div className='flex justify-end items-center mt-2'>
+                유형
+                <select
+                    value={selectedType}
+                    onChange={(e) => filterType(e.target.value)}
+                    className="ml-2 bg-transparent border border-gray-300 text-gray-700 focus:outline-none rounded-md p-1"
+                >
+                    <option value="all">모두</option>
+                    <option value="CONTACT">상담전</option>
+                    <option value="MEET1">상담1</option>
+                    <option value="MEET2">상담2</option>
+                    <option value="MEET3">상담3</option>
+                    <option value="CONTRACT">계약완료</option>
+                    <option value="INPROGRESS">시공중</option>
+                    <option value="COMPLETE">시공완료</option>
+                    <option value="HOLD">보류</option>
+                </select>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ContactList
+export default ContactList;

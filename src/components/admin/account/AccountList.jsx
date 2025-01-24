@@ -1,4 +1,6 @@
 import React from 'react'
+import InfoBox from '../common/InfoBox';
+import InfoHeader from '../common/InfoHeader';
 
 function AccountList() {
     const data = [
@@ -9,25 +11,18 @@ function AccountList() {
     ];
 
     return (
-        <div className="p-6">
-            <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
-                <thead className="bg-gray-800 text-white">
-                    <tr>
-                        <th className="py-3 px-4 text-center">이름</th>
-                        <th className="py-3 px-4 text-center">이메일</th>
-                        <th className="py-3 px-4 text-center">권한</th>
-                    </tr>
-                </thead>
-                <tbody className="text-gray-800">
-                    {data.map((item, index) => (
-                        <tr key={index} className="hover:bg-gray-100 transition-all">
-                            <td className="py-3 px-4 text-center">{item.name}</td>
-                            <td className="py-3 px-4 text-center">{item.email}</td>
-                            <td className="py-3 px-4 text-center">{item.role}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="pt-4 px-1 md:px-4 lg:px-7">
+            <InfoHeader items={["이름", "이메일", "권한"]} />
+            <div>
+                {data.map((item, index) => (
+                    <InfoBox
+                        key={index}
+                        row1={item.name}
+                        row2={item.email}
+                        row3={item.role}
+                    />
+                ))}
+            </div>
         </div>
     );
 };

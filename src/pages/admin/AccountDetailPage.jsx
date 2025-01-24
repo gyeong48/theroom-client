@@ -3,7 +3,7 @@ import MainTitle from '../../components/admin/common/MainTitle'
 
 function AccountDetailPage() {
     return (
-        <div className='pt-40'>
+        <div className='pt-20'>
             <MainTitle content={"Account Detail"} button={"목록"} path={"../"} />
         </div>
     )

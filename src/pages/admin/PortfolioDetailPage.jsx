@@ -5,7 +5,7 @@ import MainTitle from '../../components/admin/common/MainTitle'
 
 function PortfolioDetailPage() {
     return (
-        <div className='pt-40'>
+        <div className='pt-20'>
             <MainTitle content={"Portfolio Detail"} button={"목록"} path={"../portfolio"} />
             <div className="max-w-6xl mx-auto px-4 pt-2 pb-8">
                 <PortfolioDetailCard />

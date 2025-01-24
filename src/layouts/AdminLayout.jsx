@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from '../components/admin/common/Header'
+import Sidebar from '../components/admin/common/Sidebar'
 
 function AdminLayout({ children }) {
     return (
         <div className="font-body">
-            <Header />
-            <main className='bg-gray-50 min-h-screen'>{children}</main>
+            <aside><Sidebar /></aside>
+            <main className='bg-gray-50 min-h-screen lg:ml-64'>{children}</main>
         </div>
     )
 }

@@ -4,7 +4,7 @@ import MainTitle from '../../components/admin/common/MainTitle'
 
 function ContactPage() {
     return (
-        <div className='pt-40'>
+        <div className='pt-20'>
             <MainTitle content={"Contact List"} button={"등록"} path={"./add"} />
             <ContactList />
         </div>

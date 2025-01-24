@@ -3,7 +3,7 @@ import MainTitle from '../../components/admin/common/MainTitle'
 
 function ContactDetailPage() {
     return (
-        <div className='pt-40'>
+        <div className='pt-20'>
             <MainTitle content={"Contact Detail"} button={"목록"} path={"../contact"} />
         </div>
     )

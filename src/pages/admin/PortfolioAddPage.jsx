@@ -4,7 +4,7 @@ import MainTitle from '../../components/admin/common/MainTitle'
 
 function PortfolioAddPage() {
     return (
-        <div className='pt-40'>
+        <div className='pt-20'>
             <MainTitle content={"Portfolio Add"} button={"목록"} path={"../portfolio"}/>
             <PortfolioProviderForm />
         </div>
