@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+    <nav className={`fixed top-0 left-0 w-full z-50 ${isScrolled ? "bg-white shadow-md" : "border-b border-black "}`}>
       <div className="flex items-center justify-between p-4">
         {/* 로고 */}
         <Link to={"/"}><div className="text-2xl font-bold text-gray-800">MyLogo</div></Link>

@@ -31,7 +31,7 @@ function PortfolioImageList() {
         <div className='pt-10 flex flex-wrap items-center'>
             {items.map((item, index) => (
                 <div className='md:space-x-10 md:p-4 px-1 pb-8 md:w-1/3 md:h-1/3' key={index}>
-                    <Link to={`/portfolio/${item.id}`}>
+                    <Link to={`/admin/portfolio/${item.id}`}>
                         <div className='hover:opacity-75 hover:cursor-pointer hover:scale-95 transition-transform'>
                             <img src={`${item.url}`} alt='no images' className='rounded-md'></img>
                             <p className='text-center font-body'>{item.title}</p>

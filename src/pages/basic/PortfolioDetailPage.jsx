@@ -6,7 +6,7 @@ import PortfolioDetailCard from '../../components/basic/portfolio/PortfolioDetai
 function PortfolioDetailPage() {
     return (
         <BasicLayout>
-            <div className="max-w-6xl mx-auto px-4 py-8">
+            <div className="max-w-6xl mx-auto px-1 md:px-4 py-8 pt-20">
                 <PortfolioDetailCard />
                 <PortfolioDetailImageList />
                 {/* 버튼 리스트 */}
