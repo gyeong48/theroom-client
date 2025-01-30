@@ -3,6 +3,8 @@ import GridInputBox from '../common/GridInputBox';
 import GridSelectBox from '../common/GridSelectBox';
 import AddressBox from './AddressBox';
 import { PortfolioContext } from '../../../context/PortfolioProvider';
+import ThumbnailUploadBox from './ThumbnailUploadBox';
+import ImageFileUploadBox from './ImageFileUploadBox';
 
 function PortfolioForm() {
   const context = PortfolioContext;
@@ -88,10 +90,11 @@ function PortfolioForm() {
           />
         </div>
 
-        {/* 파일 업로드 박스 추가 */}
-        <label className='w-full h-64 border block'>
-          <input type="file" multiple={true} className='hidden' />
-        </label>
+        {/** 대표 이미지 업로드 박스 추가 */}
+        <ThumbnailUploadBox context={context} />
+
+        {/* 이미지 업로드 박스 추가 */}
+        <ImageFileUploadBox context={context} />
 
         <div className='flex justify-center'>
           <button
