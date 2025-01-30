@@ -2,12 +2,12 @@ import React, { useContext } from 'react'
 import GridInputBox from '../common/GridInputBox';
 import GridSelectBox from '../common/GridSelectBox';
 import AddressBox from './AddressBox';
-import { PortfolioContext } from '../../../context/PortfolioProvider';
+import { PortfolioAddContext } from '../../../context/PortfolioAddProvider';
 import ThumbnailUploadBox from './ThumbnailUploadBox';
 import ImageFileUploadBox from './ImageFileUploadBox';
 
-function PortfolioForm() {
-  const context = PortfolioContext;
+function PortfolioAddForm() {
+  const context = PortfolioAddContext;
   const { formData } = useContext(context);
 
   const handleSubmit = (e) => {
@@ -106,4 +106,4 @@ function PortfolioForm() {
   )
 }
 
-export default PortfolioForm
+export default PortfolioAddForm

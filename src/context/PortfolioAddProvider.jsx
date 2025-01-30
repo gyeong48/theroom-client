@@ -1,8 +1,8 @@
 import React, { createContext, useState } from 'react'
 
-export const PortfolioContext = createContext();
+export const PortfolioAddContext = createContext();
 
-export function PortfolioProvider({ children }) {
+export function PortfolioAddProvider({ children }) {
   const [formData, setFormData] = useState({
     title: "",
     type: "",
@@ -16,12 +16,13 @@ export function PortfolioProvider({ children }) {
     completion: "",
     budget: 0,
     scope: "",
-    files: [],
+    thumbnail: null,
+    imageFiles: [],
   })
 
   return (
-    <PortfolioContext.Provider value={{ formData, setFormData }}>
+    <PortfolioAddContext.Provider value={{ formData, setFormData }}>
       {children}
-    </PortfolioContext.Provider>
+    </PortfolioAddContext.Provider>
   )
 }
