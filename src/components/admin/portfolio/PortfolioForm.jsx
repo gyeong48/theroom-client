@@ -89,6 +89,9 @@ function PortfolioForm() {
         </div>
 
         {/* 파일 업로드 박스 추가 */}
+        <label className='w-full h-64 border block'>
+          <input type="file" multiple={true} className='hidden' />
+        </label>
 
         <div className='flex justify-center'>
           <button
