@@ -13,6 +13,23 @@ function PortfolioAddForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    const portfolioAddFormData = new FormData();
+
+    for (const [key, value] of Object.entries(formData)) {
+      console.log(`${key} : ${value}`);
+      portfolioAddFormData.append(key, value);
+    }
+
+    //formData의 key-value 
+    //XMLHttpRequest 전송을 위하여 설계된 특수한 객체 형태이기 때문이다. 
+    //그래서 간단하게 문자열 화할 수 없어, console.log를 사용하여 확인이 불가능하다
+    //이렇게 순회하며 확인할 수 있다.
+    //input 태그의 file은 객체 형태이므로 상태에 저장하였다가 그대로 대입하면 된다.
+    //(콘솔로 찍을 때 객체화 되어있다는 사실은 인지하지 못해 시간날림 콘솔로 찍을 때는 필요한 정보가 문자화된다.) 
+    for (const [key, value] of Object.entries(portfolioAddFormData)) {
+      console.log(`${key} : ${value}`);
+      portfolioAddFormData.append(key, value);
+    }
   }
 
   return (

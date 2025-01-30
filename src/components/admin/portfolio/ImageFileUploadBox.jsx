@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 function ImageFileUploadBox({ context }) {
-    const [imagefiles, setImageFiles] = useState([]);
-    const [totalFileSize, setTotalFileSize] = useState(0)
+    const { setFormData } = useContext(context);
+    const [imageFiles, setImageFiles] = useState([]);
+    const [totalFileSize, setTotalFileSize] = useState(0);
 
     const handleFileChange = (e) => {
         e.preventDefault();
@@ -21,19 +22,20 @@ function ImageFileUploadBox({ context }) {
     }
 
     useEffect(() => {
-        setTotalFileSize(Array.from(imagefiles).reduce((acc, file) => acc + file.size, 0))
-    }, [imagefiles])
+        setTotalFileSize(Array.from(imageFiles).reduce((acc, file) => acc + file.size, 0))
+        setFormData((prev) => ({ ...prev, imageFiles: imageFiles }))
+    }, [imageFiles])
 
     return (
         <div>
             <div className='mb-2 flex items-center justify-end font-body font-semibold text-sm space-x-4'>
-                <div>파일: {imagefiles.length}개</div>
+                <div>파일: {imageFiles.length}개</div>
                 <div>용량: {Math.ceil(totalFileSize / 1024 / 1024)}MB/100MB</div>
                 <button onClick={handleRemoveImageFileAll}>전체삭제</button>
             </div>
 
             <div className='w-full h-64 p-2 border block rounded-md overflow-auto'>
-                {imagefiles && imagefiles.map((file, index) => (
+                {imageFiles && imageFiles.map((file, index) => (
                     <div key={index} className='mb-1 p-1 border-b flex justify-between items-center text-sm lg:text-base'>
                         <div>{file.name}</div>
                         <button onClick={(e) => handleRemoveImageFile(e, index)}>✖</button>
