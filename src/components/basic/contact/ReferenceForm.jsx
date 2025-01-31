@@ -2,17 +2,30 @@ import React, { useState, useEffect, useContext } from 'react'
 import { ContactContext } from '../../../context/ContactProvider';
 import ResultModal from '../../common/ResultModal';
 
+
 function ReferenceForm() {
+    const MAX_SIZE = 30 * 1024 * 1024;
+    const MAX_COUNT = 3;
     const { setFormData } = useContext(ContactContext);
     const [files, setFiles] = useState([]);
     const [totalFileSize, setTotalFileSize] = useState(0);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isOutOfCount, setIsOutOfCount] = useState(false);
+    const [isOutOfSize, setIsOutOfSize] = useState(false);
 
     const handleFileChange = (e) => {
         e.preventDefault();
+        const prevCount = files.length;
+        const currentCount = e.target.files.length;
+        const prevSize = Array.from(files).reduce((acc, file) => acc + file.size, 0);
+        const currentSize = Array.from(e.target.files).reduce((acc, file) => acc + file.size, 0);
 
-        if (e.target.files.length > 3) {
-            setIsModalOpen(true);
+        if (prevCount + currentCount > MAX_COUNT) {
+            setIsOutOfCount(true);
+            return;
+        }
+
+        if (prevSize + currentSize > MAX_SIZE) {
+            setIsOutOfSize(true);
             return;
         }
 
@@ -32,12 +45,13 @@ function ReferenceForm() {
 
     const handleCloseModal = (e) => {
         e.preventDefault();
-        setIsModalOpen(false);
+        setIsOutOfCount(false);
+        setIsOutOfSize(false);
     }
 
     useEffect(() => {
-        setTotalFileSize(Array.from(files).reduce((acc, file) => acc + file.size, 0))
-        setFormData((prev) => ({ ...prev, files: files }))
+        setFormData((prev) => ({ ...prev, files: files }));
+        setTotalFileSize(Array.from(files).reduce((acc, file) => acc + file.size, 0));
     }, [files])
 
     return (
@@ -47,7 +61,7 @@ function ReferenceForm() {
             </div>
             <div className='mb-2 flex items-center justify-end font-body font-semibold text-xs lg:text-sm space-x-4'>
                 <div>파일: {files.length}개</div>
-                <div>용량: {Math.ceil(totalFileSize / 1024 / 1024)}MB/30MB</div>
+                <div>용량: {Math.ceil(totalFileSize / 1024 / 1024)}MB/{MAX_SIZE / 1024 / 1024}MB</div>
                 <button onClick={handleRemoveImageFileAll}>전체삭제</button>
             </div>
 
@@ -93,8 +107,20 @@ function ReferenceForm() {
                 </label>
             }
 
-            {isModalOpen &&
-                <ResultModal title={"경고: 파일 개수 초과"} content={"첨부할 수 있는 파일은 최대 3개입니다."} callbackFn={(e) => handleCloseModal(e)} />
+            {isOutOfCount &&
+                <ResultModal
+                    title={"경고: 파일 개수 초과"}
+                    content={"첨부할 수 있는 파일은 최대 3개입니다."}
+                    callbackFn={(e) => handleCloseModal(e)}
+                />
+            }
+
+            {isOutOfSize &&
+                <ResultModal
+                    title={"경고: 파일 용량 초과"}
+                    content={`전체 파일 용량은 ${MAX_SIZE / 1024 / 1024}MB를 초과할 수 없습니다.`}
+                    callbackFn={(e) => handleCloseModal(e)}
+                />
             }
         </div>
     )

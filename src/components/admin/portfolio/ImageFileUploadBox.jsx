@@ -1,12 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
+import ResultModal from '../../common/ResultModal';
 
 function ImageFileUploadBox({ context }) {
+    const MAX_SIZE = 100 * 1024 * 1024;
     const { setFormData } = useContext(context);
     const [imageFiles, setImageFiles] = useState([]);
     const [totalFileSize, setTotalFileSize] = useState(0);
+    const [isOutOfSize, setIsOutOfSize] = useState(false);
 
     const handleFileChange = (e) => {
-        e.preventDefault();
+        const prevSize = Array.from(imageFiles).reduce((acc, file) => acc + file.size, 0);
+        const currentSize = Array.from(e.target.files).reduce((acc, file) => acc + file.size, 0);
+        console.log(currentSize);
+
+        if (prevSize + currentSize > MAX_SIZE) {
+            setIsOutOfSize(true);
+            return;
+        }
+
         setImageFiles((prev) => [...prev, ...e.target.files])
     }
 
@@ -21,9 +32,14 @@ function ImageFileUploadBox({ context }) {
         setTotalFileSize(0);
     }
 
+    const handleCloseModal = (e) => {
+        e.preventDefault();
+        setIsOutOfSize(false);
+    }
+
     useEffect(() => {
-        setTotalFileSize(Array.from(imageFiles).reduce((acc, file) => acc + file.size, 0))
-        setFormData((prev) => ({ ...prev, imageFiles: imageFiles }))
+        setFormData((prev) => ({ ...prev, imageFiles: imageFiles }));
+        setTotalFileSize(Array.from(imageFiles).reduce((acc, file) => acc + file.size, 0));
     }, [imageFiles])
 
     return (
@@ -67,6 +83,14 @@ function ImageFileUploadBox({ context }) {
                     onChange={handleFileChange}
                 />
             </label>
+
+            {isOutOfSize &&
+                <ResultModal
+                    title={"경고: 파일 용량 초과"}
+                    content={`전체 파일 용량은 ${MAX_SIZE / 1024 / 1024}MB를 초과할 수 없습니다.`}
+                    callbackFn={(e) => handleCloseModal(e)}
+                />
+            }
         </div>
     )
 }

@@ -16,7 +16,6 @@ function PortfolioAddForm() {
     const portfolioAddFormData = new FormData();
 
     for (const [key, value] of Object.entries(formData)) {
-      console.log(`${key} : ${value}`);
       portfolioAddFormData.append(key, value);
     }
 
@@ -26,9 +25,8 @@ function PortfolioAddForm() {
     //이렇게 순회하며 확인할 수 있다.
     //input 태그의 file은 객체 형태이므로 상태에 저장하였다가 그대로 대입하면 된다.
     //(콘솔로 찍을 때 객체화 되어있다는 사실은 인지하지 못해 시간날림 콘솔로 찍을 때는 필요한 정보가 문자화된다.) 
-    for (const [key, value] of Object.entries(portfolioAddFormData)) {
+    for (const [key, value] of portfolioAddFormData.entries()) {
       console.log(`${key} : ${value}`);
-      portfolioAddFormData.append(key, value);
     }
   }
 

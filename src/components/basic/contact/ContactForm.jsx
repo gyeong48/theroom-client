@@ -12,6 +12,15 @@ function ContactForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
+        const contactFormData = new FormData();
+
+        for (const [key, value] of Object.entries(formData)) {
+            contactFormData.append(key, value);
+        }
+
+        for (const [key, value] of contactFormData.entries()) {
+            console.log(`${key} : ${value}`);
+        }
     }
 
     return (
