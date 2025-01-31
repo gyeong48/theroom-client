@@ -105,10 +105,19 @@ function PortfolioModifyForm() {
         {/* 이미지 업로드 박스 추가 */}
         <ImageFileUploadBox context={context} />
 
-        <div className='flex justify-center'>
+        <div className='flex justify-center space-x-6'>
           <button
             onClick={handleSubmit}
-            className='text-sm md:text-base font-body bg-black hover:opacity-75 text-white px-6 py-2 rounded-md'>등록</button>
+            className='text-sm md:text-base font-body bg-black hover:opacity-75 text-white px-6 py-2 rounded-md'
+          >
+            저장
+          </button>
+          <button
+            onClick={handleSubmit}
+            className='text-sm md:text-base font-body bg-red-400 hover:opacity-75 text-white px-6 py-2 rounded-md'
+          >
+            삭제
+          </button>
         </div>
       </form>
     </div>

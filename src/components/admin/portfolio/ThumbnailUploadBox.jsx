@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 
 function ThumbnailUploadBox({ context }) {
-    const { setFormData } = useContext(context);
-    const [thumbnail, setThumbnail] = useState(null);
+    const { formData, setFormData } = useContext(context);
+    const [thumbnail, setThumbnail] = useState(formData.thumbnail);
 
     const handleThumbnailChange = (e) => {
         e.preventDefault();

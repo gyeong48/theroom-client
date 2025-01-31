@@ -16,8 +16,20 @@ export function PortfolioModifyProvider({ children }) {
         endDate: "2025-02-02",
         budget: 2000,
         scope: "ALL",
-        thumbnail: null,
-        imageFiles: [{/**url, imagename imageId*/ }],
+        thumbnail: { name: "test1.png", filename: "test1.png", size: 1024 },
+        imageFiles: [
+            { name: "test1.png", filename: "test1.png", size: 1024 * 1024 },
+            { name: "test2.png", filename: "test2.png", size: 1024 * 1024 },
+            { name: "test3.png", filename: "test3.png", size: 1024 * 1024 },
+            { name: "test4.png", filename: "test4.png", size: 1024 * 1024 },
+            { name: "test5.png", filename: "test5.png", size: 1024 * 1024 },
+            { name: "test6.png", filename: "test6.png", size: 1024 * 1024 },
+            { name: "test7.png", filename: "test7.png", size: 1024 * 1024 },
+            { name: "test8.png", filename: "test8.png", size: 1024 * 1024 },
+            { name: "test9.png", filename: "test9.png", size: 1024 * 1024 },
+            { name: "test10.png", filename: "test10.png", size: 1024 * 1024 },
+            { name: "test11.png", filename: "test11.png", size: 1024 * 1024 },
+        ],
     })
 
     return (

@@ -3,9 +3,9 @@ import ResultModal from '../../common/ResultModal';
 
 function ImageFileUploadBox({ context }) {
     const MAX_SIZE = 100 * 1024 * 1024;
-    const { setFormData } = useContext(context);
-    const [imageFiles, setImageFiles] = useState([]);
-    const [totalFileSize, setTotalFileSize] = useState(0);
+    const { formData, setFormData } = useContext(context);
+    const [imageFiles, setImageFiles] = useState(formData.imageFiles);
+    const [totalFileSize, setTotalFileSize] = useState(Array.from(formData.imageFiles).reduce((acc, file) => acc + file.size, 0));
     const [isOutOfSize, setIsOutOfSize] = useState(false);
 
     const handleFileChange = (e) => {
