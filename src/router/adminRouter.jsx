@@ -6,6 +6,7 @@ import AccountPage from "../pages/admin/AccountPage";
 import AccountAddPage from "../pages/admin/AccountAddPage";
 import ContactPage from "../pages/admin/ContactPage";
 import ContactDetailPage from "../pages/admin/ContactDetailPage";
+import PortfolioModifyPage from "../pages/admin/PortfolioModifyPage";
 
 const adminRouter = () => {
     return [
@@ -24,6 +25,10 @@ const adminRouter = () => {
         {
             path: "portfolio/:id",
             element: <PortfolioDetailPage />
+        },
+        {
+            path: "portfolio/:id/modify",
+            element: <PortfolioModifyPage />
         },
         {
             path: "account",

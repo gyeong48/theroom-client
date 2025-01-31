@@ -1,17 +1,15 @@
 import React, { useContext, useState } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 
-const initData = {
-    postCode: "",
-    address: "",
-    detailAddress: ""
-}
-
 const AddressBox = ({ context }) => {
     const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
     const open = useDaumPostcodePopup(postcodeScriptUrl);
-    const { setFormData } = useContext(context);
-    const [addressData, setAddressData] = useState(initData);
+    const { formData, setFormData } = useContext(context);
+    const [addressData, setAddressData] = useState({
+        postCode: formData["postCode"],
+        address: formData["address"],
+        detailAddress: formData["detailAddress"],
+    });
 
     const handleComplete = (data) => {
         let addr = '';

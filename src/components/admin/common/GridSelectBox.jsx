@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 function GridSelectBox({ isLabel, label, id, options, placeholder, context }) {
-    const { setFormData } = useContext(context)
-    const [data, setData] = useState("");
+    const { formData, setFormData } = useContext(context)
+    const [data, setData] = useState(formData[id]);
 
     useEffect(() => {
         setFormData(prev => ({ ...prev, [id]: data }))
