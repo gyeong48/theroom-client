@@ -1,38 +1,101 @@
 import React, { useState, useEffect, useContext } from 'react'
-import FileUploadBox from "./FileUploadBox"
 import { ContactContext } from '../../../context/ContactProvider';
+import ResultModal from '../../common/ResultModal';
 
 function ReferenceForm() {
     const { setFormData } = useContext(ContactContext);
-    const [uploadedFiles, setUploadedFiles] = useState([]);
+    const [files, setFiles] = useState([]);
+    const [totalFileSize, setTotalFileSize] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleFileChange = (e) => {
+        e.preventDefault();
+
+        if (e.target.files.length > 3) {
+            setIsModalOpen(true);
+            return;
+        }
+
+        setFiles((prev) => [...prev, ...e.target.files])
+    }
+
+    const handleRemoveImageFile = (e, index) => {
+        e.preventDefault();
+        setFiles((prev) => prev.filter((_, i) => index !== i));
+    }
+
+    const handleRemoveImageFileAll = (e) => {
+        e.preventDefault();
+        setFiles([]);
+        setTotalFileSize(0);
+    }
+
+    const handleCloseModal = (e) => {
+        e.preventDefault();
+        setIsModalOpen(false);
+    }
 
     useEffect(() => {
-        setFormData(prev => ({ ...prev, files: uploadedFiles }))
-    }, [uploadedFiles])
+        setTotalFileSize(Array.from(files).reduce((acc, file) => acc + file.size, 0))
+        setFormData((prev) => ({ ...prev, files: files }))
+    }, [files])
 
     return (
-        <div className='font-body'>
+        <div>
             <div className='text-lg font-medium mb-1'>
                 <h4>4. 참고사항</h4>
             </div>
-            <FileUploadBox
-                id={"file1"}
-                order={0}
-                uploadedFiles={uploadedFiles}
-                setUploadedFiles={setUploadedFiles}
-            />
-            <FileUploadBox
-                id={"file2"}
-                order={1}
-                uploadedFiles={uploadedFiles}
-                setUploadedFiles={setUploadedFiles}
-            />
-            <FileUploadBox
-                id={"file3"}
-                order={2}
-                uploadedFiles={uploadedFiles}
-                setUploadedFiles={setUploadedFiles}
-            />
+            <div className='mb-2 flex items-center justify-end font-body font-semibold text-xs lg:text-sm space-x-4'>
+                <div>파일: {files.length}개</div>
+                <div>용량: {Math.ceil(totalFileSize / 1024 / 1024)}MB/30MB</div>
+                <button onClick={handleRemoveImageFileAll}>전체삭제</button>
+            </div>
+
+            <div className='w-full h-28 lg:h-32 p-2 border block rounded-md overflow-hidden'>
+                {files.length > 0 ? files.map((file, index) => (
+                    <div key={index} className='mb-1 p-1 border-b flex justify-between items-center text-sm lg:text-base'>
+                        <div>{file.name}</div>
+                        <button onClick={(e) => handleRemoveImageFile(e, index)}>✖</button>
+                    </div>
+                )) :
+                    <div className='p-1 text-[10px] lg:text-sm font-semibold font-body text-gray-400 space-y-2'>
+                        <p>시공예정 현장의 도면, 사진 및 원하시는 디자인 참고사항에 대한 파일이 있으시다면 첨부해주세요.</p>
+                        <p>파일은 최대 3개까지 첨부가 가능하며 첨부할 수 있는 전체 파일의 최대 크기는 30MB 입니다. </p>
+                    </div>
+                }
+            </div>
+
+            {files.length < 3 &&
+                <label className='block w-full border rounded-md'>
+                    <div className='flex items-center hover:cursor-pointer pb-1'>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2}
+                            stroke="currentColor"
+                            className="w-8 h-8 text-gray-600"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 16v-8m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"
+                            />
+                        </svg>
+                        <div className='ml-2 mt-2 font-body font-semibold text-gray-600'>이미지를 선택해 주세요.</div>
+                    </div>
+                    <input
+                        type="file"
+                        multiple={true}
+                        className='hidden'
+                        onChange={handleFileChange}
+                    />
+                </label>
+            }
+
+            {isModalOpen &&
+                <ResultModal title={"경고: 파일 개수 초과"} content={"첨부할 수 있는 파일은 최대 3개입니다."} callbackFn={(e) => handleCloseModal(e)} />
+            }
         </div>
     )
 }
