@@ -1,14 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import GridInputBox from '../common/GridInputBox';
 import GridSelectBox from '../common/GridSelectBox';
 import AddressBox from './AddressBox';
 import ThumbnailUploadBox from './ThumbnailUploadBox';
 import ImageFileUploadBox from './ImageFileUploadBox';
 import { PortfolioModifyContext } from '../../../context/PortfolioModifyProvider';
+import CheckModal from '../../common/CheckModal';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function PortfolioModifyForm() {
+  const { id } = useParams();
   const context = PortfolioModifyContext;
+  const navigate = useNavigate();
   const { formData } = useContext(context);
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +27,24 @@ function PortfolioModifyForm() {
     for (const [key, value] of portfolioAddFormData.entries()) {
       console.log(`${key} : ${value}`);
     }
+
+    {/**api 연결 */}
+    //navigate({ pathname: `../portfolio/${id}` });
+  }
+
+  const handleOpenModal = (e) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+  }
+
+  const handleCheck = () => {
+    //삭제 요청
+    setIsModalOpen(false);
+    navigate({ pathname: "../portfolio" });
+  }
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   }
 
   return (
@@ -113,13 +136,22 @@ function PortfolioModifyForm() {
             저장
           </button>
           <button
-            onClick={handleSubmit}
+            onClick={(e) => handleOpenModal(e)}
             className='text-sm md:text-base font-body bg-red-400 hover:opacity-75 text-white px-6 py-2 rounded-md'
           >
             삭제
           </button>
         </div>
       </form>
+
+      {isModalOpen &&
+        <CheckModal
+          title={"확인: 포트폴리오 삭제"}
+          content={"포트폴리오를 삭제하시겠습니까?"}
+          checkFn={handleCheck}
+          cancelFn={handleCancel}
+        />
+      }
     </div>
   )
 }

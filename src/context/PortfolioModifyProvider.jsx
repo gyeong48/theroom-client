@@ -1,10 +1,13 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 
 export const PortfolioModifyContext = createContext();
 
 export function PortfolioModifyProvider({ children }) {
+    const { id } = useParams();
+
     const [formData, setFormData] = useState({
-        id: 1,
+        id: id,
         title: "송파파인타운1단지송파파인타운1단지송파파인타운1단지",
         type: "APARTMENT",
         supplyArea: 32,
