@@ -11,12 +11,12 @@ function ResultModal({ title, content, callbackFn }) {
                     {content}
                 </div>
                 <div className='flex justify-end'>
-                    <button
-                        className='rounded bg-black my-4 px-4 py-2 text-xs text-white'
+                    <div
+                        className='rounded bg-black my-4 px-4 py-2 text-xs text-white hover:cursor-pointer'
                         onClick={callbackFn}
                     >
                         확인
-                    </button>
+                    </div>
                 </div>
             </div>
         </div>
