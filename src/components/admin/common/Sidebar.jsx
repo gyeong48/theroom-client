@@ -21,6 +21,10 @@ const Sidebar = () => {
         setOpenMenu(prev => !prev);
     };
 
+    const handleClose = () => {
+        setIsOpen(false);
+    }
+
     const handleMovePage = (url) => {
         setIsOpen(false)
         navigate({ pathname: url });
@@ -31,16 +35,22 @@ const Sidebar = () => {
             {/* 토글 버튼 */}
             <button
                 onClick={toggleSidebar}
-                className={`text-xl p-1 block lg:hidden z-50 absolute ${isOpen ? "top-4 left-56 text-white" : "top-0 left-0"}`}
+                className={`text-xl p-1 block lg:hidden z-50 absolute top-0 left-0`}
             >
-                {isOpen ? "✖" : "☰"}
+                {isOpen ? "" : "☰"}
             </button>
 
-            <div className={`${isOpen ? "w-screen h-screen absolute bg-gray-200 opacity-50" : ""}`}></div>
+            <div onClick={handleClose} className={`${isOpen ? "w-screen h-screen absolute bg-gray-200 opacity-50" : ""}`}></div>
 
             <div className={`w-64 h-screen bg-gray-800 text-white p-4 fixed ${isOpen ? "block" : "hidden"} lg:block`}>
                 <h2 className="text-3xl font-bold mb-6">TheRoom</h2>
 
+                <button
+                    onClick={toggleSidebar}
+                    className={`text-xl p-1 block lg:hidden z-50 absolute top-4 left-56`}
+                >
+                    {isOpen ? "✖" : ""}
+                </button>
                 <ul>
                     <li className="mb-2 border-b">
                         <button

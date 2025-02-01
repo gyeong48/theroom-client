@@ -13,7 +13,7 @@ function PortfolioModifyForm() {
   const context = PortfolioModifyContext;
   const navigate = useNavigate();
   const { formData } = useContext(context);
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ function PortfolioModifyForm() {
       console.log(`${key} : ${value}`);
     }
 
-    {/**api 연결 */}
+    {/**api 연결 */ }
     //navigate({ pathname: `../portfolio/${id}` });
   }
 
@@ -136,7 +136,7 @@ function PortfolioModifyForm() {
             저장
           </button>
           <button
-            onClick={(e) => handleOpenModal(e)}
+            onClick={handleOpenModal}
             className='text-sm md:text-base font-body bg-red-400 hover:opacity-75 text-white px-6 py-2 rounded-md'
           >
             삭제

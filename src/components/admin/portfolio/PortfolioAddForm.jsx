@@ -116,7 +116,7 @@ function PortfolioAddForm() {
         <div className='flex justify-center'>
           <button
             onClick={handleSubmit}
-            className='text-sm md:text-base font-body bg-black hover:opacity-75 text-white px-6 py-2 rounded-md'>등록</button>
+            className='text-xs px-4 py-2 lg:text-base lg:px-6 lg:py-2 font-body bg-black hover:opacity-75 text-white rounded-md'>등록</button>
         </div>
       </form>
     </div>
