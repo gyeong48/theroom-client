@@ -4,14 +4,14 @@ import InfoHeader from '../common/InfoHeader';
 
 const ContactList = () => {
     const data = [
-        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "CONTACT" },
-        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "MEET1" },
-        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "MEET2" },
-        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "MEET3" },
-        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "CONTRACT" },
-        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "INPROGRESS" },
-        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "COMPLETE" },
-        { name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "HOLD" },
+        { id: 1, name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "CONTACT" },
+        { id: 1, name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "MEET1" },
+        { id: 1, name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "MEET2" },
+        { id: 1, name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "MEET3" },
+        { id: 1, name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "CONTRACT" },
+        { id: 1, name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "INPROGRESS" },
+        { id: 1, name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "COMPLETE" },
+        { id: 1, name: '홍길동', address: '서울시 송파구 충민로188 (송파파인타운1단지)', detailAddress: "101동 301호", state: "HOLD" },
     ];
 
     const [filteredData, setFilteredData] = useState(data);
@@ -31,6 +31,7 @@ const ContactList = () => {
                 {filteredData.map((item, index) => (
                     <InfoBox
                         key={index}
+                        id={item.id}
                         row1={item.name}
                         row2={item.address + " " + item.detailAddress}
                         row3={item.state}

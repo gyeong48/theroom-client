@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 
-const AddressBox = ({ context }) => {
+const AddressBox = ({ context, isModifiable }) => {
     const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
     const open = useDaumPostcodePopup(postcodeScriptUrl);
     const { formData, setFormData } = useContext(context);
@@ -70,11 +70,12 @@ const AddressBox = ({ context }) => {
                     onChange={handleChange}
                     placeholder="주소를 검색하세요"
                     className="block sm:w-4/5 w-full p-1 border-b border-gray-300 focus:border-gray-500 text-sm lg:text-base placeholder:text-sm lg:placeholder:text-base"
-                    disabled
+                    readOnly
                 />
                 <button
                     onClick={handleClick}
                     className="block sm:w-1/5 w-full px-4 py-1.5 sm:py-2 bg-black text-white text-sm lg:text-base"
+                    disabled={!isModifiable}
                 >
                     주소검색
                 </button>
@@ -90,6 +91,7 @@ const AddressBox = ({ context }) => {
                     onChange={handleChange}
                     placeholder="상세 주소를 입력하세요"
                     className="block w-full p-1 mt-1 sm:mt-2 border-b border-gray-300 focus:border-gray-500 focus:outline-none text-sm lg:text-base placeholder:text-sm lg:placeholder:text-base"
+                    readOnly={!isModifiable}
                 />
             </div>
         </div>

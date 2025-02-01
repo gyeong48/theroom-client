@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-function GridSelectBox({ isLabel, label, id, options, placeholder, context }) {
+function GridSelectBox({ isLabel, label, id, options, placeholder, context, isModifiable }) {
     const { formData, setFormData } = useContext(context)
     const [data, setData] = useState(formData[id]);
 
@@ -25,6 +25,7 @@ function GridSelectBox({ isLabel, label, id, options, placeholder, context }) {
                 value={data}
                 onChange={handleChange}
                 className={`block w-full border-b border-gray-300 focus:border-gray-500 focus:outline-none text-sm lg:text-base p-1 pb-1.5`}
+                disabled={!isModifiable}
             >
                 <option value="">{placeholder}</option>
                 {options

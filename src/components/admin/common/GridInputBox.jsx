@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-function GridInputBox({ label, id, type, placeholder, context }) {
+function GridInputBox({ label, id, type, placeholder, context, isModifiable }) {
     const { formData, setFormData } = useContext(context)
     const [data, setData] = useState(formData[id]);
 
@@ -25,6 +25,7 @@ function GridInputBox({ label, id, type, placeholder, context }) {
                 onChange={handleChange}
                 className="w-full p-1 border-b border-gray-300 focus:border-gray-500 focus:outline-none placeholder:text-sm lg:placeholder:text-base"
                 placeholder={placeholder}
+                readOnly={!isModifiable}
             />
         </div>
     )
