@@ -1,6 +1,6 @@
 import React from 'react'
-import AccountList from '../../components/admin/account/AccountList'
-import MainTitle from '../../components/admin/common/MainTitle'
+import AccountList from '../../components/admin/AccountList'
+import MainTitle from '../../components/admin/MainTitle'
 
 function AccountPage() {
     return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from '../components/admin/common/Sidebar'
+import Sidebar from '../components/admin/Sidebar'
 import ScrollToTop from '../components/common/ScrollToTop'
 
 function AdminLayout({ children }) {

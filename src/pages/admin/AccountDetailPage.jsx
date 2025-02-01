@@ -1,5 +1,5 @@
 import React from 'react'
-import MainTitle from '../../components/admin/common/MainTitle'
+import MainTitle from '../../components/admin/MainTitle'
 
 function AccountDetailPage() {
     return (

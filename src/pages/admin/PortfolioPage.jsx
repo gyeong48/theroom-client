@@ -1,6 +1,6 @@
 import React from 'react'
-import PortfolioImageList from '../../components/admin/portfolio/PortfolioImageList'
-import MainTitle from '../../components/admin/common/MainTitle'
+import PortfolioImageList from '../../components/admin/PortfolioImageList'
+import MainTitle from '../../components/admin/MainTitle'
 
 function PortfolioPage() {
     return (

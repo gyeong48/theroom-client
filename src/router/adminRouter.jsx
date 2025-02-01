@@ -7,6 +7,7 @@ import AccountAddPage from "../pages/admin/AccountAddPage";
 import ContactPage from "../pages/admin/ContactPage";
 import ContactDetailPage from "../pages/admin/ContactDetailPage";
 import PortfolioModifyPage from "../pages/admin/PortfolioModifyPage";
+import ContactAddPage from "../pages/admin/ContactAddPage";
 
 const adminRouter = () => {
     return [
@@ -41,6 +42,10 @@ const adminRouter = () => {
         {
             path: "contact",
             element: <ContactPage />
+        },
+        {
+            path: "contact/add",
+            element: <ContactAddPage />
         },
         {
             path: "contact/:id",

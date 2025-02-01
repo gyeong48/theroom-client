@@ -1,6 +1,6 @@
 import React from 'react'
-import PortfolioAddProviderForm from '../../components/admin/portfolio/PortfolioAddProviderForm'
-import MainTitle from '../../components/admin/common/MainTitle'
+import PortfolioAddProviderForm from '../../components/admin/PortfolioAddProviderForm'
+import MainTitle from '../../components/admin/MainTitle'
 
 function PortfolioAddPage() {
     return (

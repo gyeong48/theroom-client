@@ -1,6 +1,6 @@
 import React from 'react'
-import MainTitle from '../../components/admin/common/MainTitle'
-import ContactModifyProviderForm from '../../components/admin/contact/ContactModifyProviderForm'
+import MainTitle from '../../components/admin/MainTitle'
+import ContactModifyProviderForm from '../../components/admin/ContactModifyProviderForm'
 
 function ContactDetailPage() {
     return (

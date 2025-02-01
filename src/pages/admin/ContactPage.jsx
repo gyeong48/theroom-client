@@ -1,6 +1,6 @@
 import React from 'react'
-import ContactList from '../../components/admin/contact/ContactList'
-import MainTitle from '../../components/admin/common/MainTitle'
+import ContactList from '../../components/admin/ContactList'
+import MainTitle from '../../components/admin/MainTitle'
 
 function ContactPage() {
     return (

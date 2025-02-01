@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainPage from "../pages/basic/MainPage";
-import AboutPage from "../pages/basic/AboutPage";
-import ServicesPage from "../pages/basic/ServicesPage";
-import PortfolioPage from "../pages/basic/PortfolioPage";
-import PortfolioDetailPage from "../pages/basic/PortfolioDetailPage";
-import ContactPage from "../pages/basic/ContactPage";
+import MainPage from "../pages/user/MainPage";
+import AboutPage from "../pages/user/AboutPage";
+import ServicesPage from "../pages/user/ServicesPage";
+import PortfolioPage from "../pages/user/PortfolioPage";
+import PortfolioDetailPage from "../pages/user/PortfolioDetailPage";
+import ContactPage from "../pages/user/ContactPage";
 import IndexPage from "../pages/admin/IndexPage";
 import adminRouter from "./adminRouter";
 

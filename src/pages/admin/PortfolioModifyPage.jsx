@@ -1,6 +1,6 @@
 import React from 'react'
-import MainTitle from '../../components/admin/common/MainTitle'
-import PortfolioModifyProviderForm from '../../components/admin/portfolio/PortfolioModifyProviderForm'
+import MainTitle from '../../components/admin/MainTitle'
+import PortfolioModifyProviderForm from '../../components/admin/PortfolioModifyProviderForm'
 
 function PortfolioModifyPage() {
     return (
