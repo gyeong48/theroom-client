@@ -141,7 +141,10 @@ function ContactAddForm() {
             <div className='flex justify-center'>
                 <button
                     onClick={handleSubmit}
-                    className='text-sm md:text-base font-body bg-black hover:opacity-75 text-white px-6 py-2 rounded-md'>견적문의하기</button>
+                    className='text-sm md:text-base font-body bg-black hover:opacity-75 text-white px-6 py-2 rounded-md'
+                >
+                    견적문의하기{/**나중에 인증, 권한 검사를 통해 admin에서 접근했다면 '등록' 으로 바꿀 수 있도록 변화 */}
+                </button>
             </div>
         </form>
     )
