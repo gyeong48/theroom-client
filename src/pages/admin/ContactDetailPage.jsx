@@ -6,7 +6,7 @@ function ContactDetailPage() {
     return (
         <div className='pt-20'>
             <MainTitle content={"Contact Detail"} button={"목록"} path={"../contact"} />
-            <div className='px-1 md:px-4 lg:px-7'>
+            <div className='pb-4 px-1 md:px-4 lg:px-7'>
                 <ContactModifyProviderForm />
             </div>
         </div>

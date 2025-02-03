@@ -5,6 +5,9 @@ import GridInputBox from '../common/GridInputBox';
 import GridSelectBox from '../common/GridSelectBox';
 import CheckModal from '../common/CheckModal';
 import { useNavigate } from 'react-router-dom';
+import StatusBadge from './StatusBadge';
+
+const STATUS = ["CONTACT", "MEET1", "MEET2", "MEET3", "CONTRACT", "INPROGRESS", "COMPLETE", "HOLD"]
 
 function ContactModifyForm() {
     const context = ContactModifyContext;
@@ -167,9 +170,6 @@ function ContactModifyForm() {
                 {/**파일 다운로드*/}
 
                 {/**진행 상태 표시*/}
-                <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
-
-                </div>
 
                 {/**메모기입란 */}
                 <div className='w-full pb-4'>
