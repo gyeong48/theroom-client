@@ -17,6 +17,7 @@ function AccountList() {
                 {data.map((item, index) => (
                     <InfoBox
                         key={index}
+                        id={item.id}
                         row1={item.name}
                         row2={item.email}
                         row3={item.role}

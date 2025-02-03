@@ -8,6 +8,7 @@ import ContactPage from "../pages/admin/ContactPage";
 import ContactDetailPage from "../pages/admin/ContactDetailPage";
 import PortfolioModifyPage from "../pages/admin/PortfolioModifyPage";
 import ContactAddPage from "../pages/admin/ContactAddPage";
+import AccountDetailPage from "../pages/admin/AccountDetailPage";
 
 const adminRouter = () => {
     return [
@@ -38,6 +39,10 @@ const adminRouter = () => {
         {
             path: "account/add",
             element: <AccountAddPage />
+        },
+        {
+            path: "account/:id",
+            element: <AccountDetailPage />
         },
         {
             path: "contact",
