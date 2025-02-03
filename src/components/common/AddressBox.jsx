@@ -38,7 +38,7 @@ const AddressBox = ({ context, isModifiable }) => {
             setAddressData((prev) => ({ ...prev, postCode: data.zonecode }));
             setAddressData((prev) => ({ ...prev, address: addr }));
             setAddressData((prev) => ({ ...prev, detailAddress: "" }));
-            setFormData(prev => ({ ...prev, postCode: data.zonecode, address: addr }));
+            setFormData(prev => ({ ...prev, postCode: data.zonecode, address: addr, detailAddress: "" }));
             document.getElementById("detailAddress").focus();
         }
     }

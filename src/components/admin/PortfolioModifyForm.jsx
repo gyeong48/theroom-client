@@ -57,6 +57,7 @@ function PortfolioModifyForm() {
             type={"text"}
             placeholder={"제목을 입력해주세요."}
             context={context}
+            isModifiable={true}
           />
           <GridSelectBox
             isLabel={true}
@@ -65,6 +66,7 @@ function PortfolioModifyForm() {
             options={[{ value: "APARTMENT", content: "아파트" }, { value: "SMALLAPARTMENT", content: "빌라" }, { value: "HOUSE", content: "주택" }]}
             placeholder={"선택"}
             context={context}
+            isModifiable={true}
           />
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
@@ -74,6 +76,7 @@ function PortfolioModifyForm() {
             type={"number"}
             placeholder={"공급 면적을 입력해주세요 - 단위: 평"}
             context={context}
+            isModifiable={true}
           />
           <GridInputBox
             label={"전용면적"}
@@ -81,6 +84,7 @@ function PortfolioModifyForm() {
             type={"number"}
             placeholder={"전용 면적을 입력해주세요 - 단위: 평"}
             context={context}
+            isModifiable={true}
           />
         </div>
 
@@ -94,6 +98,7 @@ function PortfolioModifyForm() {
             type={"date"}
             placeholder={null}
             context={context}
+            isModifiable={true}
           />
           <GridInputBox
             label={"공사완료일"}
@@ -101,6 +106,7 @@ function PortfolioModifyForm() {
             type={"date"}
             placeholder={null}
             context={context}
+            isModifiable={true}
           />
         </div>
 
@@ -111,6 +117,7 @@ function PortfolioModifyForm() {
             type={"number"}
             placeholder={"시공비용을 입력해 주세요 - 단위: 만원"}
             context={context}
+            isModifiable={true}
           />
           <GridSelectBox
             isLabel={true}
@@ -119,6 +126,7 @@ function PortfolioModifyForm() {
             placeholder={"선택"}
             options={[{ value: "PART", content: "부분시공" }, { value: "ALL", content: "전체시공" }]}
             context={context}
+            isModifiable={true}
           />
         </div>
 
