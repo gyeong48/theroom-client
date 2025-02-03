@@ -7,10 +7,10 @@ const Sidebar = () => {
     const navigate = useNavigate();
 
     const submenu = [
-        { menu: "메인", url: "/admin/about" },
-        { menu: "어바웃", url: "/admin/about" },
-        { menu: "서비스", url: "/admin/serivces" },
-        { menu: "회사정보", url: "/admin/company" },
+        { menu: "메인", url: "/admin/content/main" },
+        { menu: "어바웃", url: "/admin/content/about" },
+        { menu: "서비스", url: "/admin/content/serivces" },
+        { menu: "회사정보", url: "/admin/content/company" },
     ]
 
     const toggleSidebar = () => {

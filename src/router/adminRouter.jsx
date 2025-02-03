@@ -9,6 +9,10 @@ import ContactDetailPage from "../pages/admin/ContactDetailPage";
 import PortfolioModifyPage from "../pages/admin/PortfolioModifyPage";
 import ContactAddPage from "../pages/admin/ContactAddPage";
 import AccountDetailPage from "../pages/admin/AccountDetailPage";
+import CompanyContentPage from "../pages/admin/CompanyContentPage";
+import AbountContentPage from "../pages/admin/AbountContentPage";
+import MainContentPage from "../pages/admin/MainContentPage";
+import ServiceContentPage from "../pages/admin/ServiceContentPage";
 
 const adminRouter = () => {
     return [
@@ -55,6 +59,22 @@ const adminRouter = () => {
         {
             path: "contact/:id",
             element: <ContactDetailPage />
+        },
+        {
+            path: "content/company",
+            element: <CompanyContentPage />
+        },
+        {
+            path: "content/about",
+            element: <AbountContentPage />
+        },
+        {
+            path: "content/main",
+            element: <MainContentPage />
+        },
+        {
+            path: "content/serivces",
+            element: <ServiceContentPage />
         },
     ]
 }
