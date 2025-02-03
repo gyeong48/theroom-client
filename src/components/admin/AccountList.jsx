@@ -4,10 +4,10 @@ import InfoHeader from './InfoHeader';
 
 function AccountList() {
     const data = [
-        { id: 1, name: "이지환", email: 'example1@example.com', role: '관리자' },
-        { id: 2, name: "홍길동", email: 'example2@example.com', role: '매니저' },
-        { id: 3, name: "김철수", email: 'example3@example.com', role: '매니저' },
-        { id: 4, name: "김영희", email: 'example4@example.com', role: '일반' },
+        { id: 1, name: "이지환", email: 'example1@example.com', role: 'ADMIN' },
+        { id: 2, name: "홍길동", email: 'example2@example.com', role: 'MANAGER' },
+        { id: 3, name: "김철수", email: 'example3@example.com', role: 'MANAGER' },
+        { id: 4, name: "김영희", email: 'example4@example.com', role: 'USER' },
     ];
 
     return (

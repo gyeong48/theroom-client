@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import StatusBadge from './StatusBadge';
 
 function InfoBox({ id, row1, row2, row3 }) {
     const navigate = useNavigate();
@@ -15,7 +16,9 @@ function InfoBox({ id, row1, row2, row3 }) {
         >
             <div className='border-b text-xs md:text-sm lg:text-base lg:border-0 border-gray-400 text-center'>{row1}</div>
             <div className='border-b text-xs md:text-sm lg:text-base lg:border-0 border-gray-400 text-center'>{row2}</div>
-            <div className='border-b text-xs md:text-sm lg:text-base lg:border-0 border-gray-400 text-center'>{row3}</div>
+            <div className='border-b pb-1 sm:pb-1 text-xs md:text-sm lg:text-base lg:border-0 border-gray-400 text-center flex justify-center'>
+                <StatusBadge status={row3} />
+            </div>
         </div>
     )
 }

@@ -167,6 +167,9 @@ function ContactModifyForm() {
                 {/**파일 다운로드*/}
 
                 {/**진행 상태 표시*/}
+                <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
+
+                </div>
 
                 {/**메모기입란 */}
                 <div className='w-full pb-4'>
