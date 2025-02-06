@@ -5,8 +5,11 @@ import AddressBox from '../common/AddressBox'
 import ReferenceForm from './ReferenceForm'
 import { ContactAddContext } from '../../context/ContactAddProvider'
 import PersonalInformationForm from './PersonalInformationForm'
+import { defaultDate } from '../../util/localDate'
+import { postAddContact } from '../../api/contactApi'
 
 function ContactAddForm() {
+    const localDate = defaultDate;
     const context = ContactAddContext;
     const { formData } = useContext(context);
 
@@ -15,13 +18,38 @@ function ContactAddForm() {
         console.log(formData);
         const contactFormData = new FormData();
 
-        for (const [key, value] of Object.entries(formData)) {
-            contactFormData.append(key, value);
+        for (let i = 0; i < formData.files.length; i++) {
+            contactFormData.append("files", formData.files[i]);
         }
+
+        if (formData.files.length === 0) {
+            contactFormData.append("files", null);
+        }
+
+        contactFormData.append("customer", formData.customer);
+        contactFormData.append("email", formData.email);
+        contactFormData.append("phoneNumber", formData.phoneNumber);
+        contactFormData.append("buildingType", formData.buildingType ? formData.buildingType : "APARTMENT");
+        contactFormData.append("exclusiveArea", formData.exclusiveArea ? formData.exclusiveArea : 0);
+        contactFormData.append("startDate", formData.startDate === "" ? localDate : formData.startDate);
+        contactFormData.append("moveInDate", formData.moveInDate === "" ? localDate : formData.moveInDate);
+        contactFormData.append("mainAddress", formData.mainAddress);
+        contactFormData.append("detailAddress", formData.detailAddress);
+        contactFormData.append("postCode", formData.postCode);
+        contactFormData.append("latitude", formData.latitude ? formData.latitude : 0);
+        contactFormData.append("longitude", formData.longitude ? formData.longitude : 0);
+        contactFormData.append("budget", formData.budget ? formData.budget : 0);
+        contactFormData.append("interiorType", formData.interiorType === "" ? "ALL" : formData.interiorType);
+        contactFormData.append("personalInformationAgree", formData.personalInformationAgree ? formData.personalInformationAgree : false);
 
         for (const [key, value] of contactFormData.entries()) {
             console.log(`${key} : ${value}`);
         }
+
+        postAddContact(contactFormData)
+            .then(res => {
+                console.log(res)
+            })
     }
 
     return (
@@ -33,7 +61,7 @@ function ContactAddForm() {
                 <div className='grid grid-cols-1 lg:grid-cols-3 lg:space-x-4 lg:space-y-0 space-y-2'>
                     <GridInputBox
                         label={"이름"}
-                        id={"name"}
+                        id={"customer"}
                         type={"text"}
                         placeholder={"이름을 입력해주세요"}
                         context={context}
@@ -51,7 +79,7 @@ function ContactAddForm() {
                         label={"연락처"}
                         id={"phoneNumber"}
                         type={"text"}
-                        placeholder={"연락처를 입력해주세요"}
+                        placeholder={"연락처를 입력해주세요. (숫자만 입력) "}
                         context={context}
                         isModifiable={true}
                     />
@@ -65,8 +93,8 @@ function ContactAddForm() {
                     <GridSelectBox
                         isLabel={true}
                         label={"유형"}
-                        id={"type"}
-                        options={[{ value: "APARTMENT", content: "아파트" }, { value: "SMALLAPARTMENT", content: "빌라" }, { value: "HOUSE", content: "주택" }]}
+                        id={"buildingType"}
+                        options={[{ value: "APARTMENT", content: "아파트" }, { value: "SMALL_APARTMENT", content: "빌라" }, { value: "HOUSE", content: "주택" }]}
                         placeholder={"선택"}
                         context={context}
                         isModifiable={true}
@@ -118,7 +146,7 @@ function ContactAddForm() {
                     <GridSelectBox
                         isLabel={true}
                         label={"공사범위"}
-                        id={"scope"}
+                        id={"interiorType"}
                         placeholder={"선택"}
                         options={[{ value: "PART", content: "부분시공" }, { value: "ALL", content: "전체시공" }]}
                         context={context}
@@ -136,7 +164,13 @@ function ContactAddForm() {
                     </div>
                 </div>
             </div>
-            <ReferenceForm />
+            <div>
+                <div className='text-lg font-medium mb-1'>
+                    <h4>4. 참고사항</h4>
+                    <ReferenceForm context={context} />
+
+                </div>
+            </div>
             <PersonalInformationForm />
             <div className='flex justify-center'>
                 <button

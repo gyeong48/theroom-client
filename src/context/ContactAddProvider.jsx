@@ -4,18 +4,20 @@ export const ContactAddContext = createContext();
 
 export function ContactAddProvider({ children }) {
   const [formData, setFormData] = useState({
-    name: "",
+    customer: "",
     email: "",
     phoneNumber: "",
-    type: "",
-    exclusiveArea: 0,
+    buildingType: "",
+    exclusiveArea: "",
     postCode: "",
-    address: "",
+    mainAddress: "",
     detailAddress: "",
+    latitude: "",
+    longitude: "",
     startDate: "",
     moveInDate: "",
-    budget: 0,
-    scope: "",
+    budget: "",
+    interiorType: "",
     files: [],
     pesonalInformationAgree: false
   })

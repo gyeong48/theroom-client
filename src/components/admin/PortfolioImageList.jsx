@@ -22,7 +22,7 @@ function PortfolioImageList() {
                                 className='w-full aspect-[4/3] object-cover rounded-md'
                             >
                             </img>
-                            <p className='text-center font-body'>{portfolio.title}</p>
+                            <p className='text-center font-body text-xs lg:text-sm'>{portfolio.title}</p>
                         </div>
                     </Link>
                 </div>

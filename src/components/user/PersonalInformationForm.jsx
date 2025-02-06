@@ -2,11 +2,9 @@ import React, { useContext, useState } from 'react'
 import { ContactAddContext } from '../../context/ContactAddProvider';
 
 function PersonalInformationForm() {
-    // isAgreed 상태를 관리 (동의 여부)
     const [isAgreed, setIsAgreed] = useState(false);
     const { setFormData } = useContext(ContactAddContext);
 
-    // 체크박스 클릭 시 상태 변경
     const handleCheckboxChange = (e) => {
         setIsAgreed(e.target.checked);
         setFormData(prev => ({ ...prev, pesonalInformationAgree: e.target.checked }))

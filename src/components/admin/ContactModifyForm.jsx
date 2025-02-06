@@ -4,12 +4,14 @@ import { ContactModifyContext } from '../../context/ContactModifyProvider'
 import GridInputBox from '../common/GridInputBox';
 import GridSelectBox from '../common/GridSelectBox';
 import CheckModal from '../common/CheckModal';
-import { useNavigate } from 'react-router-dom';
-import StatusBadge from './StatusBadge';
-
-const STATUS = ["CONTACT", "MEET1", "MEET2", "MEET3", "CONTRACT", "INPROGRESS", "COMPLETE", "HOLD"]
+import { useNavigate, useParams } from 'react-router-dom';
+import StatusToggleButton from './StatusToggleButton';
+import { defaultDate } from '../../util/localDate';
+import { deleteContact, getDownloadFile, putModifyContact } from '../../api/contactApi';
 
 function ContactModifyForm() {
+    const { id } = useParams()
+    const localDate = defaultDate
     const context = ContactModifyContext;
     const navigate = useNavigate();
     const { formData, setFormData } = useContext(context);
@@ -30,16 +32,33 @@ function ContactModifyForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsModifiable(false);
-        console.log(formData);
         const contactModifyFormData = new FormData();
 
-        for (const [key, value] of Object.entries(formData)) {
-            contactModifyFormData.append(key, value);
-        }
+        contactModifyFormData.append("customer", formData.customer);
+        contactModifyFormData.append("email", formData.email);
+        contactModifyFormData.append("phoneNumber", formData.phoneNumber);
+        contactModifyFormData.append("buildingType", formData.buildingType);
+        contactModifyFormData.append("exclusiveArea", formData.exclusiveArea ? formData.exclusiveArea : 0);
+        contactModifyFormData.append("startDate", formData.startDate === "" ? localDate : formData.startDate);
+        contactModifyFormData.append("moveInDate", formData.moveInDate === "" ? localDate : formData.moveInDate);
+        contactModifyFormData.append("mainAddress", formData.mainAddress);
+        contactModifyFormData.append("detailAddress", formData.detailAddress);
+        contactModifyFormData.append("postCode", formData.postCode);
+        contactModifyFormData.append("latitude", formData.latitude ? formData.latitude : 0);
+        contactModifyFormData.append("longitude", formData.longitude ? formData.longitude : 0);
+        contactModifyFormData.append("budget", formData.budget ? formData.budget : 0);
+        contactModifyFormData.append("interiorType", formData.interiorType === "" ? "ALL" : formData.interiorType);
+        contactModifyFormData.append("memo", formData.memo);
+        contactModifyFormData.append("status", formData.status);
 
         for (const [key, value] of contactModifyFormData.entries()) {
             console.log(`${key} : ${value}`);
         }
+
+        putModifyContact(id, contactModifyFormData)
+            .then(res => {
+                console.log(res);
+            })
     }
 
     const handleOpenModal = (e) => {
@@ -48,15 +67,45 @@ function ContactModifyForm() {
     }
 
     const handleCheck = () => {
-        //삭제 요청
-        setIsModalOpen(false);
-        navigate({ pathname: "../contact" });
+        deleteContact(id).then(res => {
+            console.log(res);
+            setIsModalOpen(false);
+            navigate({ pathname: "../contact" });
+        })
+
     }
 
     const handleCancel = () => {
         setIsModalOpen(false);
     }
 
+    const handleDownload = async (e, file) => {
+        e.preventDefault();
+
+        try {
+            const response = await getDownloadFile(file.uploadedName, file.name);
+            console.log(response);
+
+            if (!response.ok) {
+                throw new Error('File download failed');
+            }
+
+            // 파일 데이터를 Blob 형태로 변환
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+
+            // <a> 태그를 동적으로 생성하여 다운로드 트리거
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url); // 메모리 해제
+        } catch (error) {
+            console.error('Error downloading file:', error);
+        }
+    }
 
     return (
         <form className="pt-10 space-y-14">
@@ -67,7 +116,7 @@ function ContactModifyForm() {
                 <div className='grid grid-cols-1 lg:grid-cols-3 lg:space-x-4 lg:space-y-0 space-y-2'>
                     <GridInputBox
                         label={"이름"}
-                        id={"name"}
+                        id={"customer"}
                         type={"text"}
                         placeholder={"이름을 입력해주세요"}
                         context={context}
@@ -100,8 +149,8 @@ function ContactModifyForm() {
                     <GridSelectBox
                         isLabel={true}
                         label={"유형"}
-                        id={"type"}
-                        options={[{ value: "APARTMENT", content: "아파트" }, { value: "SMALLAPARTMENT", content: "빌라" }, { value: "HOUSE", content: "주택" }]}
+                        id={"buildingType"}
+                        options={[{ value: "APARTMENT", content: "아파트" }, { value: "SMALL_APARTMENT", content: "빌라" }, { value: "HOUSE", content: "주택" }]}
                         placeholder={"선택"}
                         context={context}
                         isModifiable={isModifiable}
@@ -154,7 +203,7 @@ function ContactModifyForm() {
                     <GridSelectBox
                         isLabel={true}
                         label={"공사범위"}
-                        id={"scope"}
+                        id={"interiorType"}
                         placeholder={"선택"}
                         options={[{ value: "PART", content: "부분시공" }, { value: "ALL", content: "전체시공" }]}
                         context={context}
@@ -163,16 +212,33 @@ function ContactModifyForm() {
                 </div>
             </div>
 
-            <div className='font-body'>
+            <div className='font-body space-y-4'>
                 <div className='text-lg font-medium mb-1'>
                     <h4>4. 진행사항</h4>
                 </div>
                 {/**파일 다운로드*/}
+                {!isModifiable &&
+                    <div>
+                        <label htmlFor="name" className="block text-sm lg:text-base font-semibold text-gray-700">
+                            파일
+                        </label>
+                        <div className='w-full h-28 lg:h-32 p-2 border block rounded-md overflow-hidden bg-white'>
+                            {formData.files.length > 0 && formData.files.map((file, index) => (
+                                <div
+                                    key={index}
+                                    className='mb-1 p-1 border-b flex justify-between items-center text-sm lg:text-base'
+                                >
+                                    <div>{file.name}</div>
+                                    <button onClick={(e) => handleDownload(e, file)} className='text-sm lg:text-base'>내려받기</button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
 
-                {/**진행 상태 표시*/}
+                }
 
                 {/**메모기입란 */}
-                <div className='w-full pb-4'>
+                <div className='w-full'>
                     <label htmlFor="name" className="block text-sm lg:text-base font-semibold text-gray-700">
                         메모
                     </label>
@@ -186,6 +252,14 @@ function ContactModifyForm() {
                         rows={5}
                         readOnly={!isModifiable}
                     />
+                </div>
+
+                {/**진행 상태 표시*/}
+                <div>
+                    <label htmlFor="name" className="block text-sm lg:text-base font-semibold text-gray-700">
+                        프로세스
+                    </label>
+                    <StatusToggleButton context={context} isModifiable={isModifiable} />
                 </div>
             </div>
 

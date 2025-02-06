@@ -9,9 +9,9 @@ function PortfolioDetailContent() {
     const infos = [
         { subtitle: "유형", content: portfolioDetail.buildingType },
         { subtitle: "면적", content: `공급${portfolioDetail.supplyArea}평 / 전용${portfolioDetail.exclusiveArea}평` },
-        //{subtitle: "준공", content: portfolioDetail.buildingType},
+        {subtitle: "준공", content: "0000"},
+        { subtitle: "시공기간", content: `${portfolioDetail.diffWeek}주` },
         { subtitle: "지역", content: portfolioDetail.mainAddress },
-        { subtitle: "시공기간", content: `${portfolioDetail.diffWeek}주` }
     ]
 
     useEffect(() => {

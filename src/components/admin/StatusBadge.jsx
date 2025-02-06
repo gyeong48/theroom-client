@@ -6,7 +6,7 @@ const STATUS_STYLES = {
     "MEET2": { title: "상담2", style: "bg-blue-400 text-white" },
     "MEET3": { title: "상담3", style: "bg-indigo-500 text-white" },
     "CONTRACT": { title: "계약완료", style: "bg-green-500 text-white" },
-    "INPROGRESS": { title: "시공중", style: "bg-yellow-400 text-white" },
+    "IN_PROGRESS": { title: "시공중", style: "bg-yellow-400 text-white" },
     "COMPLETE": { title: "시공완료", style: "bg-green-700 text-white" },
     "HOLD": { title: "보류", style: "bg-gray-600 text-white" },
     "ADMIN": { title: "관리자", style: "bg-gray-600 text-white" },

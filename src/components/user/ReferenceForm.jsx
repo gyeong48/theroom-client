@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { ContactAddContext } from '../../context/ContactAddProvider';
 import ResultModal from '../common/ResultModal';
 
-function ReferenceForm() {
+function ReferenceForm({ context }) {
     const MAX_SIZE = 30 * 1024 * 1024;
     const MAX_COUNT = 3;
-    const { setFormData } = useContext(ContactAddContext);
+    const { setFormData } = useContext(context);
     const [files, setFiles] = useState([]);
     const [totalFileSize, setTotalFileSize] = useState(0);
     const [isOutOfCount, setIsOutOfCount] = useState(false);
@@ -55,16 +54,13 @@ function ReferenceForm() {
 
     return (
         <div>
-            <div className='text-lg font-medium mb-1'>
-                <h4>4. 참고사항</h4>
-            </div>
             <div className='mb-2 flex items-center justify-end font-body font-semibold text-xs lg:text-sm space-x-4'>
                 <div>파일: {files.length}개</div>
                 <div>용량: {Math.ceil(totalFileSize / 1024 / 1024)}MB/{MAX_SIZE / 1024 / 1024}MB</div>
                 <button onClick={handleRemoveImageFileAll}>전체삭제</button>
             </div>
 
-            <div className='w-full h-28 lg:h-32 p-2 border block rounded-md overflow-hidden'>
+            <div className='w-full h-28 lg:h-32 p-2 border block rounded-md overflow-hidden bg-white'>
                 {files.length > 0 ? files.map((file, index) => (
                     <div key={index} className='mb-1 p-1 border-b flex justify-between items-center text-sm lg:text-base'>
                         <div>{file.name}</div>
@@ -79,7 +75,7 @@ function ReferenceForm() {
             </div>
 
             {files.length < 3 &&
-                <label className='block w-full border rounded-md'>
+                <label className='block w-full border rounded- bg-white'>
                     <div className='flex items-center hover:cursor-pointer pb-1'>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
