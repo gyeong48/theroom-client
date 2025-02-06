@@ -11,7 +11,6 @@ function ImageFileUploadBox({ context }) {
     const handleFileChange = (e) => {
         const prevSize = Array.from(imageFiles).reduce((acc, file) => acc + file.size, 0);
         const currentSize = Array.from(e.target.files).reduce((acc, file) => acc + file.size, 0);
-        console.log(currentSize);
 
         if (prevSize + currentSize > MAX_SIZE) {
             setIsOutOfSize(true);
@@ -40,6 +39,7 @@ function ImageFileUploadBox({ context }) {
     useEffect(() => {
         setFormData((prev) => ({ ...prev, imageFiles: imageFiles }));
         setTotalFileSize(Array.from(imageFiles).reduce((acc, file) => acc + file.size, 0));
+        console.log(imageFiles);
     }, [imageFiles])
 
     return (

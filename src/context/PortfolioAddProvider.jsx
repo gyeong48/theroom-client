@@ -5,17 +5,17 @@ export const PortfolioAddContext = createContext();
 export function PortfolioAddProvider({ children }) {
   const [formData, setFormData] = useState({
     title: "",
-    type: "",
+    buildingType: "",
     supplyArea: "",
     exclusiveArea: "",
     postCode: "",
-    address: "",
+    mainAddress: "",
     detailAddress: "",
     startDate: "",
     endDate: "",
     budget: "",
-    scope: "",
-    thumbnail: null,
+    interiorType: "",
+    thumbnail: "",
     imageFiles: [],
   })
 

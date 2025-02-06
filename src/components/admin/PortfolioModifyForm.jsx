@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import GridInputBox from '../common/GridInputBox';
 import GridSelectBox from '../common/GridSelectBox';
 import AddressBox from '../common/AddressBox';
@@ -7,29 +7,55 @@ import ImageFileUploadBox from './ImageFileUploadBox';
 import { PortfolioModifyContext } from '../../context/PortfolioModifyProvider';
 import CheckModal from '../common/CheckModal';
 import { useNavigate, useParams } from 'react-router-dom';
+import { deletePortfolio, putModifyPortfolio } from '../../api/portfolioApi';
+import { defaultDate } from '../../util/localDate';
 
 function PortfolioModifyForm() {
-  const { id } = useParams();
-  const context = PortfolioModifyContext;
+  const localDate = defaultDate
   const navigate = useNavigate();
+  const context = PortfolioModifyContext;
+  const { id } = useParams();
   const { formData } = useContext(context);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    const portfolioAddFormData = new FormData();
+    const uploadImageFilenames = [];
+    const portfolioModifyFormData = new FormData();
 
-    for (const [key, value] of Object.entries(formData)) {
-      portfolioAddFormData.append(key, value);
+    for (let i = 0; i < formData.imageFiles.length; i++) {
+      if (formData.imageFiles[i] instanceof File) {
+        portfolioModifyFormData.append("imageFiles", formData.imageFiles[i]);
+      } else {
+        uploadImageFilenames.push(formData.imageFiles[i].uploadedName);
+      }
     }
 
-    for (const [key, value] of portfolioAddFormData.entries()) {
-      console.log(`${key} : ${value}`);
+    if (formData.imageFiles.length === 0) {
+      portfolioModifyFormData.append("imageFiles", null);
     }
 
-    //api 연결
-    navigate({ pathname: `../portfolio/${id}` });
+    portfolioModifyFormData.append("title", formData.title);
+    portfolioModifyFormData.append("buildingType", formData.buildingType);
+    portfolioModifyFormData.append("supplyArea", formData.supplyArea ? formData.supplyArea : 0);
+    portfolioModifyFormData.append("exclusiveArea", formData.exclusiveArea ? formData.exclusiveArea : 0);
+    portfolioModifyFormData.append("startDate", formData.startDate === "" ? localDate : formData.startDate);
+    portfolioModifyFormData.append("endDate", formData.endDate === "" ? localDate : formData.endDate);
+    portfolioModifyFormData.append("mainAddress", formData.mainAddress);
+    portfolioModifyFormData.append("detailAddress", formData.detailAddress);
+    portfolioModifyFormData.append("postCode", formData.postCode);
+    portfolioModifyFormData.append("latitude", formData.latitude ? formData.latitude : 0);
+    portfolioModifyFormData.append("longitude", formData.longitude ? formData.longitude : 0);
+    portfolioModifyFormData.append("budget", formData.budget ? formData.budget : 0);
+    portfolioModifyFormData.append("interiorType", formData.interiorType);
+    portfolioModifyFormData.append("thumbnail", formData.thumbnail ? formData.thumbnail : null);
+    portfolioModifyFormData.append("thumbnailName", formData.thumbnailName);
+    portfolioModifyFormData.append("uploadImageFilenames", uploadImageFilenames);
+
+    putModifyPortfolio(id, portfolioModifyFormData).then(res => {
+      console.log(res);
+      navigate({ pathname: `../portfolio/${id}` });
+    })
   }
 
   const handleOpenModal = (e) => {
@@ -38,9 +64,12 @@ function PortfolioModifyForm() {
   }
 
   const handleCheck = () => {
-    //삭제 요청
-    setIsModalOpen(false);
-    navigate({ pathname: "../portfolio" });
+    deletePortfolio(id)
+      .then((res) => {
+        console.log(res.data);
+        setIsModalOpen(false);
+        navigate({ pathname: "../portfolio" });
+      })
   }
 
   const handleCancel = () => {
@@ -62,7 +91,7 @@ function PortfolioModifyForm() {
           <GridSelectBox
             isLabel={true}
             label={"유형"}
-            id={"type"}
+            id={"buildingType"}
             options={[{ value: "APARTMENT", content: "아파트" }, { value: "SMALLAPARTMENT", content: "빌라" }, { value: "HOUSE", content: "주택" }]}
             placeholder={"선택"}
             context={context}
@@ -89,7 +118,7 @@ function PortfolioModifyForm() {
         </div>
 
         {/* 주소 검색 */}
-        <AddressBox context={context} />
+        <AddressBox context={context} isModifiable={true} />
 
         <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
           <GridInputBox
@@ -122,7 +151,7 @@ function PortfolioModifyForm() {
           <GridSelectBox
             isLabel={true}
             label={"공사범위"}
-            id={"scope"}
+            id={"interiorType"}
             placeholder={"선택"}
             options={[{ value: "PART", content: "부분시공" }, { value: "ALL", content: "전체시공" }]}
             context={context}

@@ -2,12 +2,13 @@ import React, { useContext, useState } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 
 const AddressBox = ({ context, isModifiable }) => {
+    const { kakao } = window;
     const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
     const open = useDaumPostcodePopup(postcodeScriptUrl);
     const { formData, setFormData } = useContext(context);
     const [addressData, setAddressData] = useState({
         postCode: formData["postCode"],
-        address: formData["address"],
+        mainAddress: formData["mainAddress"],
         detailAddress: formData["detailAddress"],
     });
 
@@ -35,12 +36,19 @@ const AddressBox = ({ context, isModifiable }) => {
             }
 
             addr = addr + " " + extraAddr;
-            setAddressData((prev) => ({ ...prev, postCode: data.zonecode }));
-            setAddressData((prev) => ({ ...prev, address: addr }));
-            setAddressData((prev) => ({ ...prev, detailAddress: "" }));
-            setFormData(prev => ({ ...prev, postCode: data.zonecode, address: addr, detailAddress: "" }));
-            document.getElementById("detailAddress").focus();
         }
+
+        new kakao.maps.services.Geocoder().addressSearch(addr, (result, status) => {
+            if (status === kakao.maps.services.Status.OK) {
+                setFormData(prev => ({ ...prev, latitude: result[0].x, longitude: result[0].y }));
+            }
+        });
+
+        setAddressData((prev) => ({ ...prev, postCode: data.zonecode }));
+        setAddressData((prev) => ({ ...prev, mainAddress: addr }));
+        setAddressData((prev) => ({ ...prev, detailAddress: "" }));
+        setFormData(prev => ({ ...prev, postCode: data.zonecode, mainAddress: addr, detailAddress: "" }));
+        document.getElementById("detailAddress").focus();
     }
 
     const handleClick = (e) => {
@@ -64,9 +72,9 @@ const AddressBox = ({ context, isModifiable }) => {
             <div className="w-full flex flex-col-reverse sm:flex-row mt-1">
                 <input
                     type="text"
-                    id="address"
-                    name="address"
-                    value={addressData.address}
+                    id="mainAddress"
+                    name="mainAddress"
+                    value={addressData.mainAddress}
                     onChange={handleChange}
                     placeholder="주소를 검색하세요"
                     className="block sm:w-4/5 w-full p-1 border-b border-gray-300 focus:border-gray-500 text-sm lg:text-base placeholder:text-sm lg:placeholder:text-base"

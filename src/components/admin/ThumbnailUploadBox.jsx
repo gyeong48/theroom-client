@@ -12,8 +12,8 @@ function ThumbnailUploadBox({ context }) {
 
     const handleRemoveThumbnail = (e) => {
         e.preventDefault();
-        setThumbnail(null);
-        setFormData(prev => ({ ...prev, thumbnail: null }));
+        setThumbnail("");
+        setFormData(prev => ({ ...prev, thumbnail: "" }));
     }
 
     return (
