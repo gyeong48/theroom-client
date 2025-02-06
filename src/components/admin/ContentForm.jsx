@@ -1,70 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextareaAutosize from "react-textarea-autosize";
+import { getContents } from '../../api/contentApi';
 
-const savedContents = {
-    about: [
-        {
-            id: 6,
-            content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.`
-        },
-    ],
-    service: [
-        {
-            id: 1,
-            content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.`
-        },
-        {
-            id: 2,
-            content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.`
-        },
-        {
-            id: 3,
-            content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.`
-        },
-        {
-            id: 4,
-            content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.`
-        }
-    ]
-}
 
 function ContentForm({ type }) {
-    const [contents, setContents] = useState(savedContents[type]);
+    const [contents, setContents] = useState([]);
     const [isModifiable, setIsModifiable] = useState();
+
+    useEffect(() => {
+        getContents(type).then(res => {
+            console.log(res.data);
+            setContents(res.data);
+        })
+    }, [type])
+
 
     const handleChange = (e, index) => {
         const newContents = [...contents];
-        newContents[index].content = e.target.value;
+        newContents[index].str = e.target.value;
         setContents(newContents);
     };
 
@@ -81,13 +34,15 @@ function ContentForm({ type }) {
 
     const handleAddContent = (e) => {
         e.preventDefault();
-        setContents(prev => [...prev, { id: null, content: "" }])
+        setContents(prev => [...prev, { id: null, str: "" }])
     }
 
     const handleModify = (e) => {
         e.preventDefault();
         setIsModifiable(true);
     }
+
+    if (!contents) return <p>로딩 중...</p>;
 
     return (
         <div className="max-w-3xl mx-auto px-4 py-8">
@@ -110,7 +65,7 @@ function ContentForm({ type }) {
                         </div>
 
                         <TextareaAutosize
-                            value={c.content}
+                            value={c.str}
                             onChange={(e) => handleChange(e, index)}
                             className={`w-full p-1 border-b border-gray-300 focus:outline-none text-sm lg:text-base placeholder:text-xs md:placeholder:text-sm lg:placeholder:text-base ${!isModifiable ? "bg-gray-100" : "bg-white"} resize-none`}
                             minRows={1}
