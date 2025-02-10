@@ -18,11 +18,9 @@ function CompanyInfoForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
 
         postCompanyInfo(formData)
             .then(res => {
-                console.log(res);
                 setIsFetchingModalOpen(false);
             })
 

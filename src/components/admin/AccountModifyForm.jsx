@@ -41,7 +41,6 @@ function AccountModifyForm() {
 
         modifyAccount(formData)
             .then(res => {
-                console.log(res);
                 setIsModifiable(false);
                 setIsFetchingModalOpen(false);
                 navigate({ pathname: "../" })

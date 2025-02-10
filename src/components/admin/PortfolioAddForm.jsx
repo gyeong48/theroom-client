@@ -27,7 +27,6 @@ function PortfolioAddForm() {
   const checkError = () => {
     const newErrors = Object.keys(errors).reduce((acc, key) => {
       const error = validate(key, formData[key]);
-      console.log("error", error);
 
       if (error) acc[key] = error;
       return acc;
@@ -75,13 +74,8 @@ function PortfolioAddForm() {
     portfolioAddFormData.append("interiorType", formData.interiorType);
     portfolioAddFormData.append("thumbnail", formData.thumbnail ? formData.thumbnail : null);
 
-    for (const [key, value] of portfolioAddFormData.entries()) {
-      console.log(`${key} : ${value}`);
-    }
-
     postAddPortfolio(portfolioAddFormData)
       .then(res => {
-        console.log(res);
         setIsFetchingModalOpen(false);
         navigate({ pathname: "../portfolio" });
       })

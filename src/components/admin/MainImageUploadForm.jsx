@@ -14,7 +14,6 @@ function MainImageUploadForm() {
     useEffect(() => {
         getMainImages()
             .then((res) => {
-                console.log(res.data);
                 setImageFiles(res.data);
             })
     }, [])
@@ -23,7 +22,6 @@ function MainImageUploadForm() {
     const handleFileChange = (e) => {
         const prevSize = Array.from(imageFiles).reduce((acc, file) => acc + file.size, 0);
         const currentSize = Array.from(e.target.files).reduce((acc, file) => acc + file.size, 0);
-        console.log(currentSize);
 
         if (prevSize + currentSize > MAX_SIZE) {
             setIsOutOfSize(true);
@@ -55,8 +53,6 @@ function MainImageUploadForm() {
         const formData = new FormData();
         const uploadImageFilenames = [];
 
-        console.log(imageFiles);
-
         for (let i = 0; i < imageFiles.length; i++) {
             if (imageFiles[i] instanceof File) {
                 formData.append('imageFiles', imageFiles[i]);
@@ -73,7 +69,6 @@ function MainImageUploadForm() {
 
         postMainImages(formData)
             .then(res => {
-                console.log(res);
                 setIsModifiable(false);
                 setIsFetchingModalOpen(false);
             })

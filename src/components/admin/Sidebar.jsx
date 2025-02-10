@@ -37,7 +37,6 @@ const Sidebar = () => {
     const handleLogout = () => {
         getLogout()
             .then(res => {
-                console.log(res);
                 dispatch(logout());
                 navigate({ pathname: "/admin/login", replace: true });
             })

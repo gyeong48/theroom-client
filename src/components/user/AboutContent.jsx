@@ -11,7 +11,6 @@ function AboutContent() {
     useEffect(() => {
         getContents("about")
             .then(res => {
-                console.log(res.data);
                 const contents = res.data;
                 const newContents = contents.map((content) => content.str.split("\n"))
                 setIntroduces(newContents);
@@ -19,7 +18,6 @@ function AboutContent() {
 
         getCompanyInfo()
             .then(res => {
-                console.log(res.data);
                 const info = res.data;
 
                 setCompanyInfo([
@@ -40,13 +38,13 @@ function AboutContent() {
     return (
         <div className='font-body space-y-28 pt-10'>
             {introduces && introduces.map((intro, index) => (
-            <div key={index} className='space-y-4'>
-                {intro && intro.map((str, index) => (
-                    <p key={index} className="text-center font-body text-xs sm:text-sm md:text-base text-gray-500">
-                        {str}
-                    </p>
-                ))}
-            </div>
+                <div key={index} className='space-y-4'>
+                    {intro && intro.map((str, index) => (
+                        <p key={index} className="text-center font-body text-xs sm:text-sm md:text-base text-gray-500">
+                            {str}
+                        </p>
+                    ))}
+                </div>
             ))}
             <Location location={location} />
             <div>

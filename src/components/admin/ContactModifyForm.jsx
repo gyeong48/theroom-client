@@ -59,7 +59,6 @@ function ContactModifyForm() {
 
         putModifyContact(id, contactModifyFormData)
             .then(res => {
-                console.log(res);
                 setIsFetchingModalOpen(false);
             })
 
@@ -73,7 +72,6 @@ function ContactModifyForm() {
 
     const handleCheck = () => {
         deleteContact(id).then(res => {
-            console.log(res);
             setIsModalOpen(false);
             navigate({ pathname: "../contact" });
         })
@@ -95,18 +93,16 @@ function ContactModifyForm() {
                 throw new Error('File download failed');
             }
 
-            // 파일 데이터를 Blob 형태로 변환
             const blob = await response.blob();
             const url = window.URL.createObjectURL(blob);
 
-            // <a> 태그를 동적으로 생성하여 다운로드 트리거
             const a = document.createElement('a');
             a.href = url;
             a.download = file.name;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-            window.URL.revokeObjectURL(url); // 메모리 해제
+            window.URL.revokeObjectURL(url);
         } catch (error) {
             console.error('Error downloading file:', error);
         }

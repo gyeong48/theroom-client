@@ -15,7 +15,6 @@ function ImageSlider() {
   useEffect(() => {
     getMainImages()
       .then(res => {
-        console.log(res.data);
         setImages(res.data)
       })
   }, [])

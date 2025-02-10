@@ -8,7 +8,6 @@ function ServiceContent() {
     useEffect(() => {
         getContents("service")
             .then(res => {
-                console.log(res.data);
                 const contents = res.data;
                 const newContents = contents.map((content, index) => {
                     const obj = {

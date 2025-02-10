@@ -13,7 +13,6 @@ export function PortfolioModifyProvider({ children }) {
         getPortfolioModifyDetail(id)
             .then((res) => {
                 const data = res.data;
-                console.log(data);
                 setFormData({
                     id: data.id,
                     title: data.title,

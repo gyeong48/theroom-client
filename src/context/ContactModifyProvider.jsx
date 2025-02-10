@@ -13,7 +13,6 @@ export function ContactModifyProvider({ children }) {
     getContactDetail(id)
       .then((res) => {
         const data = res.data;
-        console.log(data);
         setFormData({
           id: data.id,
           customer: data.customer,

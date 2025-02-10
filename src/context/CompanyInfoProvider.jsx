@@ -10,7 +10,6 @@ export function CompanyInfoProvider({ children }) {
     useEffect(() => {
         getCompanyInfo()
             .then(res => {
-                console.log(res.data);
                 setFormData(res.data);
             })
     }, [])

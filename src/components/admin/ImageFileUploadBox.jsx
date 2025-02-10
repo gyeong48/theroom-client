@@ -39,7 +39,6 @@ function ImageFileUploadBox({ context }) {
     useEffect(() => {
         setFormData((prev) => ({ ...prev, imageFiles: imageFiles }));
         setTotalFileSize(Array.from(imageFiles).reduce((acc, file) => acc + file.size, 0));
-        console.log(imageFiles);
     }, [imageFiles])
 
     return (

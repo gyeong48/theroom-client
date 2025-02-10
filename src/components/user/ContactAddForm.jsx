@@ -33,7 +33,6 @@ function ContactAddForm() {
     const checkError = () => {
         const newErrors = Object.keys(errors).reduce((acc, key) => {
             const error = validate(key, formData[key]);
-            console.log("error", error);
 
             if (error) acc[key] = error;
             return acc;
@@ -50,7 +49,6 @@ function ContactAddForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
 
         if (checkError()) {
             setIsWarningModalOpen(true)
@@ -83,13 +81,8 @@ function ContactAddForm() {
         contactFormData.append("interiorType", formData.interiorType === "" ? "ALL" : formData.interiorType);
         contactFormData.append("personalInformationAgree", formData.personalInformationAgree ? formData.personalInformationAgree : false);
 
-        for (const [key, value] of contactFormData.entries()) {
-            console.log(`${key} : ${value}`);
-        }
-
         postAddContact(contactFormData)
             .then(res => {
-                console.log(res)
                 setIsFetchingModalOpen(false);
                 setIsResultModalOpen(true);
             })

@@ -30,7 +30,6 @@ function PortfolioModifyForm() {
   const checkError = () => {
     const newErrors = Object.keys(errors).reduce((acc, key) => {
       const error = validate(key, formData[key]);
-      console.log("error", error);
 
       if (error) acc[key] = error;
       return acc;
@@ -86,7 +85,6 @@ function PortfolioModifyForm() {
     portfolioModifyFormData.append("uploadImageFilenames", uploadImageFilenames);
 
     putModifyPortfolio(id, portfolioModifyFormData).then(res => {
-      console.log(res);
       navigate({ pathname: `../portfolio/${id}` });
     })
   }

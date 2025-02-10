@@ -11,7 +11,6 @@ function ContentForm({ type }) {
 
     useEffect(() => {
         getContents(type).then(res => {
-            console.log(res.data);
             setContents(res.data);
         })
     }, [type, deleteFlag])
@@ -30,13 +29,11 @@ function ContentForm({ type }) {
 
     const handleRemoveContent = (e, index, id) => {
         e.preventDefault();
-        console.log(id);
         setContents(prev => prev.filter((_, i) => index !== i));
 
         if (id != null) {
             deleteContent(type, id)
                 .then(res => {
-                    console.log(res);
                     setDeleteFlag(prev => !prev);
                 })
         }
@@ -44,12 +41,9 @@ function ContentForm({ type }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(contents);
-        console.log(type);
 
         postContents(type, contents)
             .then(res => {
-                console.log(res);
                 setIsFetchingModalOpen(false);
                 setIsModifiable(false);
             })

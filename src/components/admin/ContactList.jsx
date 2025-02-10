@@ -12,7 +12,6 @@ const ContactList = () => {
     useEffect(() => {
         getContactList()
             .then(res => {
-                console.log(res);
                 setContacts(res.data);
                 setFilteredData(res.data);
 
