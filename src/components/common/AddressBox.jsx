@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
+import { validate } from "../../util/validator";
 
-const AddressBox = ({ context, isModifiable }) => {
+const AddressBox = ({ context, isModifiable, errors, setErrors, isEssential }) => {
     const { kakao } = window;
     const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
     const open = useDaumPostcodePopup(postcodeScriptUrl);
@@ -40,7 +41,7 @@ const AddressBox = ({ context, isModifiable }) => {
 
         new kakao.maps.services.Geocoder().addressSearch(addr, (result, status) => {
             if (status === kakao.maps.services.Status.OK) {
-                setFormData(prev => ({ ...prev, latitude: result[0].x, longitude: result[0].y }));
+                setFormData(prev => ({ ...prev, latitude: result[0].y, longitude: result[0].x }));
             }
         });
 
@@ -48,6 +49,7 @@ const AddressBox = ({ context, isModifiable }) => {
         setAddressData((prev) => ({ ...prev, mainAddress: addr }));
         setAddressData((prev) => ({ ...prev, detailAddress: "" }));
         setFormData(prev => ({ ...prev, postCode: data.zonecode, mainAddress: addr, detailAddress: "" }));
+        setErrors((prevErrors) => ({ ...prevErrors, mainAddress: validate("mainAddress", addr) }));
         document.getElementById("detailAddress").focus();
     }
 
@@ -59,13 +61,14 @@ const AddressBox = ({ context, isModifiable }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setAddressData((prev) => ({ ...prev, [name]: value }));
-        setFormData(prev => ({ ...prev, [name]: value }))
+        setFormData(prev => ({ ...prev, [name]: value }));
+        setErrors((prevErrors) => ({ ...prevErrors, detailAddress: validate("detailAddress", e.target.value) }));
     }
 
     return (
         <div className="font-body">
             <label htmlFor="type" className="block text-sm lg:text-base font-semibold text-gray-700">
-                주소
+                주소{isEssential && <small>(필수*)</small>}
             </label>
 
             {/* 주소 검색 */}
@@ -102,6 +105,7 @@ const AddressBox = ({ context, isModifiable }) => {
                     readOnly={!isModifiable}
                 />
             </div>
+            {(errors?.mainAddress || errors?.detailAddress) && <small className="text-red-500">주소를 입력하세요.</small>}
         </div>
     );
 };

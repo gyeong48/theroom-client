@@ -7,6 +7,8 @@ import PortfolioDetailPage from "../pages/user/PortfolioDetailPage";
 import ContactPage from "../pages/user/ContactPage";
 import IndexPage from "../pages/admin/IndexPage";
 import adminRouter from "./adminRouter";
+import AdminLoginPage from "../pages/admin/LoginPage";
+import ProtectedRouter from "../pages/admin/ProtectedRouter";
 
 const root = createBrowserRouter([
     {
@@ -18,7 +20,7 @@ const root = createBrowserRouter([
         element: <AboutPage />
     },
     {
-        path: "/services",
+        path: "/brand",
         element: <ServicesPage />
     },
     {
@@ -35,8 +37,16 @@ const root = createBrowserRouter([
     },
     {
         path: "/admin",
-        element: <IndexPage />,
+        element: (
+            <ProtectedRouter >
+                <IndexPage />
+            </ProtectedRouter>
+        ),
         children: adminRouter()
+    },
+    {
+        path: "/admin/login",
+        element: <AdminLoginPage />,
     }
 ]);
 

@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { getContactDetail } from '../api/contactApi';
+import FetchingModal from '../components/common/FetchingModal';
 
 export const ContactModifyContext = createContext();
 
@@ -37,7 +38,7 @@ export function ContactModifyProvider({ children }) {
       });
   }, [id]);
 
-  if (!formData) return <p>로딩 중...</p>;
+  if (!formData) return <FetchingModal />
 
   return (
     <ContactModifyContext.Provider value={{ formData, setFormData }}>

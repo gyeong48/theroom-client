@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
+import { validate } from '../../util/validator';
 
-function ThumbnailUploadBox({ context }) {
+function ThumbnailUploadBox({ context, errors, setErrors }) {
     const { formData, setFormData } = useContext(context);
     const [thumbnail, setThumbnail] = useState(formData.thumbnail);
 
@@ -8,12 +9,14 @@ function ThumbnailUploadBox({ context }) {
         e.preventDefault();
         setThumbnail(e.target.files[0])
         setFormData(prev => ({ ...prev, thumbnail: e.target.files[0] }));
+        setErrors((prevErrors) => ({ ...prevErrors, thumbnail: validate("thumbnail", e.target.files[0]) }));
     }
 
     const handleRemoveThumbnail = (e) => {
         e.preventDefault();
         setThumbnail("");
         setFormData(prev => ({ ...prev, thumbnail: "" }));
+        setErrors((prevErrors) => ({ ...prevErrors, thumbnail: validate("thumbnail", null) }));
     }
 
     return (
@@ -52,6 +55,8 @@ function ThumbnailUploadBox({ context }) {
                     onChange={handleThumbnailChange}
                 />
             </label>
+
+            {errors && errors.hasOwnProperty("thumbnail") && <small className="text-red-500">{errors["thumbnail"]}</small>}
         </div>
     )
 }

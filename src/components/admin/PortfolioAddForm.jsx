@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import GridInputBox from '../common/GridInputBox';
 import GridSelectBox from '../common/GridSelectBox';
 import AddressBox from '../common/AddressBox';
@@ -8,15 +8,48 @@ import ImageFileUploadBox from './ImageFileUploadBox';
 import { postAddPortfolio } from '../../api/portfolioApi';
 import { useNavigate } from 'react-router-dom';
 import { defaultDate } from '../../util/localDate';
+import FetchingModal from '../common/FetchingModal';
+import { validate } from '../../util/validator';
+import ResultModal from '../common/ResultModal';
 
 function PortfolioAddForm() {
   const localDate = defaultDate;
   const navigate = useNavigate()
   const context = PortfolioAddContext;
   const { formData } = useContext(context);
+  const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+  const [errors, setErrors] = useState({
+    title: "",
+    thumbnail: ""
+  });
+
+  const checkError = () => {
+    const newErrors = Object.keys(errors).reduce((acc, key) => {
+      const error = validate(key, formData[key]);
+      console.log("error", error);
+
+      if (error) acc[key] = error;
+      return acc;
+    }, {})
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      return true;
+    }
+
+    return false;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (checkError()) {
+      setIsWarningModalOpen(true)
+      return;
+    }
+
     const portfolioAddFormData = new FormData();
 
     for (let i = 0; i < formData.imageFiles.length; i++) {
@@ -49,8 +82,11 @@ function PortfolioAddForm() {
     postAddPortfolio(portfolioAddFormData)
       .then(res => {
         console.log(res);
+        setIsFetchingModalOpen(false);
         navigate({ pathname: "../portfolio" });
       })
+
+    setIsFetchingModalOpen(true);
   }
 
   return (
@@ -64,15 +100,19 @@ function PortfolioAddForm() {
             placeholder={"제목을 입력해주세요."}
             context={context}
             isModifiable={true}
+            errors={errors}
+            setErrors={setErrors}
           />
           <GridSelectBox
             isLabel={true}
             label={"유형"}
             id={"buildingType"}
-            options={[{ value: "APARTMENT", content: "아파트" }, { value: "SMALLAPARTMENT", content: "빌라" }, { value: "HOUSE", content: "주택" }]}
+            options={[{ value: "APARTMENT", content: "아파트" }, { value: "SMALL_APARTMENT", content: "빌라" }, { value: "HOUSE", content: "주택" }]}
             placeholder={"선택"}
             context={context}
             isModifiable={true}
+            errors={null}
+            setErrors={null}
           />
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
@@ -83,6 +123,8 @@ function PortfolioAddForm() {
             placeholder={"공급 면적을 입력해주세요 - 단위: 평"}
             context={context}
             isModifiable={true}
+            errors={null}
+            setErrors={null}
           />
           <GridInputBox
             label={"전용면적"}
@@ -91,6 +133,8 @@ function PortfolioAddForm() {
             placeholder={"전용 면적을 입력해주세요 - 단위: 평"}
             context={context}
             isModifiable={true}
+            errors={null}
+            setErrors={null}
           />
         </div>
 
@@ -105,6 +149,8 @@ function PortfolioAddForm() {
             placeholder={null}
             context={context}
             isModifiable={true}
+            errors={null}
+            setErrors={null}
           />
           <GridInputBox
             label={"공사완료일"}
@@ -113,6 +159,8 @@ function PortfolioAddForm() {
             placeholder={null}
             context={context}
             isModifiable={true}
+            errors={null}
+            setErrors={null}
           />
         </div>
 
@@ -124,6 +172,8 @@ function PortfolioAddForm() {
             placeholder={"시공비용을 입력해 주세요 - 단위: 만원"}
             context={context}
             isModifiable={true}
+            errors={null}
+            setErrors={null}
           />
           <GridSelectBox
             isLabel={true}
@@ -133,11 +183,13 @@ function PortfolioAddForm() {
             options={[{ value: "PART", content: "부분시공" }, { value: "ALL", content: "전체시공" }]}
             context={context}
             isModifiable={true}
+            errors={null}
+            setErrors={null}
           />
         </div>
 
         {/** 대표 이미지 업로드 박스 추가 */}
-        <ThumbnailUploadBox context={context} />
+        <ThumbnailUploadBox context={context} errors={errors} setErrors={setErrors} />
 
         {/* 이미지 업로드 박스 추가 */}
         <ImageFileUploadBox context={context} />
@@ -145,9 +197,22 @@ function PortfolioAddForm() {
         <div className='flex justify-center'>
           <button
             onClick={handleSubmit}
-            className='text-xs px-4 py-2 lg:text-base lg:px-6 lg:py-2 font-body bg-black hover:opacity-75 text-white rounded-md'>등록</button>
+            className='text-xs px-4 py-2 lg:text-base lg:px-6 lg:py-2 font-body bg-black hover:opacity-75 text-white rounded-md'
+            disabled={isFetchingModalOpen}
+          >
+            등록
+          </button>
         </div>
       </form>
+
+      {isFetchingModalOpen &&
+        <FetchingModal />
+      }
+
+
+      {isWarningModalOpen &&
+        <ResultModal title={"경고"} content={"필수 입력사항을 모두 입력해주세요."} callbackFn={() => setIsWarningModalOpen(false)} />
+      }
     </div>
   )
 }

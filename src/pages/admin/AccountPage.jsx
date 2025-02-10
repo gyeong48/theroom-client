@@ -1,12 +1,15 @@
 import React from 'react'
-import AccountList from '../../components/admin/AccountList'
 import MainTitle from '../../components/admin/MainTitle'
+import { AccountProvider } from '../../context/AccountProvider'
+import AccountModifyForm from '../../components/admin/AccountModifyForm'
 
 function AccountPage() {
     return (
         <div className='pt-20'>
             <MainTitle content={"Account List"} button={"등록"} path={"./add"} />
-            <AccountList />
+            <AccountProvider>
+                <AccountModifyForm />
+            </AccountProvider>
         </div>
     )
 }

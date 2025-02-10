@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import InfoBox from './InfoBox';
 import InfoHeader from './InfoHeader';
 import { getContactList } from '../../api/contactApi';
+import FetchingModal from '../common/FetchingModal';
 
 const ContactList = () => {
     const [contacts, setContacts] = useState(null)
@@ -14,6 +15,7 @@ const ContactList = () => {
                 console.log(res);
                 setContacts(res.data);
                 setFilteredData(res.data);
+
             })
     }, [])
 
@@ -23,6 +25,8 @@ const ContactList = () => {
             status === 'all' ? contacts : contacts.filter(item => item.status === status)
         );
     };
+
+    if (!contacts) return <FetchingModal />
 
     return (
         <div className="pt-4 px-1 md:px-4 lg:px-7">

@@ -2,11 +2,14 @@ import React, { useState, useContext } from 'react'
 import GridInputBox from '../common/GridInputBox';
 import AddressBox from '../common/AddressBox';
 import { CompanyInfoContext } from '../../context/CompanyInfoProvider';
+import { postCompanyInfo } from '../../api/contentApi';
+import FetchingModal from '../common/FetchingModal';
 
 function CompanyInfoForm() {
     const context = CompanyInfoContext;
     const { formData } = useContext(context);
     const [isModifiable, setIsModifiable] = useState(false);
+    const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
 
     const handleModify = (e) => {
         e.preventDefault();
@@ -16,7 +19,15 @@ function CompanyInfoForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
+
+        postCompanyInfo(formData)
+            .then(res => {
+                console.log(res);
+                setIsFetchingModalOpen(false);
+            })
+
         setIsModifiable(false);
+        setIsFetchingModalOpen(true);
     }
 
     return (
@@ -24,11 +35,13 @@ function CompanyInfoForm() {
             <form className="pt-10 space-y-14 bg-white p-6">
                 <GridInputBox
                     label={"대표자"}
-                    id={"name"}
+                    id={"representative"}
                     type={"text"}
                     placeholder={"이름"}
                     context={context}
                     isModifiable={isModifiable}
+                    errors={null}
+                    setErrors={null}
                 />
                 <GridInputBox
                     label={"이메일"}
@@ -37,6 +50,8 @@ function CompanyInfoForm() {
                     placeholder={"이메일"}
                     context={context}
                     isModifiable={isModifiable}
+                    errors={null}
+                    setErrors={null}
                 />
                 <GridInputBox
                     label={"연락처"}
@@ -45,10 +60,17 @@ function CompanyInfoForm() {
                     placeholder={"연락처"}
                     context={context}
                     isModifiable={isModifiable}
+                    errors={null}
+                    setErrors={null}
                 />
 
                 {/* 주소 검색 */}
-                <AddressBox context={context} isModifiable={isModifiable} />
+                <AddressBox
+                    context={context}
+                    isModifiable={isModifiable}
+                    errors={null}
+                    setErrors={null}
+                />
 
                 <div className='flex justify-center items-center'>
                     {isModifiable ?
@@ -68,6 +90,10 @@ function CompanyInfoForm() {
                     }
                 </div>
             </form>
+
+            {isFetchingModalOpen &&
+                <FetchingModal />
+            }
         </div>
     )
 }

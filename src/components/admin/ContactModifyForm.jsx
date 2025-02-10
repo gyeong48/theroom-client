@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import StatusToggleButton from './StatusToggleButton';
 import { defaultDate } from '../../util/localDate';
 import { deleteContact, getDownloadFile, putModifyContact } from '../../api/contactApi';
+import FetchingModal from '../common/FetchingModal';
 
 function ContactModifyForm() {
     const { id } = useParams()
@@ -18,6 +19,7 @@ function ContactModifyForm() {
     const [isModifiable, setIsModifiable] = useState(false);
     const [memo, setMemo] = useState(formData["memo"]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
 
     const handleChange = (e) => {
         setMemo(e.target.value)
@@ -58,7 +60,10 @@ function ContactModifyForm() {
         putModifyContact(id, contactModifyFormData)
             .then(res => {
                 console.log(res);
+                setIsFetchingModalOpen(false);
             })
+
+        setIsFetchingModalOpen(true);
     }
 
     const handleOpenModal = (e) => {
@@ -121,6 +126,8 @@ function ContactModifyForm() {
                         placeholder={"이름을 입력해주세요"}
                         context={context}
                         isModifiable={isModifiable}
+                        errors={null}
+                        setErrors={null}
                     />
                     <GridInputBox
                         label={"이메일"}
@@ -129,6 +136,8 @@ function ContactModifyForm() {
                         placeholder={"이메일을 입력해주세요"}
                         context={context}
                         isModifiable={isModifiable}
+                        errors={null}
+                        setErrors={null}
                     />
                     <GridInputBox
                         label={"연락처"}
@@ -137,6 +146,8 @@ function ContactModifyForm() {
                         placeholder={"연락처를 입력해주세요"}
                         context={context}
                         isModifiable={isModifiable}
+                        errors={null}
+                        setErrors={null}
                     />
                 </div>
             </div>
@@ -154,6 +165,8 @@ function ContactModifyForm() {
                         placeholder={"선택"}
                         context={context}
                         isModifiable={isModifiable}
+                        errors={null}
+                        setErrors={null}
                     />
                     <GridInputBox
                         label={"면적"}
@@ -162,11 +175,16 @@ function ContactModifyForm() {
                         placeholder={"분양 면적을 입력해주세요 - 단위: 평"}
                         context={context}
                         isModifiable={isModifiable}
+                        errors={null}
+                        setErrors={null}
                     />
                 </div>
 
                 {/* 주소 검색 */}
-                <AddressBox context={context} isModifiable={isModifiable} />
+                <AddressBox context={context} isModifiable={isModifiable}
+                    errors={null}
+                    setErrors={null}
+                />
             </div>
 
             <div className='font-body'>
@@ -181,6 +199,8 @@ function ContactModifyForm() {
                         placeholder={null}
                         context={context}
                         isModifiable={isModifiable}
+                        errors={null}
+                        setErrors={null}
                     />
                     <GridInputBox
                         label={"입주예정일"}
@@ -189,6 +209,8 @@ function ContactModifyForm() {
                         placeholder={null}
                         context={context}
                         isModifiable={isModifiable}
+                        errors={null}
+                        setErrors={null}
                     />
                 </div>
                 <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
@@ -199,6 +221,8 @@ function ContactModifyForm() {
                         placeholder={"단위: 만원"}
                         context={context}
                         isModifiable={isModifiable}
+                        errors={null}
+                        setErrors={null}
                     />
                     <GridSelectBox
                         isLabel={true}
@@ -208,6 +232,8 @@ function ContactModifyForm() {
                         options={[{ value: "PART", content: "부분시공" }, { value: "ALL", content: "전체시공" }]}
                         context={context}
                         isModifiable={isModifiable}
+                        errors={null}
+                        setErrors={null}
                     />
                 </div>
             </div>
@@ -295,6 +321,10 @@ function ContactModifyForm() {
                     checkFn={handleCheck}
                     cancelFn={handleCancel}
                 />
+            }
+
+            {isFetchingModalOpen &&
+                <FetchingModal />
             }
         </form>
     )

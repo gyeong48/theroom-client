@@ -1,12 +1,16 @@
 import React, { createContext, useState } from 'react'
+import { useSelector } from 'react-redux';
 
 export const AccountContext = createContext();
 
 export function AccountProvider({ children }) {
+  const loginState = useSelector(state => state.loginSlice);
+
   const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: ""
+    username: loginState.username,
+    currentPassword: "",
+    newPassword: "",
+    newPasswordCheck: ""
   })
 
   return (

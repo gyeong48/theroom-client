@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { getPortfolioModifyDetail } from '../api/portfolioApi';
+import FetchingModal from '../components/common/FetchingModal';
 
 export const PortfolioModifyContext = createContext();
 
@@ -36,7 +37,7 @@ export function PortfolioModifyProvider({ children }) {
             });
     }, [id]);
 
-    if (!formData) return <p>로딩 중...</p>;
+    if (!formData) return <FetchingModal />
 
     return (
         <PortfolioModifyContext.Provider value={{ formData, setFormData }}>

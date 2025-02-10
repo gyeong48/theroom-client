@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import MapInnerButton from './MapInnerButton';
 
 const { kakao } = window;
 
-function Location() {
+function Location({ location }) {
     let map;
     let marker;
+    const { latitude, longitude } = location;
 
     useEffect(() => {
         const mapContainer = document.getElementById('map')
         const mapOption = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            center: new kakao.maps.LatLng(latitude, longitude),
             level: 3
         };
 
         map = new kakao.maps.Map(mapContainer, mapOption);
 
-        const markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+        const markerPosition = new kakao.maps.LatLng(latitude, longitude);
         marker = new kakao.maps.Marker({
             position: markerPosition
         });
@@ -35,13 +36,13 @@ function Location() {
     }
 
     const handleRefreshClick = () => {
-        const center = new kakao.maps.LatLng(33.450701, 126.570667);
+        const center = new kakao.maps.LatLng(latitude, longitude);
         map.setCenter(center);
         map.setLevel(3);
     }
 
     return (
-        <div className='relative mt-10'>
+        <div className='relative'>
             <div id="map" style={{ width: "100%", height: "350px" }}></div>
             <div className='absolute top-1/3 right-1 z-50'>
                 <MapInnerButton image={"plus.png"} onClick={handleZoomInClick} />

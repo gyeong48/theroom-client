@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import PrevArrow from './PrevArrow';
 import NextArrow from './NextArrow';
+import { getMainImages } from '../../api/contentApi';
+import { useNavigate } from 'react-router-dom';
+import FetchingModal from '../common/FetchingModal';
 
 function ImageSlider() {
-  const images = [
-    '/assets/images/image1.jpg',
-    '/assets/images/image2.jpg',
-    '/assets/images/image3.jpg',
-    '/assets/images/image4.jpg',
-    '/assets/images/image5.jpg'
-  ]
+  const navigate = useNavigate();
+  const [images, setImages] = useState(null);
+
+  useEffect(() => {
+    getMainImages()
+      .then(res => {
+        console.log(res.data);
+        setImages(res.data)
+      })
+  }, [])
+
+  const handleMoveContact = () => {
+    navigate({ pathname: "../contact" })
+  }
 
   const settings = {
     fade: true,
@@ -25,6 +35,8 @@ function ImageSlider() {
     nextArrow: <NextArrow />, // 커스텀 다음 버튼
   };
 
+  if (!images) return <FetchingModal />
+
   return (
     <div className="relative h-screen overflow-hidden">
       <Slider {...settings}>
@@ -32,15 +44,18 @@ function ImageSlider() {
           <div key={index} className="w-full h-screen">
             <div
               className="w-full h-full bg-cover bg-center"
-              style={{ backgroundImage: `url(${image})` }}
+              style={{ backgroundImage: `url(http://localhost:8080/api/content/view/${image.uploadedName})` }}
             />
           </div>
         ))}
       </Slider>
       <div className="absolute inset-0 flex items-center justify-center">
-        <h1 className="text-white text-4xl md:text-6xl font-bold drop-shadow-lg">
-          Welcome to the Slider
-        </h1>
+        <button
+          className="text-white text-sm md:text-lg lg:text-base drop-shadow-lg border rounded-3xl px-6 py-3 hover:bg-white hover:text-black ease-in-out duration-300"
+          onClick={handleMoveContact}
+        >
+          견적문의하기
+        </button>
       </div>
     </div>
   );

@@ -1,40 +1,65 @@
 import React, { useEffect, useState } from 'react'
 import TextareaAutosize from "react-textarea-autosize";
-import { getContents } from '../../api/contentApi';
-
+import { deleteContent, getContents, postContents } from '../../api/contentApi';
+import FetchingModal from '../common/FetchingModal';
 
 function ContentForm({ type }) {
-    const [contents, setContents] = useState([]);
-    const [isModifiable, setIsModifiable] = useState();
+    const [contents, setContents] = useState(null);
+    const [isModifiable, setIsModifiable] = useState(false);
+    const [deleteFlag, setDeleteFlag] = useState(false);
+    const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
 
     useEffect(() => {
         getContents(type).then(res => {
             console.log(res.data);
             setContents(res.data);
         })
-    }, [type])
+    }, [type, deleteFlag])
 
+    const handleChangeTitle = (e, index) => {
+        const newContents = [...contents];
+        newContents[index].title = e.target.value;
+        setContents(newContents);
+    };
 
-    const handleChange = (e, index) => {
+    const handleChangeContent = (e, index) => {
         const newContents = [...contents];
         newContents[index].str = e.target.value;
         setContents(newContents);
     };
 
-    const handleRemoveContent = (e, index) => {
+    const handleRemoveContent = (e, index, id) => {
         e.preventDefault();
+        console.log(id);
         setContents(prev => prev.filter((_, i) => index !== i));
+
+        if (id != null) {
+            deleteContent(type, id)
+                .then(res => {
+                    console.log(res);
+                    setDeleteFlag(prev => !prev);
+                })
+        }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(contents);
-        setIsModifiable(false);
+        console.log(type);
+
+        postContents(type, contents)
+            .then(res => {
+                console.log(res);
+                setIsFetchingModalOpen(false);
+                setIsModifiable(false);
+            })
+
+        setIsFetchingModalOpen(true);
     }
 
     const handleAddContent = (e) => {
         e.preventDefault();
-        setContents(prev => [...prev, { id: null, str: "" }])
+        setContents(prev => [...prev, { id: null, title: "", str: "" }]);
     }
 
     const handleModify = (e) => {
@@ -42,7 +67,7 @@ function ContentForm({ type }) {
         setIsModifiable(true);
     }
 
-    if (!contents) return <p>로딩 중...</p>;
+    if (!contents) return <FetchingModal />
 
     return (
         <div className="max-w-3xl mx-auto px-4 py-8">
@@ -56,7 +81,7 @@ function ContentForm({ type }) {
                             {isModifiable &&
                                 <button
                                     className="block text-xs lg:text-sm font-semibold text-gray-700"
-                                    onClick={(e) => handleRemoveContent(e, index)}
+                                    onClick={(e) => handleRemoveContent(e, index, c.id)}
                                     disabled={!isModifiable}
                                 >
                                     삭제
@@ -64,14 +89,22 @@ function ContentForm({ type }) {
                             }
                         </div>
 
-                        <TextareaAutosize
-                            value={c.str}
-                            onChange={(e) => handleChange(e, index)}
-                            className={`w-full p-1 border-b border-gray-300 focus:outline-none text-sm lg:text-base placeholder:text-xs md:placeholder:text-sm lg:placeholder:text-base ${!isModifiable ? "bg-gray-100" : "bg-white"} resize-none`}
-                            minRows={1}
-                            placeholder="내용을 입력하세요."
-                            readOnly={!isModifiable}
-                        />
+                        <div>
+                            <input
+                                type='text'
+                                value={c.title}
+                                onChange={(e) => handleChangeTitle(e, index)}
+                                className={`w-full p-1 border-b border-gray-300 focus:outline-none text-sm lg:text-base placeholder:text-xs md:placeholder:text-sm lg:placeholder:text-base ${!isModifiable ? "bg-gray-100" : "bg-white"}`}
+                            />
+                            <TextareaAutosize
+                                value={c.str}
+                                onChange={(e) => handleChangeContent(e, index)}
+                                className={`w-full p-1 border-b border-gray-300 focus:outline-none text-sm lg:text-base placeholder:text-xs md:placeholder:text-sm lg:placeholder:text-base ${!isModifiable ? "bg-gray-100" : "bg-white"} resize-none`}
+                                minRows={1}
+                                placeholder="내용을 입력하세요."
+                                readOnly={!isModifiable}
+                            />
+                        </div>
                     </div>
                 </div>
             ))}
@@ -102,6 +135,10 @@ function ContentForm({ type }) {
                     </button>
                 }
             </div>
+
+            {isFetchingModalOpen &&
+                <FetchingModal />
+            }
         </div>
     )
 }

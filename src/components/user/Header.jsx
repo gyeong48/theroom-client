@@ -16,10 +16,10 @@ function Header() {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 ${isScrolled ? "bg-white shadow-md" : "border-b border-black "}`}>
+    <nav className={`fixed top-0 left-0 w-full z-50 ${isScrolled ? "bg-white shadow-md" : "border-b border-black"} ${isMenuOpen ? "bg-white opacity-95" : ""}`}>
       <div className="flex items-center justify-between p-4">
         {/* 로고 */}
-        <Link to={"/"}><div className="text-2xl font-bold text-gray-800">MyLogo</div></Link>
+        <Link to={"/"}><img src="/assets/logos/theroomlogo.png" alt="The Room Logo" className="w-28 h-auto ml-0 md:ml-4" /></Link>
 
         {/* 햄버거 메뉴 버튼 (화면이 작아지면 나타남) */}
         <button
@@ -45,15 +45,12 @@ function Header() {
         </button>
 
         {/* 메뉴 리스트 */}
-        <ul className={`md:flex md:flex-row md:justify-end md:space-x-4 md:space-y-0 md:items-center md:static md:top-auto md:left-auto md:p-0 md:h-0 md:opacity-100 ${isMenuOpen ? "flex" : "hidden"} flex-col space-x-0 space-y-4 absolute p-4 top-full left-0 w-full h-screen bg-white opacity-80`}>
+        <ul className={`md:flex md:flex-row md:justify-end md:space-x-4 md:space-y-0 md:items-center md:static md:top-auto md:left-auto md:p-0 md:h-0 md:opacity-100 ${isMenuOpen ? "flex" : "hidden"} flex-col space-x-0 space-y-4 absolute p-4 top-full left-0 w-full h-screen bg-white opacity-95`}>
           <li>
             <Link to={"/about"} className="text-lg md:text-base font-heading font-semibold">ABOUT</Link>
           </li>
           <li>
             <Link to={"/brand"} className="text-lg md:text-base font-heading font-semibold">BRAND</Link>
-          </li>
-          <li>
-            <Link to={"/services"} className="text-lg md:text-base font-heading font-semibold">SERVICES</Link>
           </li>
           <li>
             <Link to={"/portfolio"} className="text-lg md:text-base font-heading font-semibold">PORTFOLIO</Link>

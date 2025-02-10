@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getPortfolioList } from '../../api/portfolioApi'
+import FetchingModal from '../common/FetchingModal'
 
 function PortfolioImageList() {
-    const [portfolios, setPortfolios] = useState([])
+    const [portfolios, setPortfolios] = useState(null)
 
     useEffect(() => {
         getPortfolioList()
             .then(res => setPortfolios(res.data))
     }, [])
+
+    if (!portfolios) return <FetchingModal />
 
     return (
         <div className='pt-10 flex flex-wrap items-center'>

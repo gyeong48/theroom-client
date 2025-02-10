@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['"Playfair Display"', 'serif'],
-        body: ['"Mulish"', 'sans-serif'],
+        heading: ['"Proxima Nova Bold"', 'sans-serif'],
+        body: ['"Proxima Nova Bold"', 'sans-serif'],
         sans: ['"Noto Sans KR"', 'sans-serif'],
       },
     },

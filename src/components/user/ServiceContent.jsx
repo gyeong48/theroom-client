@@ -1,48 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getContents } from '../../api/contentApi';
+import FetchingModal from '../common/FetchingModal';
 
 function ServiceContent() {
+    const [serviceContents, setServiceContents] = useState(null);
 
-    const serviceContents = [
-        `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.`,
+    useEffect(() => {
+        getContents("service")
+            .then(res => {
+                console.log(res.data);
+                const contents = res.data;
+                const newContents = contents.map((content, index) => {
+                    const obj = {
+                        title: content.title,
+                        strArr: content.str.split("\n")
+                    }
 
-        `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.`,
+                    return obj;
+                })
+                setServiceContents(newContents);
+            })
+    }, [])
 
-        `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.`,
-
-        `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.`
-    ]
+    if (!serviceContents) return <FetchingModal />
 
     return (
         <div>
             {serviceContents.map((content, index) => (
-                <div key={index} className='pt-10 border-b border-solid border-black'>
-                    <p className="font-body px-4 pb-4">
-                        {content}
-                    </p>
+                <div key={index} className='pt-20 flex flex-col justify-center md:items-center'>
+                    <h1 className='mb-6 font-bold text-base sm:text-lg md:text-2xl font-body'>{content.title}</h1>
+                    {content.strArr && content.strArr.map((str, index) => (
+                        <p className="font-body font-semibold px-0 md:px-4 pb-4 text-xs sm:text-sm md:text-base text-gray-500">
+                            {str}
+                        </p>
+                    ))}
                 </div>
             ))}
         </div>

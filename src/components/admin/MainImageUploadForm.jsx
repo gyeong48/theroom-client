@@ -1,22 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ResultModal from '../common/ResultModal';
-
-const initImages = [
-    { name: "test1.png", filename: "test1.png", size: 1024 * 1024 },
-    { name: "test2.png", filename: "test2.png", size: 1024 * 1024 },
-    { name: "test3.png", filename: "test3.png", size: 1024 * 1024 },
-    { name: "test4.png", filename: "test4.png", size: 1024 * 1024 },
-    { name: "test5.png", filename: "test5.png", size: 1024 * 1024 },
-    { name: "test6.png", filename: "test6.png", size: 1024 * 1024 },
-    { name: "test7.png", filename: "test7.png", size: 1024 * 1024 },
-]
+import { getMainImages, postMainImages } from '../../api/contentApi';
+import FetchingModal from '../common/FetchingModal';
 
 function MainImageUploadForm() {
     const MAX_SIZE = 100 * 1024 * 1024;
-    const [imageFiles, setImageFiles] = useState(initImages);
-    const [totalFileSize, setTotalFileSize] = useState(Array.from(initImages).reduce((acc, file) => acc + file.size, 0));
+    const [imageFiles, setImageFiles] = useState([]);
+    const [totalFileSize, setTotalFileSize] = useState(Array.from(imageFiles).reduce((acc, file) => acc + file.size, 0));
     const [isModifiable, setIsModifiable] = useState(false);
     const [isOutOfSize, setIsOutOfSize] = useState(false);
+    const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
+
+    useEffect(() => {
+        getMainImages()
+            .then((res) => {
+                console.log(res.data);
+                setImageFiles(res.data);
+            })
+    }, [])
+
 
     const handleFileChange = (e) => {
         const prevSize = Array.from(imageFiles).reduce((acc, file) => acc + file.size, 0);
@@ -51,21 +53,40 @@ function MainImageUploadForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-
-        for (let i = 0; i < imageFiles.length; i++) {
-            formData.append('files', imageFiles[i]);
-        }
+        const uploadImageFilenames = [];
 
         console.log(imageFiles);
-        
 
-        setIsModifiable(false);
+        for (let i = 0; i < imageFiles.length; i++) {
+            if (imageFiles[i] instanceof File) {
+                formData.append('imageFiles', imageFiles[i]);
+            } else {
+                uploadImageFilenames.push(imageFiles[i].uploadedName);
+            }
+        }
+
+        if (imageFiles.length === 0) {
+            formData.append("imageFiles", null);
+        }
+
+        formData.append("uploadImageFilenames", uploadImageFilenames);
+
+        postMainImages(formData)
+            .then(res => {
+                console.log(res);
+                setIsModifiable(false);
+                setIsFetchingModalOpen(false);
+            })
+
+        setIsFetchingModalOpen(true);
     }
 
     const handleModify = (e) => {
         e.preventDefault();
         setIsModifiable(true);
     }
+
+    if (imageFiles === null) return <FetchingModal />
 
     return (
         <div className="max-w-[1000px] mx-auto px-4 py-8 p-6 mt-6">
@@ -84,39 +105,41 @@ function MainImageUploadForm() {
                         </div>
                     ))}
                 </div>
-                <label className='block w-full border rounded-md'>
-                    <div className='flex items-center hover:cursor-pointer pb-1'>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            stroke="currentColor"
-                            className="w-8 h-8 text-gray-600"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M12 16v-8m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"
-                            />
-                        </svg>
-                        <div className='ml-2 mt-2 font-body font-semibold text-gray-600'>이미지를 선택해 주세요.</div>
-                    </div>
-                    <input
-                        type="file"
-                        multiple={true}
-                        className='hidden'
-                        onChange={handleFileChange}
-                        disabled={!isModifiable}
-                    />
-                </label>
+                {isModifiable &&
+                    <label className='block w-full border rounded-md'>
+                        <div className='flex items-center hover:cursor-pointer pb-1'>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={2}
+                                stroke="currentColor"
+                                className="w-8 h-8 text-gray-600"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M12 16v-8m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"
+                                />
+                            </svg>
+                            <div className='ml-2 mt-2 font-body font-semibold text-gray-600'>이미지를 선택해 주세요.</div>
+                        </div>
+                        <input
+                            type="file"
+                            multiple={true}
+                            className='hidden'
+                            onChange={handleFileChange}
+                            disabled={!isModifiable}
+                        />
+                    </label>
+                }
             </div>
 
             <div className='mt-4 flex justify-center items-center'>
                 {isModifiable ?
                     <button
                         onClick={handleSubmit}
-                        className='text-xs px-4 py-2 lg:text-base lg:px-6 lg:py-2 font-body bg-black hover:opacity-75 text-white rounded-md'
+                        className='text-xs px-4 py-2 lg:text-base lg:px-6 lg:py-2 font-body bg-green-400 hover:opacity-75 text-white rounded-md'
                     >
                         저장
                     </button>
@@ -136,6 +159,10 @@ function MainImageUploadForm() {
                     content={`전체 파일 용량은 ${MAX_SIZE / 1024 / 1024}MB를 초과할 수 없습니다.`}
                     callbackFn={(e) => handleCloseModal(e)}
                 />
+            }
+
+            {isFetchingModalOpen &&
+                <FetchingModal />
             }
         </div>
     )

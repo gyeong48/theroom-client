@@ -6,8 +6,8 @@ import ServiceContent from '../../components/user/ServiceContent'
 function ServicesPage() {
     return (
         <BasicLayout>
-            <div className="max-w-3xl mx-auto px-4 py-8">
-                <SubTitle content={"SERVICES"} />
+            <div className="max-w-6xl mx-auto px-4 py-8">
+                <SubTitle content={"BRAND"} />
                 <ServiceContent />
             </div>
         </BasicLayout>

@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getLogout } from "../../api/accountApi";
+import { logout } from "../../slices/loginSlice";
+import { useDispatch } from "react-redux";
 
 const Sidebar = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const submenu = [
         { menu: "메인", url: "/admin/content/main" },
@@ -30,8 +34,17 @@ const Sidebar = () => {
         navigate({ pathname: url });
     }
 
+    const handleLogout = () => {
+        getLogout()
+            .then(res => {
+                console.log(res);
+                dispatch(logout());
+                navigate({ pathname: "/admin/login", replace: true });
+            })
+    }
+
     return (
-        <div className="relative">
+        <div className="relative z-50">
             {/* 토글 버튼 */}
             <button
                 onClick={toggleSidebar}
@@ -40,7 +53,7 @@ const Sidebar = () => {
                 {isOpen ? "" : "☰"}
             </button>
 
-            <div onClick={handleClose} className={`${isOpen ? "w-screen h-screen absolute bg-gray-200 opacity-50" : ""}`}></div>
+            <div onClick={handleClose} className={`${isOpen ? "w-screen h-screen fixed bg-gray-200 opacity-50" : ""}`}></div>
 
             <div className={`w-64 h-screen bg-gray-800 text-white p-4 fixed ${isOpen ? "block" : "hidden"} lg:block`}>
                 <h2 className="text-3xl font-bold mb-6">TheRoom</h2>
@@ -93,6 +106,14 @@ const Sidebar = () => {
                                 </li>
                             ))}
                         </ul>
+                    </li>
+                    <li className="mb-2 border-b">
+                        <button
+                            onClick={handleLogout}
+                            className="w-full text-left p-2 hover:bg-gray-600 rounded flex justify-between"
+                        >
+                            로그아웃
+                        </button>
                     </li>
                 </ul>
             </div>

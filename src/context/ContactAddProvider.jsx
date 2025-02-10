@@ -19,7 +19,7 @@ export function ContactAddProvider({ children }) {
     budget: "",
     interiorType: "",
     files: [],
-    pesonalInformationAgree: false
+    personalInformationAgree: false
   })
 
   return (

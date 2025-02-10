@@ -16,18 +16,18 @@ export const getPortfolioList = async () => {
 }
 
 export const getPortfolioDetail = async (id) => {
-    const res = await axios.get(`${baseUrl}/${id}`);
+    const res = await axios.get(`${baseUrl}/read/${id}`);
     return res.data;
 }
 
 export const getPortfolioModifyDetail = async (id) => {
-    const res = await axios.get(`${baseUrl}/${id}/modify`);
+    const res = await axios.get(`${baseUrl}/modify/${id}`);
     return res.data;
 }
 
 export const putModifyPortfolio = async (id, body) => {
     const header = { header: { "Content-Type": "multipart/form-data" } };
-    const res = await axios.put(`${baseUrl}/${id}/modify`, body, header);
+    const res = await axios.put(`${baseUrl}/modify/${id}`, body, header);
     return res.data;
 }
 
