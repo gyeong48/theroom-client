@@ -5,7 +5,6 @@ const ProtectedRouter = ({ children }) => {
     const loginState = useSelector(state => state.loginSlice);
 
     if (!(loginState.username && loginState.roles === "ROLE_ADMIN")) {
-        console.log(loginState);
         return <Navigate to="/admin/login" replace />;
     }
 

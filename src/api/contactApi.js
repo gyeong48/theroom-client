@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const host = "http://localhost:8080"
+const host = process.env.REACT_APP_SERVER_URL;
 const baseUrl = `${host}/api/contact`
 axios.defaults.withCredentials = true;
 

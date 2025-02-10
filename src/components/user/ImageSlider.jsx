@@ -11,6 +11,7 @@ import FetchingModal from '../common/FetchingModal';
 function ImageSlider() {
   const navigate = useNavigate();
   const [images, setImages] = useState(null);
+  const host = process.env.REACT_APP_SERVER_URL;
 
   useEffect(() => {
     getMainImages()
@@ -43,7 +44,7 @@ function ImageSlider() {
           <div key={index} className="w-full h-screen">
             <div
               className="w-full h-full bg-cover bg-center"
-              style={{ backgroundImage: `url(http://localhost:8080/api/content/view/${image.uploadedName})` }}
+              style={{ backgroundImage: `url(${host}/api/content/view/${image.uploadedName})` }}
             />
           </div>
         ))}

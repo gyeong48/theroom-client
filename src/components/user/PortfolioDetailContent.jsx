@@ -9,6 +9,7 @@ function PortfolioDetailContent() {
     const { id } = useParams();
     const [portfolioDetail, setPortfolioDetail] = useState(null);
     const [infos, setInfos] = useState(null)
+    const host = process.env.REACT_APP_SERVER_URL;
 
     useEffect(() => {
         getPortfolioDetail(id)
@@ -55,7 +56,7 @@ function PortfolioDetailContent() {
                             className="w-full max-w-6xl overflow-hidden shadow-md"
                         >
                             <img
-                                src={`http://localhost:8080/api/portfolio/view/${filename}`}
+                                src={`${host}/api/portfolio/view/${filename}`}
                                 alt={`Interior ${index + 1}`}
                                 className="w-full h-auto object-cover"
                             />

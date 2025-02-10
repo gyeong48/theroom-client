@@ -5,6 +5,7 @@ import FetchingModal from '../common/FetchingModal'
 
 function PortfolioImageList() {
     const [portfolios, setPortfolios] = useState(null)
+    const host = process.env.REACT_APP_SERVER_URL;
 
     useEffect(() => {
         getPortfolioList()
@@ -20,7 +21,7 @@ function PortfolioImageList() {
                     <Link to={`/admin/portfolio/${portfolio.id}`}>
                         <div className='hover:opacity-75 hover:cursor-pointer hover:scale-95 transition-transform'>
                             <img
-                                src={`http://localhost:8080/api/portfolio/view/${portfolio.filename}`}
+                                src={`${host}/api/portfolio/view/${portfolio.filename}`}
                                 alt='no images'
                                 className='w-full aspect-[4/3] object-cover rounded-md'
                             >
