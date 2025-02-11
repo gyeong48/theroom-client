@@ -49,7 +49,7 @@ const AddressBox = ({ context, isModifiable, errors, setErrors, isEssential }) =
         setAddressData((prev) => ({ ...prev, mainAddress: addr }));
         setAddressData((prev) => ({ ...prev, detailAddress: "" }));
         setFormData(prev => ({ ...prev, postCode: data.zonecode, mainAddress: addr, detailAddress: "" }));
-        setErrors((prevErrors) => ({ ...prevErrors, mainAddress: validate("mainAddress", addr) }));
+        if (setErrors !== null) setErrors((prevErrors) => ({ ...prevErrors, mainAddress: validate("mainAddress", addr) }));
         document.getElementById("detailAddress").focus();
     }
 
@@ -62,7 +62,7 @@ const AddressBox = ({ context, isModifiable, errors, setErrors, isEssential }) =
         const { name, value } = e.target;
         setAddressData((prev) => ({ ...prev, [name]: value }));
         setFormData(prev => ({ ...prev, [name]: value }));
-        setErrors((prevErrors) => ({ ...prevErrors, detailAddress: validate("detailAddress", e.target.value) }));
+        if (setErrors !== null) setErrors((prevErrors) => ({ ...prevErrors, detailAddress: validate("detailAddress", e.target.value) }));
     }
 
     return (
