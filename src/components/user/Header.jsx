@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const instaUrl = process.env.REACT_APP_INSTA_URL
+  const blogUrl = process.env.REACT_APP_BLOG_URL
+  const youtubeUrl = process.env.REACT_APP_YOUTUBE_URL
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,7 +64,7 @@ function Header() {
             <Link to={"/contact"} className="text-lg md:text-base font-heading font-semibold">CONTACT</Link>
           </li>
           <li>
-            <a href="https://www.instagram.com" target="_blank" rel="noreferrer">
+            <a href={`${instaUrl}`} target="_blank" rel="noreferrer">
               <img
                 src="/assets/logos/instagram.png"
                 alt="instagram"
@@ -70,7 +73,7 @@ function Header() {
             </a>
           </li>
           <li>
-            <a href="https://blog.naver.com" target="_blank" rel="noreferrer">
+            <a href={`${blogUrl}`} target="_blank" rel="noreferrer">
               <img
                 src="/assets/logos/blog.png"
                 alt="blog"
@@ -79,7 +82,7 @@ function Header() {
             </a>
           </li>
           <li>
-            <a href="https://www.youtube.com" target="_blank" rel="noreferrer">
+            <a href={`${youtubeUrl}`} target="_blank" rel="noreferrer">
               <img
                 src="/assets/logos/youtube.png"
                 alt="youtube"
