@@ -9,6 +9,7 @@ import StatusToggleButton from './StatusToggleButton';
 import { defaultDate } from '../../util/localDate';
 import { deleteContact, getDownloadFile, putModifyContact } from '../../api/contactApi';
 import FetchingModal from '../common/FetchingModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 function ContactModifyForm() {
     const { id } = useParams()
@@ -20,6 +21,7 @@ function ContactModifyForm() {
     const [memo, setMemo] = useState(formData["memo"]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
+    const { moveToError } = useCustomMove();
 
     const handleChange = (e) => {
         setMemo(e.target.value)
@@ -60,6 +62,10 @@ function ContactModifyForm() {
         putModifyContact(id, contactModifyFormData)
             .then(res => {
                 setIsFetchingModalOpen(false);
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError();
             })
 
         setIsFetchingModalOpen(true);

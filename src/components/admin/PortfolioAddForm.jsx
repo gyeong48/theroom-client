@@ -11,8 +11,10 @@ import { defaultDate } from '../../util/localDate';
 import FetchingModal from '../common/FetchingModal';
 import { validate } from '../../util/validator';
 import ResultModal from '../common/ResultModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 function PortfolioAddForm() {
+  const { moveToError } = useCustomMove();
   const localDate = defaultDate;
   const navigate = useNavigate()
   const context = PortfolioAddContext;
@@ -78,6 +80,10 @@ function PortfolioAddForm() {
       .then(res => {
         setIsFetchingModalOpen(false);
         navigate({ pathname: "../portfolio" });
+      })
+      .catch(err => {
+        console.log(err);
+        moveToError();
       })
 
     setIsFetchingModalOpen(true);

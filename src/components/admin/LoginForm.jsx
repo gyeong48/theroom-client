@@ -2,14 +2,18 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { postLoginAsyncThunk } from '../../slices/loginSlice';
 import { useNavigate } from 'react-router-dom';
+import useCustomMove from '../../hooks/useCustomMove';
+import ResultModal from '../common/ResultModal';
 
 export default function LoginForm() {
+    const { moveToError } = useCustomMove();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: "",
         password: ""
     });
+    const [isResultModalOpen, setIsResultModalOpen] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,11 +22,20 @@ export default function LoginForm() {
         loginFormData.append("username", formData.username);
         loginFormData.append("password", formData.password);
 
-        const action = await dispatch(postLoginAsyncThunk(loginFormData));
+        try {
+            const action = await dispatch(postLoginAsyncThunk(loginFormData));
 
-        if (action.payload.username && action.payload.roles === "ROLE_ADMIN") {
-            navigate({ pathname: "/admin" })
+            if (action.payload.username && action.payload.roles === "ROLE_ADMIN") {
+                navigate({ pathname: "/admin" })
+            }
+        } catch (err) {
+            setIsResultModalOpen(true);
+            setFormData({
+                username: "",
+                password: ""
+            })
         }
+
     }
 
     const handleChange = (e) => {
@@ -60,6 +73,9 @@ export default function LoginForm() {
                     </button>
                 </form>
             </div>
+            {isResultModalOpen &&
+                <ResultModal title={"로그인 실패"} content={"아이디 또는 비밀번호가 일치하지 않습니다."} callbackFn={() => setIsResultModalOpen(false)} />
+            }
         </div>
     );
 }

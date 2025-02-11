@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { getLogout } from "../../api/accountApi";
 import { logout } from "../../slices/loginSlice";
 import { useDispatch } from "react-redux";
+import useCustomMove from "../../hooks/useCustomMove";
 
 const Sidebar = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { moveToError } = useCustomMove();
 
     const submenu = [
         { menu: "메인", url: "/admin/content/main" },
@@ -39,6 +41,10 @@ const Sidebar = () => {
             .then(res => {
                 dispatch(logout());
                 navigate({ pathname: "/admin/login", replace: true });
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError();
             })
     }
 

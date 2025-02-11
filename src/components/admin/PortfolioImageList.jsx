@@ -2,14 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getPortfolioList } from '../../api/portfolioApi'
 import FetchingModal from '../common/FetchingModal'
+import useCustomMove from '../../hooks/useCustomMove'
 
 function PortfolioImageList() {
     const [portfolios, setPortfolios] = useState(null)
     const host = process.env.REACT_APP_SERVER_URL;
+    const { moveToError } = useCustomMove();
 
     useEffect(() => {
         getPortfolioList()
             .then(res => setPortfolios(res.data))
+            .catch(err => {
+                console.log(err);
+                moveToError();
+            })
     }, [])
 
     if (!portfolios) return <FetchingModal />

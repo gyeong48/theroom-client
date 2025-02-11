@@ -11,8 +11,10 @@ import FetchingModal from '../common/FetchingModal'
 import ResultModal from '../common/ResultModal'
 import { useNavigate } from 'react-router-dom'
 import { validate } from '../../util/validator'
+import useCustomMove from '../../hooks/useCustomMove'
 
 function ContactAddForm() {
+    const { moveToError } = useCustomMove();
     const navigate = useNavigate();
     const localDate = defaultDate;
     const context = ContactAddContext;
@@ -85,6 +87,10 @@ function ContactAddForm() {
             .then(res => {
                 setIsFetchingModalOpen(false);
                 setIsResultModalOpen(true);
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError();
             })
 
         setIsFetchingModalOpen(true);

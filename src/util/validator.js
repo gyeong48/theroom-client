@@ -37,13 +37,21 @@ export const validate = (name, value) => {
         error = "대표 이미지는 필수입니다.";
     }
 
+    if (name === "currentPassword" && (!value || value === "")) {
+        error = "현재 비밀번호를 입력해주세요.";
+    }
+
+    if (name === "newPassword" && (!value || value === "")) {
+        error = "변경할 비밀번호를 입력해주세요.";
+    }
+
+    if (name === "newPasswordCheck" && (!value || value === "")) {
+        error = "변경할 비밀번호를 입력해주세요.";
+    }
+
     if (name === "newPasswordCheck" && (value === false)) {
         error = "변경할 비밀번호와 일치하지 않습니다.";
     }
-
-
-    console.log(error);
-
 
     return error;
 }

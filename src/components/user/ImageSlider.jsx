@@ -7,16 +7,22 @@ import NextArrow from './NextArrow';
 import { getMainImages } from '../../api/contentApi';
 import { useNavigate } from 'react-router-dom';
 import FetchingModal from '../common/FetchingModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 function ImageSlider() {
   const navigate = useNavigate();
   const [images, setImages] = useState(null);
   const host = process.env.REACT_APP_SERVER_URL;
+  const { moveToError } = useCustomMove();
 
   useEffect(() => {
     getMainImages()
       .then(res => {
         setImages(res.data)
+      })
+      .catch(err => {
+        console.log(err);
+        moveToError();
       })
   }, [])
 

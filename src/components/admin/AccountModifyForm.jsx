@@ -6,10 +6,12 @@ import { validate } from '../../util/validator';
 import FetchingModal from '../common/FetchingModal';
 import ResultModal from '../common/ResultModal';
 import { modifyAccount } from '../../api/accountApi';
+import useCustomMove from '../../hooks/useCustomMove';
 
 function AccountModifyForm() {
     const navigate = useNavigate();
     const context = AccountContext
+    const { moveToError } = useCustomMove();
     const { formData, setFormData } = useContext(context)
     const [isModifiable, setIsModifiable] = useState(false);
     const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
@@ -21,11 +23,21 @@ function AccountModifyForm() {
     });
 
     const checkError = () => {
+        const newErrors = Object.keys(errors).reduce((acc, key) => {
+            const error = validate(key, formData[key]);
+
+            if (error) acc[key] = error;
+            return acc;
+        }, {})
+
         if (formData.newPassword !== formData.newPasswordCheck) {
-            setErrors(prev => ({ ...prev, newPasswordCheck: validate("newPasswordCheck", false) }));
+            newErrors.newPasswordCheck = validate("newPasswordCheck", false)
+        }
+
+        setErrors(newErrors)
+
+        if (Object.keys(newErrors).length > 0) {
             return true;
-        } else {
-            setErrors(prev => ({ ...prev, newPasswordCheck: validate("newPasswordCheck", true) }));
         }
 
         return false;
@@ -44,6 +56,10 @@ function AccountModifyForm() {
                 setIsModifiable(false);
                 setIsFetchingModalOpen(false);
                 navigate({ pathname: "../" })
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError();
             })
 
         setIsFetchingModalOpen(true);

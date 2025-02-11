@@ -4,12 +4,14 @@ import AddressBox from '../common/AddressBox';
 import { CompanyInfoContext } from '../../context/CompanyInfoProvider';
 import { postCompanyInfo } from '../../api/contentApi';
 import FetchingModal from '../common/FetchingModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 function CompanyInfoForm() {
     const context = CompanyInfoContext;
     const { formData } = useContext(context);
     const [isModifiable, setIsModifiable] = useState(false);
     const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
+    const { moveToError } = useCustomMove();
 
     const handleModify = (e) => {
         e.preventDefault();
@@ -22,6 +24,10 @@ function CompanyInfoForm() {
         postCompanyInfo(formData)
             .then(res => {
                 setIsFetchingModalOpen(false);
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError();
             })
 
         setIsModifiable(false);

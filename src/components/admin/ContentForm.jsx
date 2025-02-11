@@ -2,17 +2,24 @@ import React, { useEffect, useState } from 'react'
 import TextareaAutosize from "react-textarea-autosize";
 import { deleteContent, getContents, postContents } from '../../api/contentApi';
 import FetchingModal from '../common/FetchingModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 function ContentForm({ type }) {
     const [contents, setContents] = useState(null);
     const [isModifiable, setIsModifiable] = useState(false);
     const [deleteFlag, setDeleteFlag] = useState(false);
     const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
+    const { moveToError } = useCustomMove();
 
     useEffect(() => {
-        getContents(type).then(res => {
-            setContents(res.data);
-        })
+        getContents(type)
+            .then(res => {
+                setContents(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError();
+            })
     }, [type, deleteFlag])
 
     const handleChangeTitle = (e, index) => {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ResultModal from '../common/ResultModal';
 import { getMainImages, postMainImages } from '../../api/contentApi';
 import FetchingModal from '../common/FetchingModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 function MainImageUploadForm() {
     const MAX_SIZE = 100 * 1024 * 1024;
@@ -10,11 +11,16 @@ function MainImageUploadForm() {
     const [isModifiable, setIsModifiable] = useState(false);
     const [isOutOfSize, setIsOutOfSize] = useState(false);
     const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
+    const { moveToError } = useCustomMove();
 
     useEffect(() => {
         getMainImages()
             .then((res) => {
                 setImageFiles(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError();
             })
     }, [])
 

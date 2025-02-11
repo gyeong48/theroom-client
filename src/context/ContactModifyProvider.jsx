@@ -2,12 +2,14 @@ import React, { createContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { getContactDetail } from '../api/contactApi';
 import FetchingModal from '../components/common/FetchingModal';
+import useCustomMove from '../hooks/useCustomMove';
 
 export const ContactModifyContext = createContext();
 
 export function ContactModifyProvider({ children }) {
   const { id } = useParams();
   const [formData, setFormData] = useState(null);
+  const { moveToError } = useCustomMove();
 
   useEffect(() => {
     getContactDetail(id)
@@ -34,6 +36,10 @@ export function ContactModifyProvider({ children }) {
           status: data.status,
           memo: data.memo,
         })
+          .catch(err => {
+            console.log(err);
+            moveToError();
+          })
       });
   }, [id]);
 

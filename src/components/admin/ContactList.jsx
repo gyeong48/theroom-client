@@ -3,11 +3,13 @@ import InfoBox from './InfoBox';
 import InfoHeader from './InfoHeader';
 import { getContactList } from '../../api/contactApi';
 import FetchingModal from '../common/FetchingModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 const ContactList = () => {
     const [contacts, setContacts] = useState(null)
     const [filteredData, setFilteredData] = useState(null);
     const [selectedType, setSelectedType] = useState('all');
+    const { moveToError } = useCustomMove();
 
     useEffect(() => {
         getContactList()
@@ -15,6 +17,10 @@ const ContactList = () => {
                 setContacts(res.data);
                 setFilteredData(res.data);
 
+            })
+            .catch(err => {
+                console.log();
+                moveToError();
             })
     }, [])
 

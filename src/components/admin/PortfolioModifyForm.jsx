@@ -12,9 +12,11 @@ import { defaultDate } from '../../util/localDate';
 import FetchingModal from '../common/FetchingModal';
 import { validate } from '../../util/validator';
 import ResultModal from '../common/ResultModal';
+import useCustomMove from '../../hooks/useCustomMove';
 
 function PortfolioModifyForm() {
   const localDate = defaultDate
+  const { moveToError } = useCustomMove();
   const navigate = useNavigate();
   const context = PortfolioModifyContext;
   const { id } = useParams();
@@ -84,9 +86,14 @@ function PortfolioModifyForm() {
     portfolioModifyFormData.append("thumbnailName", formData.thumbnailName);
     portfolioModifyFormData.append("uploadImageFilenames", uploadImageFilenames);
 
-    putModifyPortfolio(id, portfolioModifyFormData).then(res => {
-      navigate({ pathname: `../portfolio/${id}` });
-    })
+    putModifyPortfolio(id, portfolioModifyFormData)
+      .then(res => {
+        navigate({ pathname: `../portfolio/${id}` });
+      })
+      .catch(err => {
+        console.log(err);
+        moveToError();
+      })
   }
 
   const handleOpenModal = (e) => {

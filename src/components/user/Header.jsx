@@ -18,7 +18,7 @@ function Header() {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 ${isScrolled ? "bg-white shadow-md" : "border-b border-black"} ${isMenuOpen ? "bg-white opacity-95" : ""}`}>
+    <nav className={`fixed top-0 left-0 w-full z-[1055] ${isScrolled ? "bg-white shadow-md" : "border-b border-black"} ${isMenuOpen ? "bg-white opacity-95" : ""}`}>
       <div className="flex items-center justify-between p-4">
         {/* 로고 */}
         <Link to={"/"}><img src="/assets/logos/theroomlogo.png" alt="The Room Logo" className="w-28 h-auto ml-0 md:ml-4" /></Link>

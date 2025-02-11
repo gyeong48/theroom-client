@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getPortfolioDetail } from '../../api/portfolioApi';
 import FetchingModal from '../common/FetchingModal';
 import { buildingTypeConverter } from '../../util/typeConverter';
+import useCustomMove from '../../hooks/useCustomMove';
 
 function PortfolioDetailContent() {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ function PortfolioDetailContent() {
     const [portfolioDetail, setPortfolioDetail] = useState(null);
     const [infos, setInfos] = useState(null)
     const host = process.env.REACT_APP_SERVER_URL;
+    const { moveToError } = useCustomMove();
 
     useEffect(() => {
         getPortfolioDetail(id)
@@ -23,7 +25,11 @@ function PortfolioDetailContent() {
                     { subtitle: "시공기간", content: `${response.diffWeek}주` },
                     { subtitle: "지역", content: response.mainAddress },
                 ])
-            });
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError();
+            })
     }, [id])
 
     if (!portfolioDetail) return <FetchingModal />

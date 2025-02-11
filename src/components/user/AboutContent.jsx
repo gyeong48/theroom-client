@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Location from './Location'
 import { getCompanyInfo, getContents } from '../../api/contentApi'
 import FetchingModal from '../common/FetchingModal';
+import useCustomMove from '../../hooks/useCustomMove';
+import QuoteButton from './QuoteButton';
 
 function AboutContent() {
     const [introduces, setIntroduces] = useState(null);
     const [companyInfo, setCompanyInfo] = useState(null);
     const [location, setLocation] = useState(null)
+    const { moveToError } = useCustomMove();
 
     useEffect(() => {
         getContents("about")
@@ -14,7 +17,11 @@ function AboutContent() {
                 const contents = res.data;
                 const newContents = contents.map((content) => content.str.split("\n"))
                 setIntroduces(newContents);
-            });
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError();
+            })
 
         getCompanyInfo()
             .then(res => {
@@ -31,6 +38,10 @@ function AboutContent() {
                     latitude: info.latitude,
                     longitude: info.longitude
                 })
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError()
             })
     }, [])
 
@@ -57,6 +68,7 @@ function AboutContent() {
                     ))}
                 </ul>
             </div>
+            <QuoteButton />
         </div>
     )
 }

@@ -2,12 +2,14 @@ import React, { createContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { getPortfolioModifyDetail } from '../api/portfolioApi';
 import FetchingModal from '../components/common/FetchingModal';
+import useCustomMove from '../hooks/useCustomMove';
 
 export const PortfolioModifyContext = createContext();
 
 export function PortfolioModifyProvider({ children }) {
     const { id } = useParams();
     const [formData, setFormData] = useState(null)
+    const { moveToError } = useCustomMove();
 
     useEffect(() => {
         getPortfolioModifyDetail(id)
@@ -33,7 +35,11 @@ export function PortfolioModifyProvider({ children }) {
                     thumbnailName: data.thumbnail.name,
                     uploadImageFilenames: [],
                 })
-            });
+            })
+            .catch(err => {
+                console.log(err);
+                moveToError();
+            })
     }, [id]);
 
     if (!formData) return <FetchingModal />
