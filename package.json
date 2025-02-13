@@ -10,12 +10,14 @@
     "react-cookie": "^7.2.2",
     "react-daum-postcode": "^3.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
     "react-kakao-maps-sdk": "^1.1.27",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
     "react-slick": "^0.30.3",
     "react-textarea-autosize": "^8.5.7",
+    "sitemap": "^8.0.0",
     "slick-carousel": "^1.8.1"
   },
   "scripts": {
