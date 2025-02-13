@@ -16,14 +16,14 @@ function PortfolioDetailContent() {
     useEffect(() => {
         getPortfolioDetail(id)
             .then(res => {
-                const respnse = res.data;
-                setPortfolioDetail(respnse)
+                const response = res.data;
+                setPortfolioDetail(response)
                 setInfos([
-                    { subtitle: "유형", content: buildingTypeConverter(respnse.buildingType) },
-                    { subtitle: "면적", content: `공급${respnse.supplyArea}평 / 전용${respnse.exclusiveArea}평` },
-                    { subtitle: "준공", content: "0000" },
-                    { subtitle: "시공기간", content: `${respnse.diffWeek}주` },
-                    { subtitle: "지역", content: respnse.mainAddress },
+                    { subtitle: "유형", content: buildingTypeConverter(response.buildingType) },
+                    { subtitle: "면적", content: `공급 ${response.supplyArea}평` },
+                    { subtitle: "준공", content: `${response.completion}년` },
+                    { subtitle: "시공기간", content: `${response.diffWeek}주` },
+                    { subtitle: "지역", content: response.mainAddress },
                 ])
             })
             .catch(err => {
@@ -41,12 +41,12 @@ function PortfolioDetailContent() {
             <div className='mt-2 shadow-md mb-10'>
                 <div className='text-xl font-body font-bold m-4'>{portfolioDetail.title}</div>
 
-                <div className='flex flex-col md:flex-row md:flex-wrap w-full'>
+                <div className='flex flex-col md:flex-wrap w-full'>
                     {
                         infos.map((info, index) => (
-                            <div key={index} className='lg:w-1/3 md:w-1/2 font-body px-4 pb-4'>
-                                <div className='inline-block font-semibold text-sm min-[500px]:text-base text-gray-400'>{info.subtitle}</div>
-                                <div className='inline-block ml-2 text-sm min-[500px]:text-base'>{info.content}</div>
+                            <div key={index} className='font-body px-4 pb-4'>
+                                <div className='font-semibold text-sm min-[500px]:text-base text-gray-400'>{info.subtitle}</div>
+                                <div className='text-sm min-[500px]:text-base'>{info.content}</div>
                             </div>
                         ))
                     }

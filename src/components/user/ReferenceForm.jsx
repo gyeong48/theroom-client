@@ -67,7 +67,7 @@ function ReferenceForm({ context }) {
                         <button onClick={(e) => handleRemoveImageFile(e, index)}>✖</button>
                     </div>
                 )) :
-                    <div className='p-1 text-[10px] lg:text-sm font-semibold font-body text-gray-400 space-y-2'>
+                    <div className='p-1 text-[10px] lg:text-sm font-semibold font-body text-gray-400 space-y-0 lg:space-y-2'>
                         <p>시공예정 현장의 도면, 사진 및 원하시는 디자인 참고사항에 대한 파일이 있으시다면 첨부해주세요.</p>
                         <p>파일은 최대 3개까지 첨부가 가능하며 첨부할 수 있는 전체 파일의 최대 크기는 30MB 입니다. </p>
                     </div>
@@ -75,7 +75,7 @@ function ReferenceForm({ context }) {
             </div>
 
             {files.length < 3 &&
-                <label className='block w-full border rounded- bg-white'>
+                <label className='block w-full border rounded-md bg-white'>
                     <div className='flex items-center hover:cursor-pointer pb-1'>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@ function ReferenceForm({ context }) {
                                 d="M12 16v-8m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"
                             />
                         </svg>
-                        <div className='ml-2 mt-2 font-body font-semibold text-gray-600'>이미지를 선택해 주세요.</div>
+                        <div className='ml-2 mt-2 font-body font-semibold text-gray-600'>파일을 선택해 주세요.</div>
                     </div>
                     <input
                         type="file"

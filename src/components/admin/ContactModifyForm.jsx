@@ -54,6 +54,7 @@ function ContactModifyForm() {
         contactModifyFormData.append("interiorType", formData.interiorType === "" ? "ALL" : formData.interiorType);
         contactModifyFormData.append("memo", formData.memo);
         contactModifyFormData.append("status", formData.status);
+        contactModifyFormData.append("customerMemo", formData.customerMemo);
 
         for (const [key, value] of contactModifyFormData.entries()) {
             console.log(`${key} : ${value}`);
@@ -262,8 +263,23 @@ function ContactModifyForm() {
                             ))}
                         </div>
                     </div>
-
                 }
+
+                {/**고객 메모 */}
+                <div className='w-full'>
+                    <label htmlFor="name" className="block text-sm lg:text-base font-semibold text-gray-700">
+                        고객요청사항
+                    </label>
+                    <textarea
+                        id={"customerMemo"}
+                        name={"customerMemo"}
+                        value={formData.customerMemo}
+                        className={`w-full p-3 border border-gray-300 rounded-lg focus:outline-none text-sm lg:text-base placeholder:text-xs lg:placeholder:text-sm`}
+                        placeholder={"고객 요청 사항이 없습니다."}
+                        rows={5}
+                        readOnly={true}
+                    />
+                </div>
 
                 {/**메모기입란 */}
                 <div className='w-full'>

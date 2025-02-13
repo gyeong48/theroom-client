@@ -31,6 +31,7 @@ function ContactAddForm() {
         buildingType: "",
         personalInformationAgree: ""
     });
+    const [customerMemo, setCustomerMemo] = useState("");
 
     const checkError = () => {
         const newErrors = Object.keys(errors).reduce((acc, key) => {
@@ -82,6 +83,7 @@ function ContactAddForm() {
         contactFormData.append("budget", formData.budget ? formData.budget : 0);
         contactFormData.append("interiorType", formData.interiorType === "" ? "ALL" : formData.interiorType);
         contactFormData.append("personalInformationAgree", formData.personalInformationAgree ? formData.personalInformationAgree : false);
+        contactFormData.append("customerMemo", customerMemo);
 
         postAddContact(contactFormData)
             .then(res => {
@@ -141,7 +143,7 @@ function ContactAddForm() {
                 </div>
                 <div className='font-body '>
                     <div className='text-lg font-medium mb-1'>
-                        <h4>2. 건물정보</h4>
+                        <h4>2. 시공건물정보</h4>
                     </div>
                     <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
                         <GridSelectBox
@@ -237,10 +239,22 @@ function ContactAddForm() {
                     </div>
                 </div>
                 <div>
-                    <div className='text-lg font-medium mb-1'>
+                    <div className='text-lg font-medium mb-1 space-y-4'>
                         <h4>4. 참고사항</h4>
                         <ReferenceForm context={context} />
 
+                        {/**메모기입란 */}
+                        <div className='w-full'>
+                            <textarea
+                                id={"customerMemo"}
+                                name={"customerMemo"}
+                                value={customerMemo}
+                                onChange={(e) => setCustomerMemo(e.target.value)}
+                                className={`w-full p-3 border border-gray-300 rounded-lg focus:outline-none text-sm lg:text-base placeholder:text-xs lg:placeholder:text-sm`}
+                                placeholder={"기타 참고 사항이 있으면 적어주세요."}
+                                rows={5}
+                            />
+                        </div>
                     </div>
                 </div>
                 <PersonalInformationForm setErrors={setErrors} />

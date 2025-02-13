@@ -20,7 +20,7 @@ export function PortfolioModifyProvider({ children }) {
                     title: data.title,
                     buildingType: data.buildingType,
                     supplyArea: data.supplyArea,
-                    exclusiveArea: data.exclusiveArea,
+                    completion: data.completion,
                     postCode: data.postCode,
                     mainAddress: data.mainAddress,
                     detailAddress: data.detailAddress,

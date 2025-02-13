@@ -72,7 +72,7 @@ function PortfolioModifyForm() {
     portfolioModifyFormData.append("title", formData.title);
     portfolioModifyFormData.append("buildingType", formData.buildingType);
     portfolioModifyFormData.append("supplyArea", formData.supplyArea ? formData.supplyArea : 0);
-    portfolioModifyFormData.append("exclusiveArea", formData.exclusiveArea ? formData.exclusiveArea : 0);
+    portfolioModifyFormData.append("completion", formData.completion ? formData.completion : 0);
     portfolioModifyFormData.append("startDate", formData.startDate === "" ? localDate : formData.startDate);
     portfolioModifyFormData.append("endDate", formData.endDate === "" ? localDate : formData.endDate);
     portfolioModifyFormData.append("mainAddress", formData.mainAddress);
@@ -155,10 +155,10 @@ function PortfolioModifyForm() {
             setErrors={null}
           />
           <GridInputBox
-            label={"전용면적"}
-            id={"exclusiveArea"}
+            label={"준공"}
+            id={"completion"}
             type={"number"}
-            placeholder={"전용 면적을 입력해주세요 - 단위: 평"}
+            placeholder={"준공 년도를 입력해주세요."}
             context={context}
             isModifiable={true}
             errors={null}

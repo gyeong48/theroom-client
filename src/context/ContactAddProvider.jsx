@@ -19,7 +19,8 @@ export function ContactAddProvider({ children }) {
     budget: "",
     interiorType: "",
     files: [],
-    personalInformationAgree: false
+    personalInformationAgree: false,
+    customerMemo: ""
   })
 
   return (

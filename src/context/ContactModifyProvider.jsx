@@ -35,12 +35,13 @@ export function ContactModifyProvider({ children }) {
           uploadFilenames: [],
           status: data.status,
           memo: data.memo,
+          customerMemo: data.customerMemo
         })
-          .catch(err => {
-            console.log(err);
-            moveToError();
-          })
-      });
+      })
+      .catch(err => {
+        console.log(err);
+        moveToError();
+      })
   }, [id]);
 
   if (!formData) return <FetchingModal />

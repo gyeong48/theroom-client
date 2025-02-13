@@ -50,7 +50,7 @@ function Header() {
         </button>
 
         {/* 메뉴 리스트 */}
-        <ul className={`md:flex md:flex-row md:justify-end md:space-x-4 md:space-y-0 md:items-center md:static md:top-auto md:left-auto md:p-0 md:h-0 md:opacity-100 ${isMenuOpen ? "flex" : "hidden"} flex-col space-x-0 space-y-4 absolute p-4 top-full left-0 w-full h-screen bg-white opacity-95`}>
+        <ul className={`md:flex md:flex-row md:justify-end md:space-x-6 md:space-y-0 md:items-center md:static md:top-auto md:left-auto md:p-0 md:h-0 md:opacity-100 ${isMenuOpen ? "flex" : "hidden"} flex-col space-x-0 space-y-4 absolute p-4 top-full left-0 w-full h-screen bg-white opacity-95`}>
           <li>
             <Link to={"/about"} className="text-lg md:text-base font-heading font-semibold">ABOUT</Link>
           </li>

@@ -20,8 +20,8 @@ function PortfolioDetailContent() {
                 setPortfolioDetail(response)
                 setInfos([
                     { subtitle: "유형", content: buildingTypeConverter(response.buildingType) },
-                    { subtitle: "면적", content: `공급${response.supplyArea}평 / 전용${response.exclusiveArea}평` },
-                    { subtitle: "준공", content: "0000" },
+                    { subtitle: "면적", content: `공급${response.supplyArea}평` },
+                    { subtitle: "준공", content: `${response.completion}년` },
                     { subtitle: "시공기간", content: `${response.diffWeek}주` },
                     { subtitle: "지역", content: response.mainAddress },
                 ])

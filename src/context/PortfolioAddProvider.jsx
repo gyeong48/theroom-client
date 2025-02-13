@@ -7,7 +7,7 @@ export function PortfolioAddProvider({ children }) {
     title: "",
     buildingType: "",
     supplyArea: "",
-    exclusiveArea: "",
+    completion: "",
     postCode: "",
     mainAddress: "",
     detailAddress: "",
