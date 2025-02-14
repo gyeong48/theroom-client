@@ -9,6 +9,8 @@ function BasicLayout({ children }) {
             <Helmet>
                 {/* 필수 Open Graph 태그 */}
                 <title>TheRoom</title>
+                <meta name="description" content="TheRoom은 맞춤형 인테리어 디자인, 시공 전문. 감각적인 공간 설계와 실용적인 디자인으로 당신의 공간을 완성합니다." />
+                <meta name="keywords" content="인테리어, 공간디자인, TheRoom, 고급 인테리어, 상업 인테리어, 주거 인테리어, 더룸, 리모델링" />
                 <meta property="og:title" content="더룸" />
                 <meta property="og:description" content="맞춤형 인테리어 디자인, 시공 전문. 감각적인 공간 설계와 실용적인 디자인으로 당신의 공간을 완성합니다." />
                 <meta property="og:image" content="https://www.theroom.co.kr/assets/logos/og-image.png" />
