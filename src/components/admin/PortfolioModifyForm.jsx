@@ -70,7 +70,7 @@ function PortfolioModifyForm() {
     }
 
     portfolioModifyFormData.append("title", formData.title);
-    portfolioModifyFormData.append("buildingType", formData.buildingType);
+    portfolioModifyFormData.append("buildingType", formData.buildingType ? formData.buildingType : "APARTMENT");
     portfolioModifyFormData.append("supplyArea", formData.supplyArea ? formData.supplyArea : 0);
     portfolioModifyFormData.append("completion", formData.completion ? formData.completion : 0);
     portfolioModifyFormData.append("startDate", formData.startDate === "" ? localDate : formData.startDate);
@@ -81,7 +81,7 @@ function PortfolioModifyForm() {
     portfolioModifyFormData.append("latitude", formData.latitude ? formData.latitude : 0);
     portfolioModifyFormData.append("longitude", formData.longitude ? formData.longitude : 0);
     portfolioModifyFormData.append("budget", formData.budget ? formData.budget : 0);
-    portfolioModifyFormData.append("interiorType", formData.interiorType);
+    portfolioModifyFormData.append("interiorType", formData.interiorType ? formData.interiorType : "ALL");
     portfolioModifyFormData.append("thumbnail", formData.thumbnail ? formData.thumbnail : null);
     portfolioModifyFormData.append("thumbnailName", formData.thumbnailName);
     portfolioModifyFormData.append("uploadImageFilenames", uploadImageFilenames);
