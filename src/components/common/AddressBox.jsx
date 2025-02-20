@@ -1,17 +1,16 @@
 import React, { useContext, useState } from "react";
-import { useDaumPostcodePopup } from "react-daum-postcode";
+import DaumPostcodeEmbed from "react-daum-postcode";
 import { validate } from "../../util/validator";
 
 const AddressBox = ({ context, isModifiable, errors, setErrors, isEssential }) => {
     const { kakao } = window;
-    const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-    const open = useDaumPostcodePopup(postcodeScriptUrl);
     const { formData, setFormData } = useContext(context);
     const [addressData, setAddressData] = useState({
         postCode: formData["postCode"],
         mainAddress: formData["mainAddress"],
         detailAddress: formData["detailAddress"],
     });
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleComplete = (data) => {
         let addr = '';
@@ -45,6 +44,7 @@ const AddressBox = ({ context, isModifiable, errors, setErrors, isEssential }) =
             }
         });
 
+        setIsOpen(false);
         setAddressData((prev) => ({ ...prev, postCode: data.zonecode }));
         setAddressData((prev) => ({ ...prev, mainAddress: addr }));
         setAddressData((prev) => ({ ...prev, detailAddress: "" }));
@@ -55,7 +55,8 @@ const AddressBox = ({ context, isModifiable, errors, setErrors, isEssential }) =
 
     const handleClick = (e) => {
         e.preventDefault();
-        open({ onComplete: handleComplete });
+        console.log("click");
+        setIsOpen(prev => !prev);
     }
 
     const handleChange = (e) => {
@@ -71,6 +72,16 @@ const AddressBox = ({ context, isModifiable, errors, setErrors, isEssential }) =
                 주소{isEssential && <small>(필수*)</small>}
             </label>
 
+            <div className={`${isOpen ? "block" : "hidden"} relative`}>
+                <img
+                    src="//t1.daumcdn.net/postcode/resource/images/close.png"
+                    className="cursor-pointer absolute right-0 top-[-1px] z-[1055]"
+                    onClick={() => setIsOpen(false)}
+                    alt="접기 버튼"
+                />
+                <DaumPostcodeEmbed onComplete={handleComplete} autoClose={false} className="w-full h-full p-2" />
+            </div>
+
             {/* 주소 검색 */}
             <div className="w-full flex flex-col-reverse sm:flex-row mt-1">
                 <input
@@ -83,13 +94,17 @@ const AddressBox = ({ context, isModifiable, errors, setErrors, isEssential }) =
                     className="block sm:w-4/5 w-full p-1 border-b border-gray-300 focus:border-gray-500 text-sm lg:text-base placeholder:text-sm lg:placeholder:text-base"
                     readOnly
                 />
-                <button
-                    onClick={handleClick}
-                    className="block sm:w-1/5 w-full px-4 py-1.5 sm:py-2 bg-black text-white text-sm lg:text-base"
-                    disabled={!isModifiable}
-                >
-                    주소검색
-                </button>
+                <div>
+                </div>
+                {!isOpen &&
+                    <button
+                        onClick={handleClick}
+                        className="block sm:w-1/5 w-full px-4 py-1.5 sm:py-2 bg-black text-white text-sm lg:text-base"
+                        disabled={!isModifiable}
+                    >
+                        주소검색
+                    </button>
+                }
             </div>
 
             {/* 상세 주소 입력 */}
