@@ -4,23 +4,25 @@ const { Cookies } = require("react-cookie");
 
 const cookies = new Cookies();
 
-const initialState = JSON.parse(sessionStorage.getItem("user")) || {
-    username: "",
-    roles: "",
-};
-
 export const postLoginAsyncThunk = createAsyncThunk("postLoginAsyncThunk", (param) => {
     return postLogin(param)
 })
 
 const loginSlice = createSlice({
     name: "loginSlice",
-    initialState: initialState,
+    initialState: {
+        isAuthenticated: false,
+        user: null
+    },
     reducers: {
+        setUser: (state, action) => {
+            state.isAuthenticated = true;
+            state.user = action.payload;
+        },
         logout: (state, action) => {
-            cookies.remove("JSSESIONID", "/admin/login");
-            sessionStorage.removeItem("user");
-            return { ...initialState }
+            cookies.remove("JSESSIONID");
+            state.isAuthenticated = false;
+            state.user = null;
         }
     },
     extraReducers: (builder) => {
@@ -29,9 +31,8 @@ const loginSlice = createSlice({
 
             })
             .addCase(postLoginAsyncThunk.fulfilled, (state, action) => {
-                state.username = action.payload.username;
-                state.roles = action.payload.roles;
-                sessionStorage.setItem("user", JSON.stringify(state));
+                state.isAuthenticated = true;
+                state.user = action.payload;
             })
             .addCase(postLoginAsyncThunk.rejected, (state, action) => {
 
@@ -39,6 +40,6 @@ const loginSlice = createSlice({
     }
 })
 
-export const { logout } = loginSlice.actions;
+export const { logout, setUser } = loginSlice.actions;
 
 export default loginSlice.reducer;
