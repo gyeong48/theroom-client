@@ -1,28 +1,37 @@
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAuth } from "../../api/accountApi";
 import { logout, setUser } from "../../slices/loginSlice";
+import FetchingModal from "../../components/common/FetchingModal";
 
 const ProtectedRouter = ({ children }) => {
     const dispatch = useDispatch();
-    const loginState = useSelector(state => state.loginSlice);
+    const { isAuthenticated } = useSelector(state => state.loginSlice);
+    const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
     useEffect(() => {
-        if (loginState.isAuthenticated === false && loginState.user === null) {
-            getAuth()
-                .then(res => {
-                    console.log(res.data);
-                    dispatch(setUser(res.data));
-                })
-                .catch(err => {
-                    console.log(err);
-                    dispatch(logout());
-                })
-        }
-    }, [])
+        const checkAuth = async () => {
+            try {
+                const res = await getAuth();
+                console.log(res.data);
+                dispatch(setUser(res.data));
+            } catch (err) {
+                console.error("Authentication failed:", err);
+                dispatch(logout());
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-    if (!(loginState.isAuthenticated && loginState.user.roles === "ROLE_ADMIN")) {
+        checkAuth();
+    }, [dispatch]);
+
+    if (isLoading) {
+        return <FetchingModal />
+    }
+
+    if (!isAuthenticated) {
         return <Navigate to="/admin/login" replace />;
     }
 

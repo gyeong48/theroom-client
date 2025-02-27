@@ -14,7 +14,7 @@ import ResultModal from '../common/ResultModal';
 import useCustomMove from '../../hooks/useCustomMove';
 
 function PortfolioAddForm() {
-  const { moveToError } = useCustomMove();
+  const { moveToAdminError } = useCustomMove();
   const localDate = defaultDate;
   const navigate = useNavigate()
   const context = PortfolioAddContext;
@@ -83,7 +83,7 @@ function PortfolioAddForm() {
       })
       .catch(err => {
         console.log(err);
-        moveToError();
+        moveToAdminError();
       })
 
     setIsFetchingModalOpen(true);

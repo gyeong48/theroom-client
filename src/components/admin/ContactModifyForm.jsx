@@ -21,7 +21,7 @@ function ContactModifyForm() {
     const [memo, setMemo] = useState(formData["memo"]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
-    const { moveToError } = useCustomMove();
+    const { moveToAdminError } = useCustomMove();
 
     const handleChange = (e) => {
         setMemo(e.target.value)
@@ -66,7 +66,7 @@ function ContactModifyForm() {
             })
             .catch(err => {
                 console.log(err);
-                moveToError();
+                moveToAdminError();
             })
 
         setIsFetchingModalOpen(true);

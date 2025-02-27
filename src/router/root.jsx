@@ -11,6 +11,7 @@ import AdminLoginPage from "../pages/admin/LoginPage";
 import ProtectedRouter from "../pages/admin/ProtectedRouter";
 import Error404Page from "../pages/common/Error404Page";
 import Error500Page from "../pages/common/Error500Page";
+import Error500AdminPage from "../pages/admin/Error500AdminPage";
 
 const root = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ const root = createBrowserRouter([
     {
         path: "/error/500",
         element: <Error500Page />,
+    },
+    {
+        path: "/admin/error/500",
+        element: <Error500AdminPage />,
     },
     {
         path: "*",

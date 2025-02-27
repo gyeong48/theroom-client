@@ -9,7 +9,7 @@ function ContentForm({ type }) {
     const [isModifiable, setIsModifiable] = useState(false);
     const [deleteFlag, setDeleteFlag] = useState(false);
     const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
-    const { moveToError } = useCustomMove();
+    const { moveToAdminError } = useCustomMove();
 
     useEffect(() => {
         getContents(type)
@@ -18,7 +18,7 @@ function ContentForm({ type }) {
             })
             .catch(err => {
                 console.log(err);
-                moveToError();
+                moveToAdminError();
             })
     }, [type, deleteFlag])
 

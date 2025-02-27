@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { postLoginAsyncThunk } from '../../slices/loginSlice';
 import { useNavigate } from 'react-router-dom';
-import useCustomMove from '../../hooks/useCustomMove';
 import ResultModal from '../common/ResultModal';
 
 export default function LoginForm() {
-    const { moveToError } = useCustomMove();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({

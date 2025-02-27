@@ -7,14 +7,14 @@ import useCustomMove from '../../hooks/useCustomMove'
 function PortfolioImageList() {
     const [portfolios, setPortfolios] = useState(null)
     const host = process.env.REACT_APP_SERVER_URL;
-    const { moveToError } = useCustomMove();
+    const { moveToAdminError } = useCustomMove();
 
     useEffect(() => {
         getPortfolioList()
             .then(res => setPortfolios(res.data))
             .catch(err => {
                 console.log(err);
-                moveToError();
+                moveToAdminError();
             })
     }, [])
 

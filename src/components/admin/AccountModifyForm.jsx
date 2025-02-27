@@ -11,7 +11,7 @@ import useCustomMove from '../../hooks/useCustomMove';
 function AccountModifyForm() {
     const navigate = useNavigate();
     const context = AccountContext
-    const { moveToError } = useCustomMove();
+    const { moveToAdminError } = useCustomMove();
     const { formData, setFormData } = useContext(context)
     const [isModifiable, setIsModifiable] = useState(false);
     const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
@@ -59,7 +59,7 @@ function AccountModifyForm() {
             })
             .catch(err => {
                 console.log(err);
-                moveToError();
+                moveToAdminError();
             })
 
         setIsFetchingModalOpen(true);

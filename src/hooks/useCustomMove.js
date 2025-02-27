@@ -7,7 +7,12 @@ const useCustomMove = () => {
     navigate({ pathname: "/error/500" })
   }
 
-  return { moveToError }
+  const moveToAdminError = () => {
+    navigate({ pathname: "/admin/error/500" })
+  }
+
+
+  return { moveToError, moveToAdminError }
 }
 
 export default useCustomMove;

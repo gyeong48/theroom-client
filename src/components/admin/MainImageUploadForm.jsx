@@ -11,7 +11,7 @@ function MainImageUploadForm() {
     const [isModifiable, setIsModifiable] = useState(false);
     const [isOutOfSize, setIsOutOfSize] = useState(false);
     const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
-    const { moveToError } = useCustomMove();
+    const { moveToAdminError } = useCustomMove();
 
     useEffect(() => {
         getMainImages()
@@ -20,7 +20,7 @@ function MainImageUploadForm() {
             })
             .catch(err => {
                 console.log(err);
-                moveToError();
+                moveToAdminError();
             })
     }, [])
 

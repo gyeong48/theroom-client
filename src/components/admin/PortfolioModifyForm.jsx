@@ -16,7 +16,7 @@ import useCustomMove from '../../hooks/useCustomMove';
 
 function PortfolioModifyForm() {
   const localDate = defaultDate
-  const { moveToError } = useCustomMove();
+  const { moveToAdminError } = useCustomMove();
   const navigate = useNavigate();
   const context = PortfolioModifyContext;
   const { id } = useParams();
@@ -92,7 +92,7 @@ function PortfolioModifyForm() {
       })
       .catch(err => {
         console.log(err);
-        moveToError();
+        moveToAdminError();
       })
   }
 

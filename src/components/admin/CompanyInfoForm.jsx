@@ -11,7 +11,7 @@ function CompanyInfoForm() {
     const { formData } = useContext(context);
     const [isModifiable, setIsModifiable] = useState(false);
     const [isFetchingModalOpen, setIsFetchingModalOpen] = useState(false);
-    const { moveToError } = useCustomMove();
+    const { moveToAdminError } = useCustomMove();
 
     const handleModify = (e) => {
         e.preventDefault();
@@ -27,7 +27,7 @@ function CompanyInfoForm() {
             })
             .catch(err => {
                 console.log(err);
-                moveToError();
+                moveToAdminError();
             })
 
         setIsModifiable(false);

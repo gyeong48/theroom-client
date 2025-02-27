@@ -10,7 +10,7 @@ const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { moveToError } = useCustomMove();
+    const { moveToAdminError } = useCustomMove();
 
     const submenu = [
         { menu: "메인", url: "/admin/content/main" },
@@ -44,7 +44,7 @@ const Sidebar = () => {
             })
             .catch(err => {
                 console.log(err);
-                moveToError();
+                moveToAdminError();
             })
     }
 

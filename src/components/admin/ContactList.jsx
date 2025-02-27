@@ -9,7 +9,7 @@ const ContactList = () => {
     const [contacts, setContacts] = useState(null)
     const [filteredData, setFilteredData] = useState(null);
     const [selectedType, setSelectedType] = useState('all');
-    const { moveToError } = useCustomMove();
+    const { moveToAdminError } = useCustomMove();
 
     useEffect(() => {
         getContactList()
@@ -20,7 +20,7 @@ const ContactList = () => {
             })
             .catch(err => {
                 console.log();
-                moveToError();
+                moveToAdminError();
             })
     }, [])
 

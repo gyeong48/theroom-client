@@ -11,7 +11,7 @@ function PortfolioDetailContent() {
     const [portfolioDetail, setPortfolioDetail] = useState(null);
     const [infos, setInfos] = useState(null)
     const host = process.env.REACT_APP_SERVER_URL;
-    const { moveToError } = useCustomMove();
+    const { moveToAdminError } = useCustomMove();
 
     useEffect(() => {
         getPortfolioDetail(id)
@@ -28,7 +28,7 @@ function PortfolioDetailContent() {
             })
             .catch(err => {
                 console.log(err);
-                moveToError();
+                moveToAdminError();
             })
     }, [id])
 
