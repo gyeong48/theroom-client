@@ -7,7 +7,7 @@ export function AccountProvider({ children }) {
   const loginState = useSelector(state => state.loginSlice);
 
   const [formData, setFormData] = useState({
-    username: loginState.username,
+    username: loginState.user.username,
     currentPassword: "",
     newPassword: "",
     newPasswordCheck: ""
