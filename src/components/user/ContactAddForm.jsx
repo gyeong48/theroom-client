@@ -12,8 +12,11 @@ import ResultModal from '../common/ResultModal'
 import { useNavigate } from 'react-router-dom'
 import { validate } from '../../util/validator'
 import useCustomMove from '../../hooks/useCustomMove'
+import DatePicker from './DatePicker'
+import { useSelector } from 'react-redux'
 
 function ContactAddForm() {
+    const { isAuthenticated } = useSelector(state => state.loginSlice);
     const { moveToError } = useCustomMove();
     const navigate = useNavigate();
     const localDate = defaultDate;
@@ -105,7 +108,7 @@ function ContactAddForm() {
                     <div className='text-lg font-medium mb-1'>
                         <h4>1. 고객정보<small className="text-red-500">(필수*)</small></h4>
                     </div>
-                    <div className='grid grid-cols-1 lg:grid-cols-3 lg:space-x-4 lg:space-y-0 space-y-2'>
+                    <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 lg:space-y-0 space-y-2'>
                         <GridInputBox
                             label={"이름"}
                             id={"customer"}
@@ -163,28 +166,11 @@ function ContactAddForm() {
                     <div className='text-lg font-medium mb-1'>
                         <h4>3. 공사정보</h4>
                     </div>
-                    <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
-                        <GridInputBox
-                            label={"공사예정일"}
-                            id={"startDate"}
-                            type={"date"}
-                            placeholder={null}
-                            context={context}
-                            isModifiable={true}
-                            errors={errors}
-                            setErrors={setErrors}
-                        />
-                        <GridInputBox
-                            label={"입주예정일"}
-                            id={"moveInDate"}
-                            type={"date"}
-                            placeholder={null}
-                            context={context}
-                            isModifiable={true}
-                            errors={errors}
-                            setErrors={setErrors}
-                        />
+                    <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 lg:space-y-0 space-y-2'>
+                        <DatePicker label={"공사예정일"} id={"startDate"} context={context} />
+                        <DatePicker label={"입주예정일"} id={"moveInDate"} context={context} />
                     </div>
+
                     <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
                         <GridInputBox
                             label={"공사예산"}
@@ -222,8 +208,6 @@ function ContactAddForm() {
                 <div>
                     <div className='text-lg font-medium mb-1 space-y-4'>
                         <h4>4. 참고사항</h4>
-                        <ReferenceForm context={context} />
-
                         {/**메모기입란 */}
                         <div className='w-full'>
                             <textarea
@@ -236,6 +220,8 @@ function ContactAddForm() {
                                 rows={5}
                             />
                         </div>
+                        <ReferenceForm context={context} />
+
                     </div>
                 </div>
                 <PersonalInformationForm setErrors={setErrors} />
@@ -245,7 +231,7 @@ function ContactAddForm() {
                         className='text-sm md:text-base font-body bg-black hover:opacity-75 text-white px-6 py-2 rounded-md'
                         disabled={isFetchingModalOpen}
                     >
-                        견적문의하기{/**나중에 인증, 권한 검사를 통해 admin에서 접근했다면 '등록' 으로 바꿀 수 있도록 변화 */}
+                        {isAuthenticated ? "등록" : "견적문의하기"}
                     </button>
                 </div>
             </form>

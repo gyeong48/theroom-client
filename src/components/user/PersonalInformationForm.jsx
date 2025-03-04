@@ -76,7 +76,7 @@ function PersonalInformationForm({ errors, setErrors }) {
             </div>
             <textarea
                 readOnly
-                rows="6"
+                rows="7"
                 className="w-full p-2 border border-gray-300 rounded-md mb-1 focus:outline-none text-xs"
                 value={info}
             />

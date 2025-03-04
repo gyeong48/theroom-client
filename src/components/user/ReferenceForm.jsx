@@ -60,14 +60,14 @@ function ReferenceForm({ context }) {
                 <button onClick={handleRemoveImageFileAll}>전체삭제</button>
             </div>
 
-            <div className='w-full h-28 lg:h-32 p-2 border block rounded-md overflow-hidden bg-white'>
+            <div className='w-full h-28 lg:h-32 p-1 lg:p-2 border block rounded-md overflow-hidden bg-white'>
                 {files.length > 0 ? files.map((file, index) => (
                     <div key={index} className='mb-1 p-1 border-b flex justify-between items-center text-sm lg:text-base'>
                         <div>{file.name}</div>
                         <button onClick={(e) => handleRemoveImageFile(e, index)}>✖</button>
                     </div>
                 )) :
-                    <div className='p-1 text-[10px] lg:text-sm font-semibold font-body text-gray-400 space-y-0 lg:space-y-2'>
+                    <div className='p-0 lg:p-1 text-[10px] lg:text-sm font-semibold font-body text-gray-400 space-y-0 lg:space-y-2'>
                         <p>시공예정 현장의 도면, 사진 및 원하시는 디자인 참고사항에 대한 파일이 있으시다면 첨부해주세요.</p>
                         <p>파일은 최대 3개까지 첨부가 가능하며 첨부할 수 있는 전체 파일의 최대 크기는 30MB 입니다. </p>
                     </div>

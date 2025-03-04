@@ -10,6 +10,7 @@ import { defaultDate } from '../../util/localDate';
 import { deleteContact, getDownloadFile, putModifyContact } from '../../api/contactApi';
 import FetchingModal from '../common/FetchingModal';
 import useCustomMove from '../../hooks/useCustomMove';
+import DatePicker from '../user/DatePicker';
 
 function ContactModifyForm() {
     const { id } = useParams()
@@ -194,27 +195,9 @@ function ContactModifyForm() {
                 <div className='text-lg font-medium mb-1'>
                     <h4>3. 공사정보</h4>
                 </div>
-                <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
-                    <GridInputBox
-                        label={"공사예정일"}
-                        id={"startDate"}
-                        type={"date"}
-                        placeholder={null}
-                        context={context}
-                        isModifiable={isModifiable}
-                        errors={null}
-                        setErrors={null}
-                    />
-                    <GridInputBox
-                        label={"입주예정일"}
-                        id={"moveInDate"}
-                        type={"date"}
-                        placeholder={null}
-                        context={context}
-                        isModifiable={isModifiable}
-                        errors={null}
-                        setErrors={null}
-                    />
+                <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 lg:space-y-0 space-y-2'>
+                    <DatePicker label={"공사예정일"} id={"startDate"} context={context} />
+                    <DatePicker label={"입주예정일"} id={"moveInDate"} context={context} />
                 </div>
                 <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
                     <GridInputBox
