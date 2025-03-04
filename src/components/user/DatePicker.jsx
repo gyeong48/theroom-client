@@ -46,7 +46,7 @@ const DatePicker = ({ label, id, context }) => {
                 value={formData[id]}
                 onClick={() => setShowCalendar(!showCalendar)}
                 className="w-full p-1 border-b border-gray-300 focus:border-gray-500 text-sm lg:text-base focus:outline-none placeholder:text-sm lg:placeholder:text-base"
-                placeholder="클릭시 달력이 나옵니다. 날짜를 선택하세요."
+                placeholder="날짜를 선택하세요."
             />
             {showCalendar && (
                 <div className="absolute left-0 mt-2 w-full bg-white border rounded-lg shadow-md p-4 z-50">

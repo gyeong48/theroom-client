@@ -26,7 +26,7 @@ export const validate = (name, value) => {
     }
 
     if (name === "personalInformationAgree" && (!value || value === false)) {
-        error = "비동의";
+        error = "개인정보처리방침에 동의하여야 견적문의가 가능합니다.";
     }
 
     if (name === "title" && (!value || value === "")) {

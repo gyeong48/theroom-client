@@ -224,7 +224,7 @@ function ContactAddForm() {
 
                     </div>
                 </div>
-                <PersonalInformationForm setErrors={setErrors} />
+                <PersonalInformationForm errors={errors} setErrors={setErrors} />
                 <div className='flex justify-center'>
                     <button
                         onClick={handleSubmit}
