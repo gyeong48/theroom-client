@@ -80,7 +80,7 @@ const Calendar = ({ onDateSelect }) => {
                         setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
                     }}
                 >
-                    ◀
+                    {"<"}
                 </button>
                 <span className="font-semibold">{format(currentMonth, "yyyy년 MM월", { locale: ko })}</span>
                 <button
@@ -90,7 +90,7 @@ const Calendar = ({ onDateSelect }) => {
                         setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))
                     }}
                 >
-                    ▶
+                    {">"}
                 </button>
             </div>
             <div className="grid grid-cols-7 gap-1">
