@@ -103,7 +103,7 @@ function ContactAddForm() {
             <form className="pt-10 space-y-14">
                 <div className='font-body'>
                     <div className='text-lg font-medium mb-1'>
-                        <h4>1. 고객정보</h4>
+                        <h4>1. 고객정보<small className="text-red-500">(필수*)</small></h4>
                     </div>
                     <div className='grid grid-cols-1 lg:grid-cols-3 lg:space-x-4 lg:space-y-0 space-y-2'>
                         <GridInputBox
@@ -115,18 +115,6 @@ function ContactAddForm() {
                             isModifiable={true}
                             errors={errors}
                             setErrors={setErrors}
-                            isEssential={true}
-                        />
-                        <GridInputBox
-                            label={"이메일"}
-                            id={"email"}
-                            type={"email"}
-                            placeholder={"이메일을 입력해주세요"}
-                            context={context}
-                            isModifiable={true}
-                            errors={errors}
-                            setErrors={setErrors}
-                            isEssential={false}
                         />
                         <GridInputBox
                             label={"연락처"}
@@ -137,13 +125,12 @@ function ContactAddForm() {
                             isModifiable={true}
                             errors={errors}
                             setErrors={setErrors}
-                            isEssential={true}
                         />
                     </div>
                 </div>
                 <div className='font-body '>
                     <div className='text-lg font-medium mb-1'>
-                        <h4>2. 시공건물정보</h4>
+                        <h4>2. 시공건물정보<small className="text-red-500">(필수*)</small></h4>
                     </div>
                     <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
                         <GridSelectBox
@@ -156,7 +143,6 @@ function ContactAddForm() {
                             isModifiable={true}
                             errors={errors}
                             setErrors={setErrors}
-                            isEssential={true}
                         />
                         <GridInputBox
                             label={"면적"}
@@ -167,12 +153,11 @@ function ContactAddForm() {
                             isModifiable={true}
                             errors={errors}
                             setErrors={setErrors}
-                            isEssential={false}
                         />
                     </div>
 
                     {/* 주소 검색 */}
-                    <AddressBox context={context} isModifiable={true} errors={errors} setErrors={setErrors} isEssential={true} />
+                    <AddressBox context={context} isModifiable={true} errors={errors} setErrors={setErrors} />
                 </div>
                 <div className='font-body'>
                     <div className='text-lg font-medium mb-1'>
@@ -188,7 +173,6 @@ function ContactAddForm() {
                             isModifiable={true}
                             errors={errors}
                             setErrors={setErrors}
-                            isEssential={false}
                         />
                         <GridInputBox
                             label={"입주예정일"}
@@ -199,7 +183,6 @@ function ContactAddForm() {
                             isModifiable={true}
                             errors={errors}
                             setErrors={setErrors}
-                            isEssential={false}
                         />
                     </div>
                     <div className='grid grid-cols-1 lg:grid-cols-2 lg:space-x-4 mb-2 lg:space-y-0 space-y-2'>
@@ -212,7 +195,6 @@ function ContactAddForm() {
                             isModifiable={true}
                             errors={errors}
                             setErrors={setErrors}
-                            isEssential={false}
                         />
                         <GridSelectBox
                             isLabel={true}
@@ -224,7 +206,6 @@ function ContactAddForm() {
                             isModifiable={true}
                             errors={errors}
                             setErrors={setErrors}
-                            isEssential={false}
                         />
                     </div>
                     <div className='space-y-2'>

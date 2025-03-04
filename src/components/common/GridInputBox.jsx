@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { validate } from '../../util/validator';
 
-function GridInputBox({ label, id, type, placeholder, context, isModifiable, errors, setErrors, isEssential }) {
+function GridInputBox({ label, id, type, placeholder, context, isModifiable, errors, setErrors }) {
     const { formData, setFormData } = useContext(context)
     const [data, setData] = useState(formData[id]);
 
@@ -17,7 +17,7 @@ function GridInputBox({ label, id, type, placeholder, context, isModifiable, err
     return (
         <div>
             <label htmlFor="name" className="block text-sm lg:text-base font-semibold text-gray-700">
-                {label}{isEssential && <small>(필수*)</small>}
+                {label}
             </label>
             <input
                 type={type}
