@@ -165,7 +165,7 @@ function ContactModifyForm() {
                         isLabel={true}
                         label={"유형"}
                         id={"buildingType"}
-                        options={[{ value: "APARTMENT", content: "아파트" }, { value: "SMALL_APARTMENT", content: "빌라" }, { value: "HOUSE", content: "주택" }]}
+                        options={[{ value: "APARTMENT", content: "아파트" }, { value: "SMALL_APARTMENT", content: "빌라" }, { value: "HOUSE", content: "주택" }, { value: "COMMERCIAL", content: "상가" }]}
                         placeholder={"선택"}
                         context={context}
                         isModifiable={isModifiable}

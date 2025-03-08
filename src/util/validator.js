@@ -10,7 +10,7 @@ export const validate = (name, value) => {
     }
 
     if (name === "buildingType" && (!value || value === "")) {
-        error = "건물 유형을 선택하하세요.";
+        error = "건물 유형을 선택하세요.";
     }
 
     if (name === "exclusiveArea" && (!value || value === "")) {
